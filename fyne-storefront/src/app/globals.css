@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-white text-ink;
+    font-feature-settings: 'ss01', 'cv11'; /* Inter: refined single-storey a & tidy numerals */
+  }
+  ::selection {
+    @apply bg-primary-100 text-primary-900;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+@layer components {
+  .field {
+    @apply h-12 w-full rounded-xl border border-line bg-white px-4 text-[15px] text-ink transition placeholder:text-ink-faint focus:border-primary focus:outline-none focus:ring-4 focus:ring-primary/10;
+  }
+  .field-invalid {
+    @apply border-red-400 focus:border-red-500 focus:ring-red-500/10;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
