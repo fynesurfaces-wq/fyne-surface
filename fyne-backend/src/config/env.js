@@ -44,7 +44,14 @@ module.exports = Object.freeze({
     issuer: 'fyne-api',
     audience: 'fyne-admin',
   },
-  corsOrigins: list(process.env.CORS_ORIGINS, 'http://localhost:3000,http://localhost:5173'),
+  corsOrigins: [
+    ...new Set([
+      'http://localhost:3000',
+      'http://localhost:5173',
+      'https://fyne-surface.vercel.app',
+      ...list(process.env.CORS_ORIGINS),
+    ]),
+  ],
   siteUrl: stripSlash(process.env.SITE_URL || 'http://localhost:3000'),
   apiUrl: stripSlash(process.env.API_URL || `http://localhost:${process.env.PORT || 5000}`),
   imagekit: {
