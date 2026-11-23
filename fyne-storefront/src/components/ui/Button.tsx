@@ -7,9 +7,9 @@ type Variant = 'primary' | 'accent' | 'outline' | 'ghost' | 'light' | 'dark';
 type Size = 'sm' | 'md' | 'lg' | 'xl';
 
 const variants: Record<Variant, string> = {
-  primary: 'bg-primary text-white hover:bg-primary-700 shadow-[0_8px_20px_-8px_rgba(46,125,50,0.55)]',
-  accent: 'bg-accent text-white hover:bg-accent-600 shadow-[0_8px_20px_-8px_rgba(245,124,0,0.55)]',
-  outline: 'border border-ink/15 bg-white text-ink hover:border-ink/40',
+  primary: 'bg-gradient-to-b from-primary-500 to-primary-700 text-white shadow-[0_10px_26px_-12px_rgba(31,85,34,0.75)] hover:-translate-y-0.5 hover:shadow-[0_16px_30px_-12px_rgba(31,85,34,0.58)]',
+  accent: 'bg-gradient-to-b from-accent-400 to-accent-600 text-white shadow-[0_10px_26px_-12px_rgba(212,106,0,0.72)] hover:-translate-y-0.5 hover:shadow-[0_16px_30px_-12px_rgba(212,106,0,0.56)]',
+  outline: 'border border-ink/15 bg-white/90 text-ink shadow-soft hover:-translate-y-0.5 hover:border-primary/35 hover:bg-primary-50',
   ghost: 'text-ink hover:bg-ink/5',
   light: 'bg-white text-ink hover:bg-white/90',
   dark: 'bg-ink text-white hover:bg-primary-900',
@@ -22,7 +22,7 @@ const sizes: Record<Size, string> = {
 };
 
 const base =
-  'inline-flex items-center justify-center gap-2 rounded-full font-medium tracking-[-0.005em] transition-all duration-300 ease-premium ' +
+  'inline-flex items-center justify-center gap-2 rounded-full font-medium tracking-[-0.005em] transition-all duration-500 ease-premium ' +
   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 active:scale-[0.98]';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {

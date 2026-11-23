@@ -18,6 +18,32 @@ npm run seed                # superadmin + 3 collections + 6 products + settings
 npm run dev                 # http://localhost:5000/health
 ```
 
+The FYNE plant catalog importer is separate from the general seed command:
+
+```bash
+npm run import:plants                    # dry-run summary
+npm run import:plants -- --apply         # upload images and import draft products
+npm run import:bushes                    # dry-run summary
+npm run import:bushes -- --apply         # upload images and import active products
+npm run import:creepers                  # dry-run summary
+npm run import:creepers -- --apply       # upload images and import active products
+```
+
+It targets the existing `plants` collection and upserts by SKU. New records are
+inactive with zero stock, and the prices come from the supplied FYNE 2024
+catalog; review them in the admin before publishing.
+
+The Bushes importer reads `src/seed/bushes-catalog.json` and the SKU-named
+photos in `src/seed/assets/bushes/`. It targets the existing `bushes-collection-0325`
+collection, uploads images to ImageKit, and upserts by SKU. Products are active
+for the storefront; new inventory starts at zero until stock is entered.
+
+The Hanging Creepers importer reads `src/seed/creepers-catalog.json` and the
+SKU-named photos in `src/seed/assets/creepers/`. It targets the existing
+`hanging-creepers` collection, uploads images to ImageKit, and upserts by SKU.
+Products are active for the storefront; new inventory starts at zero until
+stock is entered.
+
 Requires Node 18.18+ and MongoDB 6+. MongoDB Atlas is recommended because it runs as a replica set, which enables transactions later.
 
 ## Folder structure (MVC)

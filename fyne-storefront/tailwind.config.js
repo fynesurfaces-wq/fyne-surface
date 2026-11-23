@@ -35,15 +35,15 @@ module.exports = {
           600: '#D46A00',
           700: '#A85400',
         },
-        canvas: '#F9FAFB', // soft gray sections
+        canvas: '#F7F8F4', // soft botanical neutral sections
         ink: {
           DEFAULT: '#0F1A12', // near-black with a green undertone
           soft: '#3B4540',
           muted: '#6B746F',
           faint: '#9AA29D',
         },
-        line: '#E7EAE8',
-        sand: '#F4F1EA', // warm neutral for premium image backdrops
+        line: '#E4E8E1',
+        sand: '#F3F0E8', // warm neutral for premium image backdrops
       },
       fontFamily: {
         sans: ['"Inter Variable"', 'Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
@@ -56,8 +56,9 @@ module.exports = {
         eyebrow: ['0.75rem', { lineHeight: '1rem', letterSpacing: '0.18em', fontWeight: '600' }],
       },
       boxShadow: {
-        soft: '0 1px 2px rgba(15, 26, 18, 0.04), 0 8px 24px -12px rgba(15, 26, 18, 0.12)',
-        lift: '0 24px 48px -20px rgba(15, 26, 18, 0.28)',
+        soft: '0 2px 8px rgba(15, 26, 18, 0.04), 0 14px 36px -18px rgba(15, 26, 18, 0.18)',
+        lift: '0 30px 64px -24px rgba(15, 26, 18, 0.3)',
+        image: '0 18px 44px -24px rgba(8, 26, 10, 0.38)',
         drawer: '-24px 0 64px -24px rgba(15, 26, 18, 0.25)',
       },
       borderRadius: {

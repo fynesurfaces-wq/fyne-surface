@@ -18,6 +18,22 @@ export function ProductCarousel({ products }: { products: ProductSummary[] }) {
   };
   useEffect(update, [products]);
 
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      const el = ref.current;
+      const firstCard = el?.querySelector<HTMLElement>('li');
+      if (!el || !firstCard) return;
+
+      const gap = Number.parseFloat(getComputedStyle(el).columnGap) || 0;
+      const step = firstCard.getBoundingClientRect().width + gap;
+      const maxScroll = el.scrollWidth - el.clientWidth;
+      if (el.scrollLeft >= maxScroll - 8) el.scrollTo({ left: 0, behavior: 'smooth' });
+      else el.scrollBy({ left: step, behavior: 'smooth' });
+    }, 5000);
+
+    return () => window.clearInterval(timer);
+  }, [products]);
+
   const scroll = (dir: 1 | -1) => ref.current?.scrollBy({ left: dir * ref.current.clientWidth * 0.8, behavior: 'smooth' });
 
   return (
@@ -38,6 +54,8 @@ export function ProductCarousel({ products }: { products: ProductSummary[] }) {
       <ul
         ref={ref}
         onScroll={update}
+        aria-label="Featured products"
+        aria-roledescription="carousel"
         className="-mx-5 flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth px-5 pb-4 [scrollbar-width:none] sm:-mx-6 sm:px-6 lg:mx-0 lg:gap-7 lg:px-0 [&::-webkit-scrollbar]:hidden"
       >
         {products.map((p, i) => (

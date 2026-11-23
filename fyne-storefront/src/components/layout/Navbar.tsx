@@ -75,9 +75,14 @@ export function Navbar({ collections }: { collections: CollectionSummary[] }) {
     megaTimer.current = setTimeout(() => setMega(false), 120);
   };
 
-  const linkCls = cn(
-    'relative text-[14px] font-medium tracking-[-0.005em] transition-colors duration-300',
-    transparent ? 'text-white/90 hover:text-white' : 'text-ink-soft hover:text-ink'
+  const linkCls = (active = false) => cn(
+    "relative text-[14px] font-medium tracking-[-0.005em] transition-colors duration-300 after:absolute after:-bottom-2 after:left-0 after:h-[2px] after:w-full after:origin-left after:scale-x-0 after:bg-accent after:content-[''] after:transition-transform after:duration-300 hover:after:scale-x-100 focus-visible:after:scale-x-100",
+    transparent ? 'text-white/90 hover:text-white' : 'text-ink-soft hover:text-ink',
+    active && 'after:scale-x-100'
+  );
+  const mobileLinkCls = (active: boolean) => cn(
+    "relative inline-flex pb-2 after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-left after:scale-x-0 after:bg-accent after:content-[''] after:transition-transform after:duration-300",
+    active && 'after:scale-x-100'
   );
 
   return (
@@ -85,7 +90,7 @@ export function Navbar({ collections }: { collections: CollectionSummary[] }) {
       <header
         className={cn(
           'fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow,border-color] duration-500 ease-premium',
-          transparent ? 'border-b border-transparent bg-transparent' : 'border-b border-line bg-white/95 shadow-[0_1px_0_rgba(15,26,18,0.02)] backdrop-blur-md'
+          transparent ? 'border-b border-transparent bg-transparent' : 'border-b border-primary-900/[0.06] bg-white/95 shadow-[0_8px_30px_-24px_rgba(8,26,10,0.45)] backdrop-blur-xl'
         )}
         onMouseLeave={closeMega}
       >
@@ -104,7 +109,7 @@ export function Navbar({ collections }: { collections: CollectionSummary[] }) {
 
           <nav aria-label="Primary" className="ml-6 hidden items-center gap-8 lg:flex">
             <button
-              className={cn(linkCls, 'flex items-center gap-1')}
+              className={cn(linkCls(pathname.startsWith('/collections/') || mega), 'flex items-center gap-1')}
               onMouseEnter={openMega}
               onFocus={openMega}
               onClick={() => setMega((m) => !m)}
@@ -113,9 +118,9 @@ export function Navbar({ collections }: { collections: CollectionSummary[] }) {
             >
               Collections <ChevronDown className={cn('h-4 w-4 transition-transform duration-300', mega && 'rotate-180')} />
             </button>
-            <Link href="/collections" className={linkCls}>Shop All</Link>
-            <Link href="/pages/about" className={linkCls}>Our Story</Link>
-            <Link href="/pages/contact" className={linkCls}>Contact</Link>
+            <Link href="/collections" className={linkCls(pathname === '/collections')} aria-current={pathname === '/collections' ? 'page' : undefined}>Shop All</Link>
+            <Link href="/pages/about" className={linkCls(pathname === '/pages/about')} aria-current={pathname === '/pages/about' ? 'page' : undefined}>Our Story</Link>
+            <Link href="/pages/contact" className={linkCls(pathname === '/pages/contact')} aria-current={pathname === '/pages/contact' ? 'page' : undefined}>Contact</Link>
           </nav>
 
           <div className="ml-auto flex items-center gap-1 sm:gap-2">
@@ -185,7 +190,7 @@ export function Navbar({ collections }: { collections: CollectionSummary[] }) {
                   </Link>
                 </div>
                 <ul className="col-span-9 grid grid-cols-3 gap-6">
-                  {collections.slice(0, 3).map((c) => (
+                  {collections.slice(0, 10).map((c) => (
                     <li key={c.id}>
                       <Link href={`/collections/${c.slug}`} className="group block">
                         <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-sand">
@@ -231,17 +236,17 @@ export function Navbar({ collections }: { collections: CollectionSummary[] }) {
                 <ul className="mt-3 divide-y divide-line">
                   {collections.map((c) => (
                     <li key={c.id}>
-                      <Link href={`/collections/${c.slug}`} className="flex items-center justify-between py-4 text-lg font-medium text-ink">
+                      <Link href={`/collections/${c.slug}`} className={cn('flex items-center justify-between py-4 text-lg font-medium text-ink', mobileLinkCls(pathname === `/collections/${c.slug}`))} aria-current={pathname === `/collections/${c.slug}` ? 'page' : undefined}>
                         {c.name} <span className="text-sm text-ink-faint">{c.productCount}</span>
                       </Link>
                     </li>
                   ))}
                 </ul>
                 <div className="mt-8 space-y-4 text-base font-medium text-ink-soft">
-                  <Link href="/collections" className="block">Shop All</Link>
-                  <Link href="/pages/about" className="block">Our Story</Link>
-                  <Link href="/pages/contact" className="block">Contact</Link>
-                  <Link href="/cart" className="block">Cart{hydrated && count ? ` (${count})` : ''}</Link>
+                  <Link href="/collections" className={mobileLinkCls(pathname === '/collections')} aria-current={pathname === '/collections' ? 'page' : undefined}>Shop All</Link>
+                  <Link href="/pages/about" className={mobileLinkCls(pathname === '/pages/about')} aria-current={pathname === '/pages/about' ? 'page' : undefined}>Our Story</Link>
+                  <Link href="/pages/contact" className={mobileLinkCls(pathname === '/pages/contact')} aria-current={pathname === '/pages/contact' ? 'page' : undefined}>Contact</Link>
+                  <Link href="/cart" className={mobileLinkCls(pathname === '/cart')} aria-current={pathname === '/cart' ? 'page' : undefined}>Cart{hydrated && count ? ` (${count})` : ''}</Link>
                 </div>
               </div>
             </motion.nav>

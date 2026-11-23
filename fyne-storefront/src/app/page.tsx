@@ -1,21 +1,40 @@
-import fs from 'node:fs';
-import path from 'node:path';
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import { ArrowRight, Building2, Droplets, Leaf, Sparkles } from 'lucide-react';
 import { getCollections, getProducts } from '@/lib/api.server';
 import { Hero } from '@/components/home/Hero';
 import { CollectionTiles } from '@/components/home/CollectionTiles';
 import { ProductCarousel } from '@/components/home/ProductCarousel';
+import { HomeImageCarousel } from '@/components/home/HomeImageCarousel';
 import { ButtonLink } from '@/components/ui/Button';
 import { Reveal } from '@/components/ui/Motion';
 import { BotanicalArt } from '@/components/ui/BotanicalArt';
+import { FaqSection } from '@/components/seo/FaqSection';
+import { homeFaqs } from '@/lib/page-faqs';
 
 export const revalidate = 300; // ISR
 
 export const metadata: Metadata = { alternates: { canonical: '/' } };
 
-/** Use /public/images/hero.jpg automatically once it's added. */
-const HERO_IMAGE = fs.existsSync(path.join(process.cwd(), 'public/images/hero.jpg')) ? '/images/hero.jpg' : null;
+const HERO_IMAGES = [
+  { src: '/images/hero/office-greenwall.jpg', alt: 'Office workspace beneath an illuminated living green wall' },
+  { src: '/images/hero/garden-lawn.jpg', alt: 'Outdoor garden with a broad green lawn and planting' },
+  { src: '/images/hero/indoor-plants.jpg', alt: 'Sunlit interior styled with potted greenery' },
+  { src: '/images/hero/greenwall-corridor.jpg', alt: 'Contemporary corridor with a floor-to-ceiling green wall' },
+  { src: '/images/hero/hanging-garden.jpg', alt: 'Lush hanging garden installation across a ceiling' },
+];
+
+const HOME_IMAGES = [
+  { src: '/images/home/balcony-garden.jpg', alt: 'Balcony styled with greenery and outdoor flooring', label: 'A greener balcony' },
+  { src: '/images/home/greenwall-dining.jpg', alt: 'Green wall beside a dining and work table', label: 'Green walls at home' },
+  { src: '/images/home/play-area-turf.png', alt: 'Soft green play area with colourful play balls', label: 'Play spaces' },
+  { src: '/images/home/pet-friendly-lawn.jpg', alt: 'Dog relaxing on a green lawn', label: 'Room for pets' },
+  { src: '/images/home/greenwall-window.jpg', alt: 'Lush vertical garden surrounding a window', label: 'Vertical gardens' },
+  { src: '/images/home/playground-turf.jpg', alt: 'Playground with green artificial turf', label: 'Playground turf' },
+  { src: '/images/home/sports-turf.jpg', alt: 'Football resting on a green sports field', label: 'Sports surfaces' },
+  { src: '/images/home/office-greenwall.jpg', alt: 'Office meeting room with a planted green wall', label: 'Greener workspaces' },
+  { src: '/images/home/garden-lawn.jpg', alt: 'Outdoor garden with a broad green lawn', label: 'Outdoor living' },
+];
 
 const PROMISES = [
   { icon: Droplets, title: 'Zero maintenance', text: 'No watering, sunlight or pruning — ever.' },
@@ -25,13 +44,16 @@ const PROMISES = [
 ];
 
 export default async function HomePage() {
-  const [collections, featured] = await Promise.all([getCollections(), getProducts({ featured: true, limit: 8 })]);
-  // Best sellers: featured products first; fall back to newest if none are featured yet.
-  const bestSellers = featured.data.length >= 4 ? featured.data : (await getProducts({ limit: 8, sort: '-createdAt' })).data;
+  const collections = await getCollections();
+  const homeCollections = collections.filter((collection) => collection.productCount > 0).slice(0, 3);
+  const featuredByCollection = await Promise.all(homeCollections.map(async (collection) => ({
+    collection,
+    products: (await getProducts({ collection: collection.slug, featured: true, limit: 10 })).data,
+  })));
 
   return (
     <>
-      <Hero image={HERO_IMAGE} />
+      <Hero images={HERO_IMAGES} />
 
       {/* Brand promises */}
       <section aria-label="Why FYNE" className="border-b border-line bg-white">
@@ -49,36 +71,44 @@ export default async function HomePage() {
       </section>
 
       {/* Featured collections */}
-      {collections.length > 0 && (
+      {homeCollections.length > 0 && (
         <section aria-labelledby="collections-heading" className="container py-24 lg:py-32">
-          <Reveal className="mb-12 flex flex-col justify-between gap-6 md:flex-row md:items-end lg:mb-16">
-            <div className="max-w-2xl">
-              <p className="text-eyebrow uppercase text-accent">Shop by collection</p>
-              <h2 id="collections-heading" className="mt-4 text-display-lg text-ink">Curated for every scale.</h2>
-            </div>
-            <p className="max-w-sm text-[17px] leading-relaxed text-ink-muted">From statement trees over 1.2 metres to compact tabletop plants and bush packs for green walls.</p>
+          <Reveal className="mb-12 max-w-2xl lg:mb-16">
+            <p className="text-eyebrow uppercase text-accent">Shop by collection</p>
+            <h2 id="collections-heading" className="mt-4 text-display-lg text-ink">Curated for every scale.</h2>
           </Reveal>
-          <CollectionTiles collections={collections} />
+          <CollectionTiles collections={homeCollections} />
         </section>
       )}
 
-      {/* Best sellers */}
-      {bestSellers.length > 0 && (
-        <section aria-labelledby="bestsellers-heading" className="bg-canvas py-24 lg:py-32">
+      {featuredByCollection.map(({ collection, products }, index) => products.length > 0 && (
+        <section key={collection.id} aria-labelledby={`featured-${collection.slug}-heading`} className={index % 2 === 0 ? 'bg-gradient-to-br from-canvas via-canvas to-primary-50/50 py-20 lg:py-28' : 'bg-white py-20 lg:py-28'}>
           <div className="container">
             <Reveal className="mb-12 max-w-2xl lg:mb-16">
-              <p className="text-eyebrow uppercase text-accent">Best sellers</p>
-              <h2 id="bestsellers-heading" className="mt-4 text-display-lg text-ink">Loved in homes & lobbies.</h2>
+              <p className="text-eyebrow uppercase text-accent">Featured collection</p>
+              <h2 id={`featured-${collection.slug}-heading`} className="mt-4 text-display-lg text-ink">{collection.name}</h2>
+              <p className="mt-4 text-[17px] leading-relaxed text-ink-muted">Explore featured products from the {collection.name} collection.</p>
             </Reveal>
-            <ProductCarousel products={bestSellers} />
-            <div className="mt-12 flex justify-center">
-              <ButtonLink href="/collections" variant="outline" size="lg" className="group">
-                View all products <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            <ProductCarousel products={products.slice(0, 10)} />
+            <div className="mt-10 flex justify-center">
+              <ButtonLink href={`/collections/${collection.slug}`} variant="outline" size="lg" className="group">
+                View {collection.name} <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </ButtonLink>
             </div>
           </div>
         </section>
-      )}
+      ))}
+
+      {/* One-line auto-advancing home gallery */}
+      <section aria-labelledby="spaces-heading" className="bg-canvas py-16 lg:py-20">
+        <div className="container">
+          <Reveal className="mb-8 max-w-2xl">
+            <p className="text-eyebrow uppercase text-accent">Ideas for every space</p>
+            <h2 id="spaces-heading" className="mt-3 text-display-md text-ink">Greenery in homes, offices and outdoors.</h2>
+          </Reveal>
+          <HomeImageCarousel images={HOME_IMAGES} />
+        </div>
+      </section>
 
       {/* Vertical garden / B2B band */}
       <section aria-labelledby="projects-heading" className="container py-24 lg:py-32">
@@ -92,10 +122,18 @@ export default async function HomePage() {
             <ButtonLink href="/pages/contact" variant="accent" size="lg" className="mt-9">Request a quote</ButtonLink>
           </Reveal>
           <div className="relative h-80 lg:h-full lg:min-h-[520px]">
-            <BotanicalArt seed="vertical-garden" variant="hero" />
+            <Image
+              src="/images/hero/garden-lawn.jpg"
+              alt="Outdoor garden with artificial turf and layered greenery"
+              fill
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="object-cover"
+            />
           </div>
         </div>
       </section>
+
+      <FaqSection faqs={homeFaqs(homeCollections)} id="home-faqs" />
     </>
   );
 }

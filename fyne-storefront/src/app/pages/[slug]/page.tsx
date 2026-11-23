@@ -5,6 +5,9 @@ import { getContentPage, getSettings } from '@/lib/api.server';
 import { toPath } from '@/lib/utils';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink } from '@/components/ui/Button';
+import { FaqSection } from '@/components/seo/FaqSection';
+import { contentPageFaqs } from '@/lib/page-faqs';
+import { TextReveal } from '@/components/ui/Motion';
 
 export const revalidate = 600;
 
@@ -32,7 +35,7 @@ export default async function ContentPageRoute({ params }: Props) {
   return (
     <article className="container max-w-3xl pb-28 pt-12 lg:pt-20">
       {page && <JsonLd data={page.jsonLd} />}
-      <h1 className="text-display-lg text-ink">{page?.title || CORE[params.slug]}</h1>
+      <TextReveal as="h1" className="text-display-lg text-ink">{page?.title || CORE[params.slug]}</TextReveal>
 
       {page?.body ? (
         <div className="prose prose-lg mt-10 max-w-none prose-headings:tracking-tight prose-headings:text-ink prose-p:text-ink-soft prose-a:text-primary" dangerouslySetInnerHTML={{ __html: page.body }} />
@@ -45,12 +48,38 @@ export default async function ContentPageRoute({ params }: Props) {
             <ul className="space-y-4 rounded-3xl bg-canvas p-8 text-[15px] text-ink-soft">
               {c?.email && <li className="flex items-center gap-3"><Mail className="h-5 w-5 text-primary" /><a className="hover:text-primary" href={`mailto:${c.email}`}>{c.email}</a></li>}
               {c?.phone && <li className="flex items-center gap-3"><Phone className="h-5 w-5 text-primary" /><a className="hover:text-primary" href={`tel:${c.phone.replace(/\s/g, '')}`}>{c.phone}</a></li>}
-              {c?.address && <li className="flex items-start gap-3"><MapPin className="mt-0.5 h-5 w-5 text-primary" />{c.address}</li>}
+              {c?.address && <li className="flex items-start gap-3"><MapPin className="mt-0.5 h-5 w-5 shrink-0 text-primary" /><span className="whitespace-pre-line">{c.address}</span></li>}
             </ul>
           )}
           <ButtonLink href="/collections" variant="outline">Browse collections</ButtonLink>
         </div>
       )}
+
+      {params.slug === 'contact' && (
+        <section className="mt-12" aria-labelledby="contact-map-heading">
+          <h2 id="contact-map-heading" className="mb-4 text-xl font-semibold text-ink">Find us</h2>
+          <div className="overflow-hidden rounded-3xl border border-line bg-canvas">
+            <iframe
+              title="Map to FYNE SURFACES at Auris Galleria, Malad West"
+              src="https://www.google.com/maps?q=Auris+Galleria,+Link+Road,+Malad+West,+Mumbai&output=embed"
+              className="h-[360px] w-full border-0 sm:h-[440px]"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              allowFullScreen
+            />
+          </div>
+          <a
+            href="https://www.google.com/maps/search/?api=1&query=Auris+Galleria,+Link+Road,+Malad+West,+Mumbai"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-3 inline-flex text-sm font-medium text-primary hover:underline"
+          >
+            Open in Google Maps
+          </a>
+        </section>
+      )}
+
+      <FaqSection faqs={contentPageFaqs(params.slug, page?.title || CORE[params.slug], page?.excerpt, settings)} id="content-page-faqs" />
     </article>
   );
 }

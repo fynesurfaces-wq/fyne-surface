@@ -73,7 +73,7 @@ export function Footer({ settings, collections }: { settings: StoreSettings | nu
               <li className="flex items-start gap-3"><Phone className="mt-0.5 h-4 w-4 shrink-0 text-accent-300" /><a href={`tel:${settings.contact.phone.replace(/\s/g, '')}`} className="hover:text-white">{settings.contact.phone}</a></li>
             )}
             {settings?.contact?.address && (
-              <li className="flex items-start gap-3"><MapPin className="mt-0.5 h-4 w-4 shrink-0 text-accent-300" /><span>{settings.contact.address}</span></li>
+              <li className="flex items-start gap-3"><MapPin className="mt-0.5 h-4 w-4 shrink-0 text-accent-300" /><span className="whitespace-pre-line">{settings.contact.address}</span></li>
             )}
             {!settings?.contact?.email && !settings?.contact?.phone && (
               <li><Link href="/pages/contact" className="hover:text-white">Contact our team →</Link></li>

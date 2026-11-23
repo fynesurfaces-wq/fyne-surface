@@ -10,6 +10,8 @@ import { CollectionHero } from '@/components/collection/CollectionHero';
 import { FilterBar } from '@/components/collection/FilterBar';
 import { ProductGrid } from '@/components/product/ProductGrid';
 import { ButtonLink } from '@/components/ui/Button';
+import { FaqSection } from '@/components/seo/FaqSection';
+import { collectionFaqs } from '@/lib/page-faqs';
 
 // Rendered per request (filters live in ?searchParams); API responses are still
 // served from Next's Data Cache and revalidated every 5 minutes.
@@ -78,6 +80,8 @@ export default async function CollectionPage({ params, searchParams }: Props) {
           )}
         </div>
       </section>
+
+      <FaqSection faqs={collectionFaqs(c.name, res.pagination.total)} id="collection-faqs" />
     </>
   );
 }

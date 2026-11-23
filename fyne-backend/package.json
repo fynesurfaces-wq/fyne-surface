@@ -12,6 +12,9 @@
     "dev": "nodemon server.js",
     "build": "npm install",
     "seed": "node src/seed/seed.js",
+    "import:plants": "node src/seed/import-plants.js",
+    "import:bushes": "node src/seed/import-bushes.js",
+    "import:creepers": "node src/seed/import-creepers.js",
     "seed:destroy": "node src/seed/seed.js --destroy"
   },
   "dependencies": {

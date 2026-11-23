@@ -33,8 +33,8 @@ export function ProductCard({ product: p, priority, headingLevel = 'h3' }: { pro
 
   return (
     <motion.article className="group relative flex flex-col" initial="rest" whileHover="hover" animate="rest">
-      <div className="relative aspect-[4/5] overflow-hidden rounded-[1.25rem] bg-sand">
-        <Link href={href} className="absolute inset-0 block rounded-[1.25rem] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary" aria-label={`${p.name} — ${p.price.formatted}`}>
+      <div className="relative aspect-[4/5] overflow-hidden rounded-[1.5rem] border border-white/70 bg-gradient-to-br from-sand via-sand to-primary-50/60 shadow-image transition-[transform,box-shadow] duration-700 ease-premium group-hover:-translate-y-1 group-hover:shadow-lift">
+        <Link href={href} className="absolute inset-0 block rounded-[1.5rem] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary" aria-label={`${p.name} — ${p.price.formatted}`}>
           <motion.div className="absolute inset-0" variants={{ rest: { scale: 1 }, hover: { scale: 1.06 } }} transition={{ duration: 1.1, ease: EASE }}>
             <PlantImage
               src={img1?.url}
@@ -55,7 +55,7 @@ export function ProductCard({ product: p, priority, headingLevel = 'h3' }: { pro
         <div className="pointer-events-none absolute left-3 top-3 flex flex-col items-start gap-1.5">
           {!p.availability.inStock && <span className="rounded-full bg-white/95 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-ink">Sold out</span>}
           {discount > 0 && <span className="rounded-full bg-accent px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-white">−{discount}%</span>}
-          {p.isFeatured && p.availability.inStock && !discount && <span className="rounded-full bg-white/95 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-primary">Best seller</span>}
+          {p.isFeatured && !discount && <span className="rounded-full bg-white/95 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-primary">Featured</span>}
         </div>
 
         {/* Hover actions (pointer devices) — siblings of the link, not nested inside it */}
@@ -74,7 +74,7 @@ export function ProductCard({ product: p, priority, headingLevel = 'h3' }: { pro
       <div className="flex flex-1 flex-col pt-4">
         <div className="flex items-start justify-between gap-4">
           <div className="min-w-0">
-            <Heading className="text-[15px] font-semibold leading-snug tracking-[-0.01em] text-ink">
+            <Heading className="text-[15px] font-semibold leading-snug tracking-[-0.01em] text-ink transition-colors duration-300 group-hover:text-primary">
               <Link href={href} className="hover:text-primary">{p.name}</Link>
             </Heading>
             <p className="mt-1 text-[12px] uppercase tracking-[0.12em] text-ink-faint">SKU {p.sku}</p>

@@ -5,6 +5,8 @@ import { ProductGrid } from '@/components/product/ProductGrid';
 import { Reveal } from '@/components/ui/Motion';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { SITE_URL } from '@/lib/utils';
+import { FaqSection } from '@/components/seo/FaqSection';
+import { collectionIndexFaqs } from '@/lib/page-faqs';
 
 export const revalidate = 300;
 
@@ -45,6 +47,8 @@ export default async function CollectionsIndex() {
           </div>
         </section>
       )}
+
+      <FaqSection faqs={collectionIndexFaqs(collections)} id="collections-faqs" />
     </>
   );
 }

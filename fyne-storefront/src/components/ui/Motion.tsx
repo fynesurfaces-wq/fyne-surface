@@ -15,10 +15,27 @@ export function Reveal({ children, delay = 0, y = 24, className, as = 'div' }: {
   return (
     <Comp
       className={className}
-      initial={{ opacity: 0, y }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, y, filter: 'blur(5px)' }}
+      whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
       viewport={{ once: true, margin: '-60px' }}
-      transition={{ duration: 0.8, delay, ease: EASE }}
+      transition={{ duration: 0.9, delay, ease: EASE }}
+    >
+      {children}
+    </Comp>
+  );
+}
+
+/** A restrained focus-in treatment for primary page and section headings. */
+export function TextReveal({ children, className, delay = 0, as = 'h2', id }: { children: React.ReactNode; className?: string; delay?: number; as?: 'h1' | 'h2' | 'h3' | 'p'; id?: string }) {
+  const Comp = motion[as];
+  return (
+    <Comp
+      className={className}
+      id={id}
+      initial={{ opacity: 0, y: 18, filter: 'blur(7px)' }}
+      whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+      viewport={{ once: true, margin: '-50px' }}
+      transition={{ duration: 0.85, delay, ease: EASE }}
     >
       {children}
     </Comp>
