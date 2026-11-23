@@ -14,7 +14,11 @@ import { homeFaqs } from '@/lib/page-faqs';
 
 export const revalidate = 300; // ISR
 
-export const metadata: Metadata = { alternates: { canonical: '/' } };
+export const metadata: Metadata = {
+  title: 'Artificial Plant Décor from a Mumbai Manufacturer',
+  description: 'Explore lifelike artificial plant décor made in Mumbai for homes, offices and hospitality spaces across the Mumbai region.',
+  alternates: { canonical: '/' },
+};
 
 const HERO_IMAGES = [
   { src: '/images/hero/office-greenwall.jpg', alt: 'Office workspace beneath an illuminated living green wall' },
@@ -117,7 +121,7 @@ export default async function HomePage() {
             <p className="text-eyebrow uppercase text-accent-300">For architects & businesses</p>
             <h2 id="projects-heading" className="mt-4 text-display-md text-white">Planning a vertical garden or a large installation?</h2>
             <p className="mt-5 max-w-lg text-[17px] leading-relaxed text-white/70">
-              Share your space, size and style — our team will recommend the right plants, bush packs and quantities for green walls, lobbies and hospitality projects.
+              Share your space, size and style — our team will recommend the right plants, bush packs and quantities for green walls, lobbies and hospitality projects. From Malad West, we work with spaces across Bandra, Andheri, Powai, Goregaon, Borivali, Thane and Navi Mumbai.
             </p>
             <ButtonLink href="/pages/contact" variant="accent" size="lg" className="mt-9">Request a quote</ButtonLink>
           </Reveal>

@@ -36,6 +36,11 @@ module.exports = Object.freeze({
   port: Number(process.env.PORT) || 5000,
   trustProxy: Number(process.env.TRUST_PROXY ?? 1),
   mongoUri: process.env.MONGO_URI,
+  redis: { url: process.env.REDIS_URL || '' },
+  email: {
+    apiKey: process.env.RESEND_API_KEY || '',
+    from: process.env.EMAIL_FROM || '',
+  },
   jwt: {
     accessSecret: process.env.JWT_ACCESS_SECRET,
     refreshSecret: process.env.JWT_REFRESH_SECRET,

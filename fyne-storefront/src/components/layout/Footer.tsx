@@ -65,6 +65,7 @@ export function Footer({ settings, collections }: { settings: StoreSettings | nu
 
         <address className="not-italic lg:col-span-3">
           <h3 className="text-sm font-semibold text-white">Get in touch</h3>
+          <p className="mt-3 text-xs leading-relaxed text-white/55">Mumbai region: Malad West, Andheri, Bandra, Goregaon, Powai, Borivali, Thane and Navi Mumbai.</p>
           <ul className="mt-5 space-y-3 text-sm">
             {settings?.contact?.email && (
               <li className="flex items-start gap-3"><Mail className="mt-0.5 h-4 w-4 shrink-0 text-accent-300" /><a href={`mailto:${settings.contact.email}`} className="hover:text-white">{settings.contact.email}</a></li>

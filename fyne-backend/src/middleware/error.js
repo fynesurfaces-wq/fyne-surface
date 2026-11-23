@@ -2,6 +2,7 @@
 
 const env = require('../config/env');
 const ApiError = require('../utils/ApiError');
+const logger = require('../utils/logger');
 
 const notFound = (req, _res, next) => next(new ApiError(404, `Route not found: ${req.method} ${req.originalUrl}`));
 
@@ -25,11 +26,11 @@ function errorHandler(err, req, res, _next) {
   } else if (error.type === 'entity.too.large') {
     error = new ApiError(413, 'Request body too large');
   } else if (!(error instanceof ApiError)) {
-    console.error('[unhandled]', err);
+    logger.error('unhandled_api_error', { method: req.method, path: req.path, name: err.name, message: err.message, stack: err.stack });
     error = new ApiError(500, env.isProd ? 'Something went wrong' : err.message || 'Internal error');
   }
 
-  if (error.statusCode >= 500 && err instanceof ApiError) console.error('[api-error]', err);
+  if (error.statusCode >= 500 && err instanceof ApiError) logger.error('api_error', { method: req.method, path: req.path, code: error.code, message: error.message });
 
   res.status(error.statusCode).json({
     success: false,

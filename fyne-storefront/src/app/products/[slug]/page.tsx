@@ -106,7 +106,7 @@ export default async function ProductPage({ params }: Props) {
                 {p.collection.name}
               </Link>
             )}
-            <TextReveal as="h1" className="mt-3 text-display-md text-ink">{p.name}</TextReveal>
+            <TextReveal as="h1" className="mt-3 text-display-md text-ink">{p.name} — Artificial Greenery for Mumbai Homes</TextReveal>
             <p className="mt-3 text-[13px] uppercase tracking-[0.16em] text-ink-muted">
               SKU <span className="font-semibold text-ink-soft">{p.sku}</span>
             </p>

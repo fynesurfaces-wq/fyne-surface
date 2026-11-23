@@ -5,6 +5,7 @@ import { TextReveal } from '@/components/ui/Motion';
 
 /** Collection banner: H1 + description over the cover image (or botanical art). */
 export function CollectionHero({ title, descriptionHtml, cover, count, breadcrumbs, seed }: { title: string; descriptionHtml?: string; cover?: StoreImage | null; count: number; breadcrumbs: Breadcrumb[]; seed: string }) {
+  const heading = title.trim().toLowerCase().startsWith('artificial') ? title.trim() : `Artificial ${title.trim()}`;
   return (
     <section className="container pt-6 lg:pt-8">
       <div className="relative isolate overflow-hidden rounded-[2rem] bg-primary-900">
@@ -16,7 +17,7 @@ export function CollectionHero({ title, descriptionHtml, cover, count, breadcrum
         <div className="px-7 py-14 sm:px-12 lg:px-16 lg:py-24">
           <Breadcrumbs items={breadcrumbs} inverted className="mb-8" />
           <p className="text-eyebrow uppercase text-accent-300">{count} {count === 1 ? 'product' : 'products'}</p>
-          <TextReveal as="h1" className="mt-4 max-w-3xl text-display-lg text-white">{title}</TextReveal>
+          <TextReveal as="h1" className="mt-4 max-w-3xl text-display-lg text-white">{heading} for Mumbai Spaces</TextReveal>
           {descriptionHtml && (
             <div className="prose prose-lg mt-6 max-w-2xl prose-p:text-white/80 prose-strong:text-white prose-a:text-white" dangerouslySetInnerHTML={{ __html: descriptionHtml }} />
           )}

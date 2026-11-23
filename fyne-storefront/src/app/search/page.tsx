@@ -19,7 +19,7 @@ export default async function SearchPage({ searchParams }: Props) {
   return (
     <section className="container pb-28 pt-12 lg:pt-16">
       <p className="text-eyebrow uppercase text-accent">Search</p>
-      <TextReveal as="h1" className="mt-4 text-display-md text-ink">{q ? <>Results for “{q}”</> : 'Search our collection'}</TextReveal>
+      <TextReveal as="h1" className="mt-4 text-display-md text-ink">{q ? <>Results for “{q}” in Mumbai Artificial Greenery</> : 'Find Artificial Greenery for Mumbai Spaces'}</TextReveal>
 
       <form action="/search" role="search" className="mt-8 flex max-w-xl items-center gap-2 rounded-full border border-line bg-white p-1.5 focus-within:border-primary">
         <Search className="ml-4 h-5 w-5 text-ink-muted" aria-hidden />

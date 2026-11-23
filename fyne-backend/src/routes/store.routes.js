@@ -14,11 +14,15 @@ const leads = require('../controllers/lead.controller');
 const analytics = require('../controllers/analytics.controller');
 const settings = require('../controllers/settings.controller');
 const content = require('../controllers/storeContent.controller');
+const { responseCache } = require('../middleware/responseCache');
 
 const slug = validate([param('slug').isSlug().isLength({ max: 160 })]);
 const contentType = param('type').isIn(['pages', 'blog']);
 
 router.get('/settings', settings.publicSettings);
+
+router.use('/products', responseCache('products', 3600));
+router.use('/collections', responseCache('collections', 3600));
 
 router.get('/products', validate(sv.storeList), products.storeList);
 router.get('/products/:slug', slug, products.storeGet);

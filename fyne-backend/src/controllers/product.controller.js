@@ -10,6 +10,7 @@ const { hasPermission, P } = require('../config/permissions');
 const { toPublicProduct } = require('../utils/seo/aeo');
 const { generateProductSchemaGraph, generateCollectionSchemaGraph, productUrl } = require('../utils/seo/jsonLd');
 const { destroy } = require('../services/upload.service');
+const { invalidateStoreCache } = require('../middleware/responseCache');
 
 const FIELDS = [
   'name', 'slug', 'sku', 'collection', 'price', 'compareAtPrice', 'shortDescription', 'description',
@@ -99,6 +100,7 @@ exports.create = asyncHandler(async (req, res) => {
   data.updatedBy = req.user._id;
   const product = await Product.create(data);
   await product.populate('collection', 'name slug');
+  await invalidateStoreCache('products', 'collections');
   res.status(201).json({ success: true, data: await withSeoPreview(product) });
 });
 
@@ -125,6 +127,7 @@ exports.update = asyncHandler(async (req, res) => {
   await product.save();
   removedPublicIds.forEach((id) => destroy(id));
   await product.populate('collection', 'name slug');
+  await invalidateStoreCache('products', 'collections');
   res.json({ success: true, data: await withSeoPreview(product) });
 });
 
@@ -133,6 +136,7 @@ exports.remove = asyncHandler(async (req, res) => {
   const product = await Product.findByIdAndDelete(req.params.id);
   if (!product) throw new ApiError(404, 'Product not found');
   product.images.forEach((i) => destroy(i.publicId));
+  await invalidateStoreCache('products', 'collections');
   res.json({ success: true, message: 'Product deleted' });
 });
 
@@ -153,6 +157,7 @@ exports.updateInventory = asyncHandler(async (req, res) => {
     if (!product && (await Product.exists({ _id: req.params.id }))) throw new ApiError(409, 'Adjustment would make stock negative', 'INSUFFICIENT_STOCK');
   }
   if (!product) throw new ApiError(404, 'Product not found');
+  await invalidateStoreCache('products', 'collections');
   res.json({ success: true, data: { _id: product._id, sku: product.sku, stock: product.stock } });
 });
 
@@ -164,10 +169,12 @@ exports.bulk = asyncHandler(async (req, res) => {
     const docs = await Product.find({ _id: { $in: ids } }).select('images');
     const r = await Product.deleteMany({ _id: { $in: ids } });
     docs.forEach((d) => d.images.forEach((i) => destroy(i.publicId)));
+    await invalidateStoreCache('products', 'collections');
     return res.json({ success: true, data: { affected: r.deletedCount } });
   }
   const set = { activate: { isActive: true }, deactivate: { isActive: false }, feature: { isFeatured: true }, unfeature: { isFeatured: false } }[action];
   const r = await Product.updateMany({ _id: { $in: ids } }, { $set: { ...set, updatedBy: req.user._id } });
+  await invalidateStoreCache('products', 'collections');
   return res.json({ success: true, data: { affected: r.modifiedCount } });
 });
 

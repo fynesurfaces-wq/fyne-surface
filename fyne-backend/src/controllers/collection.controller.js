@@ -9,6 +9,7 @@ const { toPublicProduct } = require('../utils/seo/aeo');
 const { generateCollectionSchemaGraph, collectionUrl } = require('../utils/seo/jsonLd');
 const { stripHtml, truncate } = require('../utils/html');
 const { destroy } = require('../services/upload.service');
+const { invalidateStoreCache } = require('../middleware/responseCache');
 
 const FIELDS = ['name', 'slug', 'description', 'coverImage', 'seo', 'isActive', 'sortOrder'];
 
@@ -47,6 +48,7 @@ exports.create = asyncHandler(async (req, res) => {
   data.slug = await uniqueSlug(Collection, data.slug || data.name);
   data.createdBy = req.user._id;
   const collection = await Collection.create(data);
+  await invalidateStoreCache('products', 'collections');
   res.status(201).json({ success: true, data: collection });
 });
 
@@ -59,6 +61,7 @@ exports.update = asyncHandler(async (req, res) => {
   collection.set({ ...data, updatedBy: req.user._id });
   await collection.save();
   if (oldCover && 'coverImage' in data && data.coverImage?.publicId !== oldCover) destroy(oldCover);
+  await invalidateStoreCache('products', 'collections');
   res.json({ success: true, data: collection });
 });
 
@@ -69,6 +72,7 @@ exports.remove = asyncHandler(async (req, res) => {
   const collection = await Collection.findByIdAndDelete(req.params.id);
   if (!collection) throw new ApiError(404, 'Collection not found');
   destroy(collection.coverImage?.publicId);
+  await invalidateStoreCache('products', 'collections');
   res.json({ success: true, message: 'Collection deleted' });
 });
 

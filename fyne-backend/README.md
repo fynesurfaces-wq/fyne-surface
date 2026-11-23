@@ -169,6 +169,11 @@ To plug in **Razorpay or Stripe**, add a class that extends `PaymentGateway`, re
 
 ## Deployment notes
 
+- Set `REDIS_URL` to a Redis-compatible URL (for example `redis://localhost:6379`). Product and collection storefront GET responses are cached for one hour. Admin catalog edits and inventory changes clear the affected product and collection cache namespaces. If Redis is unavailable, requests bypass the cache; `/health` returns `503` until both MongoDB and Redis pass their checks.
+- Set `RESEND_API_KEY` and `EMAIL_FROM` to enable transactional mail through Resend. Use a sender address on a domain verified in Resend. Without these settings, notification delivery is skipped and logged. The current storefront uses guest checkout rather than shopper accounts, so the welcome email is sent when a customer's first record is created at checkout. Order confirmation follows verified successful payment, and shipment mail follows the admin transition to `Shipped`.
+- HTTP requests are emitted as Morgan JSON lines; backend events and errors use JSON structured logs. Production API errors never include stack traces.
+- Phase 5 is intentionally not implemented. The planned coupon, verified-review, and advanced-search architecture is documented in `docs/PHASE_5_ECOMMERCE_ARCHITECTURE.md`.
+
 - Set `NODE_ENV=production`, long random secrets, `CORS_ORIGINS` (storefront and admin) and `TRUST_PROXY`.
 - Serve the API on the same site as the admin (e.g. `api.` and `admin.fynesurfaces.com`) so the `SameSite=Strict` refresh cookie is sent.
 - For full atomicity of the checkout and inventory updates, use a replica set (Atlas) and wrap `order.service` calls in `session.withTransaction()`.

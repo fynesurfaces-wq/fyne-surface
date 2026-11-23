@@ -67,11 +67,12 @@ export function Hero({ images }: { images: HeroImage[] }) {
               initial={{ opacity: 0, y: 32 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.1, delay: 0.45, ease: EASE }}
-              className="mt-5 text-display-xl text-white"
+              className="mt-5 text-display-xl text-orange-400"
             >
               Artificial Greenery
               <br />
-              <span className="text-primary-200">Dealers and manufacturers</span>
+              <span className="text-white">Dealer & Manufacturer</span>
+              <span className="text-primary-200"> in Mumbai</span>
             </motion.h1>
             <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.65, ease: EASE }} className="mt-7 max-w-xl text-lg leading-relaxed text-white/80 lg:text-xl">
               Lifelike artificial trees, plants and vertical-garden greenery — crafted to stay beautiful all year, with no water, sunlight or upkeep.

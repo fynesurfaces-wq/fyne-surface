@@ -6,6 +6,7 @@ const { asyncHandler, round2 } = require('../utils/helpers');
 const { evaluateDiscount } = require('../services/discount.service');
 const { commitInventory } = require('../services/order.service');
 const { getPaymentService } = require('../services/payment/PaymentService');
+const email = require('../services/email.service');
 
 /**
  * Re-price a cart from the DATABASE (never trust client prices).
@@ -70,11 +71,16 @@ exports.checkout = asyncHandler(async (req, res) => {
 
   // Guest checkout: link to an existing customer by email or create one.
   // Existing customers' details are never overwritten by an anonymous request.
-  const customer = await Customer.findOneAndUpdate(
+  const customerResult = await Customer.findOneAndUpdate(
     { email: c.email },
     { $setOnInsert: { email: c.email, name: c.name, phone: c.phone, acceptsMarketing: Boolean(c.acceptsMarketing), source: 'checkout' } },
-    { upsert: true, new: true, setDefaultsOnInsert: true }
+    { upsert: true, new: true, setDefaultsOnInsert: true, includeResultMetadata: true }
   );
+  const customer = customerResult.value;
+  const isNewCustomer = Boolean(customerResult.lastErrorObject?.upserted);
+  // This project has guest checkout rather than shopper accounts; first-time
+  // customer creation is its registration moment for the welcome message.
+  if (isNewCustomer) void email.sendWelcome(customer);
 
   let discount = { amount: 0 };
   let freeShipping = false;

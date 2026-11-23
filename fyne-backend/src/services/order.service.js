@@ -12,6 +12,8 @@
  * (Atlas does this by default) and wrap these in session.withTransaction().
  */
 const { Order, Product, Customer, Discount } = require('../models');
+const { invalidateStoreCache } = require('../middleware/responseCache');
+const email = require('./email.service');
 
 async function commitInventory(order) {
   if (order.inventoryCommitted) return [];
@@ -26,6 +28,7 @@ async function commitInventory(order) {
   if (shortfalls.length) {
     order.history.push({ type: 'note', note: `Insufficient stock when committing: ${shortfalls.map((s) => `${s.sku}×${s.qty}`).join(', ')}` });
   }
+  await invalidateStoreCache('products', 'collections');
   return shortfalls;
 }
 
@@ -33,6 +36,7 @@ async function releaseInventory(order) {
   if (!order.inventoryCommitted) return;
   await Product.bulkWrite(order.orderItems.map((i) => ({ updateOne: { filter: { _id: i.product }, update: { $inc: { stock: i.qty } } } })));
   order.inventoryCommitted = false;
+  await invalidateStoreCache('products', 'collections');
 }
 
 async function markPaid(orderId, { transactionId, provider } = {}) {
@@ -51,6 +55,7 @@ async function markPaid(orderId, { transactionId, provider } = {}) {
   await order.save();
   await Customer.updateOne({ _id: order.user }, { $inc: { totalSpent: order.totalAmount } });
   if (order.discount?.code) await Discount.updateOne({ code: order.discount.code }, { $inc: { usedCount: 1 } });
+  void email.sendOrderConfirmation(order);
   return order;
 }
 

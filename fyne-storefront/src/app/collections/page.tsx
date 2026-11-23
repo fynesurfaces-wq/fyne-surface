@@ -11,7 +11,7 @@ import { collectionIndexFaqs } from '@/lib/page-faqs';
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: 'All Collections — Artificial Trees, Plants & Bushes',
+  title: 'Artificial Plant Collections from a Mumbai Manufacturer',
   description: 'Browse every FYNE SURFACES collection: tall artificial trees above 1.2 m, compact plants under 1.2 m, and bush packs for vertical gardens.',
   alternates: { canonical: '/collections' },
 };
@@ -33,7 +33,7 @@ export default async function CollectionsIndex() {
       <section className="container pb-20 pt-12 lg:pb-28 lg:pt-20">
         <Reveal className="mb-12 max-w-3xl lg:mb-16">
           <p className="text-eyebrow uppercase text-accent">Shop</p>
-          <h1 className="mt-4 text-display-lg text-ink">All collections</h1>
+          <h1 className="mt-4 text-display-lg text-ink">Artificial Plant Décor Collections in Mumbai</h1>
           <p className="mt-5 text-lg leading-relaxed text-ink-muted">Premium artificial greenery, organised by scale — from statement trees to bush packs for living walls.</p>
         </Reveal>
         <CollectionTiles collections={collections} />

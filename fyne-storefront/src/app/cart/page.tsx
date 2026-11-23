@@ -17,13 +17,13 @@ export default function CartPage() {
   const settings = useStoreSettings();
   const shipping = estimateShipping(subtotal, settings);
 
-  if (!hydrated) return <div className="container min-h-[60vh] py-20" aria-busy="true" />;
+  if (!hydrated) return <section className="container min-h-[60vh] py-20" aria-busy="true"><h1 className="text-display-md text-ink">Your Mumbai artificial greenery cart</h1></section>;
 
   if (!items.length) {
     return (
       <section className="container flex min-h-[60vh] flex-col items-center justify-center py-24 text-center">
         <span className="flex h-20 w-20 items-center justify-center rounded-full bg-primary-50 text-primary"><ShoppingBag className="h-9 w-9" /></span>
-        <h1 className="mt-8 text-display-md text-ink">Your cart is empty</h1>
+        <h1 className="mt-8 text-display-md text-ink">Your Mumbai artificial greenery cart is empty</h1>
         <p className="mt-3 max-w-md text-lg text-ink-muted">Discover lifelike trees, plants and bush packs that stay green all year.</p>
         <ButtonLink href="/collections" size="lg" className="mt-10">Explore collections</ButtonLink>
       </section>
@@ -35,7 +35,7 @@ export default function CartPage() {
       <Link href="/collections" className="inline-flex items-center gap-2 text-sm font-medium text-ink-muted hover:text-ink">
         <ArrowLeft className="h-4 w-4" /> Continue shopping
       </Link>
-      <h1 className="mt-6 text-display-md text-ink">Your cart <span className="text-ink-faint">({count})</span></h1>
+      <h1 className="mt-6 text-display-md text-ink">Your artificial greenery cart in Mumbai <span className="text-ink-faint">({count})</span></h1>
 
       <div className="mt-12 grid gap-12 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-8">

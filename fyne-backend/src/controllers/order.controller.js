@@ -6,6 +6,7 @@ const { asyncHandler, escapeRegex } = require('../utils/helpers');
 const { parsePagination, parseSort, combine, paginate } = require('../utils/query');
 const { releaseInventory, commitInventory, TRANSITIONS } = require('../services/order.service');
 const { Customer } = require('../models');
+const email = require('../services/email.service');
 
 /** GET /api/v1/admin/orders?orderStatus&paymentStatus&from&to&q&page&limit&sort */
 exports.list = asyncHandler(async (req, res) => {
@@ -86,6 +87,7 @@ exports.updateStatus = asyncHandler(async (req, res) => {
   }
   order.history.push({ type: 'order', status: next, note, by: req.user._id, at: now });
   await order.save();
+  if (next === 'Shipped') void email.sendOrderShipped(order);
 
   res.json({
     success: true,

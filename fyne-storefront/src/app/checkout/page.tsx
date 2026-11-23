@@ -136,12 +136,12 @@ export default function CheckoutPage() {
   // ── Success ──
   if (stage === 'done' && result) return <Success result={result} />;
 
-  if (!hydrated) return <div className="container min-h-[60vh] py-20" aria-busy="true" />;
+  if (!hydrated) return <section className="container min-h-[60vh] py-20" aria-busy="true"><h1 className="text-display-md text-ink">Secure checkout for Mumbai artificial greenery</h1></section>;
 
   if (!items.length) {
     return (
       <section className="container flex min-h-[60vh] flex-col items-center justify-center py-24 text-center">
-        <h1 className="text-display-md text-ink">Your cart is empty</h1>
+        <h1 className="text-display-md text-ink">Your Mumbai plant décor cart is empty</h1>
         <p className="mt-3 text-lg text-ink-muted">Add a few plants before checking out.</p>
         <ButtonLink href="/collections" size="lg" className="mt-10">Explore collections</ButtonLink>
       </section>
@@ -154,7 +154,7 @@ export default function CheckoutPage() {
   return (
     <section className="container pb-28 pt-10 lg:pt-14">
       <Link href="/cart" className="inline-flex items-center gap-2 text-sm font-medium text-ink-muted hover:text-ink"><ArrowLeft className="h-4 w-4" /> Back to cart</Link>
-      <h1 className="mt-6 text-display-md text-ink">Checkout</h1>
+      <h1 className="mt-6 text-display-md text-ink">Secure checkout for Mumbai artificial greenery</h1>
 
       <form onSubmit={handleSubmit(onSubmit)} noValidate className="mt-12 grid gap-12 lg:grid-cols-12 lg:gap-16">
         <div className="space-y-12 lg:col-span-7">
@@ -337,7 +337,7 @@ function Success({ result }: { result: OrderResult }) {
       </motion.div>
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.6 }}>
         <p className="mt-8 text-eyebrow uppercase text-accent">Order #{o.orderNumber}</p>
-        <h1 className="mt-3 text-display-md text-ink">Thank you — your order is placed.</h1>
+        <h1 className="mt-3 text-display-md text-ink">Your Mumbai artificial greenery order is placed</h1>
         <p className="mx-auto mt-4 max-w-md text-lg text-ink-muted">
           {o.paymentMethod === 'cod'
             ? 'You’ll pay on delivery. Our team will contact you to schedule dispatch.'

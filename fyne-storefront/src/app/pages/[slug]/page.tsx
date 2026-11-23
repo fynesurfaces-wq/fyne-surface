@@ -31,14 +31,21 @@ export default async function ContentPageRoute({ params }: Props) {
   const [page, settings] = await Promise.all([getContentPage(params.slug), getSettings()]);
   if (!page && !CORE[params.slug]) notFound();
   const c = settings?.contact;
+  const bodyHtml = params.slug === 'contact'
+    ? page?.body?.replace(/<\/?h1\b/gi, (tag) => tag.replace(/h1/i, 'h2'))
+    : page?.body;
 
   return (
     <article className="container max-w-3xl pb-28 pt-12 lg:pt-20">
       {page && <JsonLd data={page.jsonLd} />}
-      <TextReveal as="h1" className="text-display-lg text-ink">{page?.title || CORE[params.slug]}</TextReveal>
+      {params.slug === 'contact' ? (
+        <p className="text-display-lg text-ink">{page?.title || CORE[params.slug]}</p>
+      ) : (
+        <TextReveal as="h1" className="text-display-lg text-ink">{page?.title || CORE[params.slug]} — Mumbai Artificial Greenery</TextReveal>
+      )}
 
-      {page?.body ? (
-        <div className="prose prose-lg mt-10 max-w-none prose-headings:tracking-tight prose-headings:text-ink prose-p:text-ink-soft prose-a:text-primary" dangerouslySetInnerHTML={{ __html: page.body }} />
+      {bodyHtml ? (
+        <div className="prose prose-lg mt-10 max-w-none prose-headings:tracking-tight prose-headings:text-ink prose-p:text-ink-soft prose-a:text-primary" dangerouslySetInnerHTML={{ __html: bodyHtml }} />
       ) : (
         <div className="mt-8 space-y-8">
           <p className="text-lg leading-relaxed text-ink-muted">
