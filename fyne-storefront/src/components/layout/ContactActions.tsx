@@ -2,6 +2,7 @@
 
 import { Phone } from 'lucide-react';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 function internationalNumber(value?: string) {
   if (!value) return '';
@@ -34,7 +35,7 @@ export function ContactActions({ phone, whatsapp }: { phone?: string; whatsapp?:
             transition={{ duration: 0.35, delay: 0.08 }}
             className="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl shadow-lift focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25D366] focus-visible:ring-offset-2"
           >
-            <img src="/images/whatsapp-icon.png" alt="" aria-hidden="true" className="h-full w-full object-contain" />
+            <Image src="/images/whatsapp-icon.png" alt="" aria-hidden="true" width={56} height={56} className="h-full w-full object-contain" />
           </motion.a>
         )}
         {callNumber && (

@@ -54,7 +54,6 @@ export interface ProductSummary {
   faqs: { question: string; answer: string }[];
   isFeatured: boolean;
   isNewArrival?: boolean;
-  isNewArrival?: boolean;
   seo: { title: string; description: string; keywords: string[]; canonicalUrl: string };
   breadcrumbs: Breadcrumb[];
   updatedAt: string;
