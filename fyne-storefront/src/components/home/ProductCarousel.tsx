@@ -29,7 +29,7 @@ export function ProductCarousel({ products }: { products: ProductSummary[] }) {
       const maxScroll = el.scrollWidth - el.clientWidth;
       if (el.scrollLeft >= maxScroll - 8) el.scrollTo({ left: 0, behavior: 'smooth' });
       else el.scrollBy({ left: step, behavior: 'smooth' });
-    }, 5000);
+    }, 2000);
 
     return () => window.clearInterval(timer);
   }, [products]);
@@ -56,10 +56,10 @@ export function ProductCarousel({ products }: { products: ProductSummary[] }) {
         onScroll={update}
         aria-label="Featured products"
         aria-roledescription="carousel"
-        className="-mx-5 flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-smooth px-5 pb-4 [scrollbar-width:none] sm:-mx-6 sm:px-6 lg:mx-0 lg:gap-7 lg:px-0 [&::-webkit-scrollbar]:hidden"
+        className="-mx-5 flex snap-x snap-mandatory gap-0 overflow-x-hidden scroll-smooth px-0 pb-4 [scrollbar-width:none] sm:-mx-6 sm:gap-5 sm:overflow-x-auto sm:px-6 lg:mx-0 lg:gap-7 lg:px-0 [&::-webkit-scrollbar]:hidden"
       >
         {products.map((p, i) => (
-          <li key={p.id} className="w-[72%] shrink-0 snap-start sm:w-[44%] lg:w-[calc((100%-5.25rem)/4)]">
+          <li key={p.id} className="w-full shrink-0 snap-start px-3 pb-5 pt-2 sm:px-0 sm:pb-0 sm:pt-0 sm:w-[48%] lg:w-[calc((100%-5.25rem)/4)]">
             <ProductCard product={p} priority={i < 2} />
           </li>
         ))}

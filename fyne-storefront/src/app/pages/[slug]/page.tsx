@@ -7,6 +7,7 @@ import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink } from '@/components/ui/Button';
 import { FaqSection } from '@/components/seo/FaqSection';
 import { contentPageFaqs } from '@/lib/page-faqs';
+import { SeoAnswerSection } from '@/components/seo/SeoAnswerSection';
 import { TextReveal } from '@/components/ui/Motion';
 
 export const revalidate = 600;
@@ -34,6 +35,25 @@ export default async function ContentPageRoute({ params }: Props) {
   const bodyHtml = params.slug === 'contact'
     ? page?.body?.replace(/<\/?h1\b/gi, (tag) => tag.replace(/h1/i, 'h2'))
     : page?.body;
+  const answerParagraphs = [
+    page?.excerpt || page?.seo.description || (params.slug === 'contact'
+      ? 'Contact FYNE SURFACES for help with product questions, orders or artificial plant projects.'
+      : params.slug === 'shipping-policy'
+        ? 'Review the shipping information on this page for the current delivery terms and checkout details.'
+        : 'Read this page for information about FYNE SURFACES and its artificial plant products.'),
+    params.slug === 'contact'
+      ? [c?.address, c?.phone, c?.email].filter(Boolean).join(' · ')
+        ? `Contact FYNE SURFACES at ${[c?.address, c?.phone, c?.email].filter(Boolean).join(' · ')}.`
+        : 'Use the contact options shown on this page to reach the team.'
+      : params.slug === 'shipping-policy'
+        ? 'Shipping charges and applicable options are shown during checkout. Refer to the policy text above for any location-specific terms.'
+        : page?.title ? `For details, read the published ${page.title} information above or contact FYNE SURFACES with a specific question.` : '',
+    params.slug === 'contact'
+      ? 'Contact the team for help choosing artificial plants in Mumbai for your home, office or project.'
+      : params.slug === 'shipping-policy'
+        ? 'FYNE SURFACES offers artificial plants in Mumbai. Check the shipping policy above for current delivery terms.'
+        : 'Explore FYNE SURFACES for artificial plants in Mumbai, from decorative trees to vertical garden plants.',
+  ];
 
   return (
     <article className="container max-w-3xl pb-28 pt-12 lg:pt-20">
@@ -41,7 +61,7 @@ export default async function ContentPageRoute({ params }: Props) {
       {params.slug === 'contact' ? (
         <p className="text-display-lg text-ink">{page?.title || CORE[params.slug]}</p>
       ) : (
-        <TextReveal as="h1" className="text-display-lg text-ink">{page?.title || CORE[params.slug]} — Mumbai Artificial Greenery</TextReveal>
+        <TextReveal as="h1" className="text-display-lg text-ink">{page?.title || CORE[params.slug]} — Artificial Plants in Mumbai</TextReveal>
       )}
 
       {bodyHtml ? (
@@ -86,6 +106,7 @@ export default async function ContentPageRoute({ params }: Props) {
         </section>
       )}
 
+      <SeoAnswerSection heading={`About ${page?.title || CORE[params.slug]}`} paragraphs={answerParagraphs} className="py-10 sm:py-12" />
       <FaqSection faqs={contentPageFaqs(params.slug, page?.title || CORE[params.slug], page?.excerpt, settings)} id="content-page-faqs" />
     </article>
   );

@@ -12,6 +12,7 @@ import { ProductGrid } from '@/components/product/ProductGrid';
 import { ButtonLink } from '@/components/ui/Button';
 import { FaqSection } from '@/components/seo/FaqSection';
 import { collectionFaqs } from '@/lib/page-faqs';
+import { SeoAnswerSection } from '@/components/seo/SeoAnswerSection';
 
 // Rendered per request (filters live in ?searchParams); API responses are still
 // served from Next's Data Cache and revalidated every 5 minutes.
@@ -81,6 +82,13 @@ export default async function CollectionPage({ params, searchParams }: Props) {
         </div>
       </section>
 
+      <SeoAnswerSection
+        heading={`About the ${c.name} collection`}
+        paragraphs={[
+          `Browse artificial plants in Mumbai in the ${c.name} collection. ${c.seo.description}`,
+          `This collection currently includes ${res.pagination.total} ${res.pagination.total === 1 ? 'product' : 'products'}. Compare product photos, listed dimensions, specifications, prices and availability on each product page. Use the collection filters to narrow products by the attributes shown.`,
+        ]}
+      />
       <FaqSection faqs={collectionFaqs(c.name, res.pagination.total)} id="collection-faqs" />
     </>
   );

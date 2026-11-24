@@ -41,8 +41,8 @@ export function Hero({ images }: { images: HeroImage[] }) {
   });
 
   return (
-    <section ref={sectionRef} className="relative h-[500svh] bg-primary-950" aria-label="FYNE SURFACES visual introduction">
-      <div className="sticky top-0 isolate flex h-[100svh] items-end overflow-hidden bg-primary-950">
+    <div ref={sectionRef} className="relative h-[360svh] bg-primary-950 md:h-[420svh]" aria-label="FYNE SURFACES visual introduction">
+      <div className="sticky top-0 isolate flex min-h-[min(100svh,900px)] items-end overflow-hidden bg-primary-950">
         <div className="absolute inset-0 -z-10 bg-primary-950">
           {images.length ? images.map((image, index) => (
             <BackgroundSlide key={image.src} image={image} index={index} count={images.length} progress={scrollYProgress} />
@@ -57,8 +57,8 @@ export function Hero({ images }: { images: HeroImage[] }) {
           <div className="absolute inset-0 bg-gradient-to-r from-primary-950/40 via-primary-950/10 to-transparent" />
         </div>
 
-        <div className="container pb-20 pt-40 lg:pb-28">
-          <div className="max-w-3xl">
+        <div className="container w-full pb-16 pt-28 sm:pb-20 sm:pt-36 lg:pb-24 lg:pt-40">
+          <div className="max-w-3xl break-words">
             <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, delay: 0.3, ease: EASE }} className="text-eyebrow uppercase text-accent-300">
               Premium Vertical Garden
             </motion.p>
@@ -67,15 +67,14 @@ export function Hero({ images }: { images: HeroImage[] }) {
               initial={{ opacity: 0, y: 32 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.1, delay: 0.45, ease: EASE }}
-              className="mt-5 text-display-xl text-orange-400"
+              className="mt-5 max-w-full text-[clamp(2rem,6vw,4rem)] leading-[1.08] tracking-[-0.03em] text-orange-400"
             >
-              Artificial Greenery
-              <br />
-              <span className="text-white">Dealer & Manufacturer</span>
-              <span className="text-primary-200"> in Mumbai</span>
+              Artificial Plants
+              <span className="block text-white">Dealer &amp; Manufacturer</span>
+              <span className="block text-primary-200">in Mumbai</span>
             </motion.h1>
-            <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.65, ease: EASE }} className="mt-7 max-w-xl text-lg leading-relaxed text-white/80 lg:text-xl">
-              Lifelike artificial trees, plants and vertical-garden greenery — crafted to stay beautiful all year, with no water, sunlight or upkeep.
+            <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.65, ease: EASE }} className="mt-6 max-w-xl text-base leading-relaxed text-white/80 sm:text-lg">
+              Lifelike artificial trees, plants and vertical-garden décor — designed to stay beautiful all year, with no watering, sunlight or pruning.
             </motion.p>
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.8, ease: EASE }} className="mt-10 flex flex-wrap items-center gap-4">
               <ButtonLink href="/collections" size="xl" variant="light" className="group">
@@ -88,7 +87,7 @@ export function Hero({ images }: { images: HeroImage[] }) {
           </div>
         </div>
 
-        <div className="absolute bottom-8 right-8 flex items-center gap-4 text-xs uppercase tracking-[0.2em] text-white/70" aria-hidden="true">
+        <div className="absolute bottom-6 right-5 hidden items-center gap-4 text-xs uppercase tracking-[0.2em] text-white/70 sm:flex sm:right-8" aria-hidden="true">
           <span>{String(activeIndex + 1).padStart(2, '0')} / {String(images.length).padStart(2, '0')}</span>
           <span className="relative h-10 w-px overflow-hidden bg-white/20">
             <motion.span className="absolute inset-x-0 top-0 h-1/2 bg-white" animate={{ y: ['-100%', '200%'] }} transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }} />
@@ -96,6 +95,6 @@ export function Hero({ images }: { images: HeroImage[] }) {
           <span>Scroll</span>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

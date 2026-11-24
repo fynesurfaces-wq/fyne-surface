@@ -4,12 +4,12 @@ import type { Faq } from '@/components/seo/FaqSection';
 const brand = 'FYNE SURFACES';
 
 export function homeFaqs(collections: CollectionSummary[]): Faq[] {
-  const collectionNames = collections.length ? collections.map((item) => item.name).join(', ') : 'artificial plants and vertical garden greenery';
+  const collectionNames = collections.length ? collections.map((item) => item.name).join(', ') : 'artificial plants and vertical garden plants';
   return [
-    { question: `What does ${brand} offer?`, answer: 'FYNE SURFACES offers lifelike artificial trees, plants, bush packs, hanging creepers and greenery for vertical gardens.' },
-    { question: 'Are the plants artificial?', answer: 'Yes. The store specializes in lifelike artificial greenery designed for decorative use.' },
-    { question: 'Do artificial plants need watering?', answer: 'No watering is needed. Artificial greenery also does not need sunlight or pruning.' },
-    { question: 'Where can artificial greenery be used?', answer: 'The catalog presents greenery for homes, offices, hotels, retail spaces and other interiors.' },
+    { question: `What does ${brand} offer?`, answer: 'FYNE SURFACES offers lifelike artificial trees, plants, bush packs, hanging creepers and plants for vertical gardens.' },
+    { question: 'Are the plants artificial?', answer: 'Yes. The store specializes in lifelike artificial plants designed for decoration.' },
+    { question: 'Do artificial plants need watering?', answer: 'No watering is needed. Artificial plants also do not need sunlight or pruning.' },
+    { question: 'Where can artificial plants be used?', answer: 'The catalog presents plants for homes, offices, hotels, retail spaces and other interiors.' },
     { question: 'Which collections can I browse?', answer: `Current collections include ${collectionNames}.` },
     { question: 'How do I choose the right size?', answer: 'Compare the listed height and other specifications on each product page with the space where you plan to place it.' },
     { question: 'Where can I see product prices?', answer: 'Prices are shown on product cards and product detail pages in Indian rupees.' },
@@ -22,13 +22,13 @@ export function homeFaqs(collections: CollectionSummary[]): Faq[] {
 }
 
 export function collectionIndexFaqs(collections: CollectionSummary[]): Faq[] {
-  const collectionNames = collections.length ? collections.map((item) => item.name).join(', ') : 'the available greenery collections';
+  const collectionNames = collections.length ? collections.map((item) => item.name).join(', ') : 'the available plant collections';
   return [
-    { question: 'How are products organised?', answer: `Products are grouped into collections such as ${collectionNames}, so you can browse by greenery type.` },
+    { question: 'How are products organised?', answer: `Products are grouped into collections such as ${collectionNames}, so you can browse by plant type.` },
     { question: 'How do I open a collection?', answer: 'Choose a collection tile to view its products and collection details.' },
     { question: 'Can I compare product sizes?', answer: 'Open product pages and compare their listed dimensions and specifications.' },
-    { question: 'Are these real plants?', answer: 'The collections feature lifelike artificial plants and greenery.' },
-    { question: 'Do artificial plants need water or sunlight?', answer: 'No. Artificial greenery does not need watering or sunlight.' },
+    { question: 'Are these real plants?', answer: 'The collections feature lifelike artificial plants.' },
+    { question: 'Do artificial plants need water or sunlight?', answer: 'No. Artificial plants do not need watering or sunlight.' },
     { question: 'Where can I see a product price?', answer: 'Each product card and detail page displays the listed price in Indian rupees.' },
     { question: 'How do I check if an item is available?', answer: 'Open the product page to see its current availability status.' },
     { question: 'Can I filter products in a collection?', answer: 'Collection pages provide filters where available, including product attributes such as height and price.' },
@@ -45,14 +45,14 @@ export function collectionFaqs(name: string, productCount: number): Faq[] {
     : `There are currently no product listings in ${name}. Contact FYNE SURFACES for help finding a suitable product.`;
   return [
     { question: `What is included in the ${name} collection?`, answer: collectionSummary },
-    { question: `Are the ${name} products artificial?`, answer: 'FYNE SURFACES specializes in lifelike artificial greenery for decorative spaces.' },
+    { question: `Are the ${name} products artificial?`, answer: 'FYNE SURFACES specializes in lifelike artificial plants for decorative spaces.' },
     { question: 'How can I compare the products here?', answer: 'Open individual product pages to compare their photos, prices and catalog specifications.' },
     { question: 'Where can I find product dimensions?', answer: 'Product dimensions and other catalog specifications appear on each product detail page.' },
     { question: 'How do I check availability?', answer: 'Each product page shows the current availability status.' },
     { question: 'Where are prices listed?', answer: 'The product card and product detail page show the listed price in Indian rupees.' },
     { question: 'Can I filter this collection?', answer: 'Use the collection filters, when available, to narrow products by listed attributes such as height or price.' },
-    { question: 'Do these products need watering?', answer: 'No watering is needed for artificial greenery.' },
-    { question: 'Do these products need sunlight?', answer: 'Artificial greenery does not need sunlight; check each product page for its listed use and specifications.' },
+    { question: 'Do these products need watering?', answer: 'No watering is needed for artificial plants.' },
+    { question: 'Do these products need sunlight?', answer: 'Artificial plants do not need sunlight; check each product page for its listed use and specifications.' },
     { question: 'How do I order an item?', answer: 'Open an available product, add it to your cart and continue to checkout.' },
     { question: 'How is shipping calculated?', answer: 'Shipping charges are calculated during checkout.' },
     { question: 'Can I get help selecting products for a project?', answer: 'Yes. Contact the FYNE SURFACES team to discuss a space or larger project.' },
@@ -72,9 +72,9 @@ export function productFaqs(product: ProductSummary): Faq[] {
     { question: `What is the height of ${name}?`, answer: height ? `The catalog lists the height as ${height}. See the specifications for other dimensions.` : 'Check the specifications section on this page for any dimensions supplied in the catalog.' },
     { question: `How many pieces are included with ${name}?`, answer: specs.packSize ? `The catalog lists a pack size of ${specs.packSize} ${specs.packSize === 1 ? 'piece' : 'pieces'}.` : 'A pack size is not listed in the product specifications.' },
     { question: `What material details are listed for ${name}?`, answer: material || 'See the specifications section for the material details provided in the catalog.' },
-    { question: `Does ${name} need watering?`, answer: 'No watering is needed for this artificial greenery product.' },
-    { question: `Does ${name} need sunlight?`, answer: 'Artificial greenery does not need sunlight. Check this page for product-specific use details.' },
-    { question: `Where can I use ${name}?`, answer: `Review the product description and specifications for its recommended use. The ${brand} catalog covers greenery for homes, offices, hotels and retail spaces.` },
+    { question: `Does ${name} need watering?`, answer: 'No watering is needed for this artificial plant.' },
+    { question: `Does ${name} need sunlight?`, answer: 'Artificial plants do not need sunlight. Check this page for product-specific use details.' },
+    { question: `Where can I use ${name}?`, answer: `Review the product description and specifications for its recommended use. The ${brand} catalog covers plants for homes, offices, hotels and retail spaces.` },
     { question: `How do I order ${name}?`, answer: 'If the item is available, use Add to cart and continue to checkout.' },
     { question: `Who can help me choose ${name}?`, answer: 'Contact the FYNE SURFACES team for help matching the product to your space or project.' },
   ];
@@ -102,9 +102,9 @@ export function contentPageFaqs(slug: string, title: string, excerpt?: string, s
       { question: 'Can I place an order online?', answer: 'Yes. Products can be added to the cart and ordered through the online checkout when available.' },
       { question: 'Where can I check product prices?', answer: 'Prices are displayed on product cards and product detail pages.' },
       { question: 'Where can I check product availability?', answer: 'Open the product detail page to see its current availability.' },
-      { question: 'What details should I share for a project enquiry?', answer: 'Share the type of space, approximate dimensions and the greenery style you are considering.' },
-      { question: 'Can offices and businesses contact the team?', answer: 'Yes. The team can discuss greenery needs for offices, hotels, retail spaces and larger installations.' },
-      { question: 'Does artificial greenery need maintenance?', answer: 'Artificial greenery does not require watering, sunlight or pruning.' },
+      { question: 'What details should I share for a project enquiry?', answer: 'Share the type of space, approximate dimensions and the plant style you are considering.' },
+      { question: 'Can offices and businesses contact the team?', answer: 'Yes. The team can discuss plant needs for offices, hotels, retail spaces and larger installations.' },
+      { question: 'Do artificial plants need maintenance?', answer: 'Artificial plants do not require watering, sunlight or pruning.' },
       { question: 'Can I visit the store?', answer: 'Contact the store using the listed phone number to confirm visit arrangements before travelling.' },
     ];
   }
@@ -129,17 +129,17 @@ export function contentPageFaqs(slug: string, title: string, excerpt?: string, s
 
   if (slug === 'about') {
     return [
-      { question: 'What is FYNE SURFACES?', answer: excerpt?.trim() || 'FYNE SURFACES offers lifelike artificial greenery and vertical garden products.' },
-      { question: 'What products does FYNE SURFACES offer?', answer: 'The store offers artificial trees, plants, bush packs, hanging creepers and vertical garden greenery.' },
-      { question: 'Are the plants artificial?', answer: 'Yes. FYNE SURFACES specializes in lifelike artificial greenery.' },
+      { question: 'What is FYNE SURFACES?', answer: excerpt?.trim() || 'FYNE SURFACES offers lifelike artificial plants and vertical garden products.' },
+      { question: 'What products does FYNE SURFACES offer?', answer: 'The store offers artificial trees, plants, bush packs, hanging creepers and plants for vertical gardens.' },
+      { question: 'Are the plants artificial?', answer: 'Yes. FYNE SURFACES specializes in lifelike artificial plants.' },
       { question: 'Do artificial plants need watering?', answer: 'No watering is needed for artificial plants.' },
-      { question: 'Do artificial plants need sunlight?', answer: 'Artificial greenery does not need sunlight.' },
+      { question: 'Do artificial plants need sunlight?', answer: 'Artificial plants do not need sunlight.' },
       { question: 'Where can I browse the collections?', answer: 'Visit the collections page to browse the available product groups.' },
       { question: 'Where can I see product dimensions?', answer: 'Product pages show the dimensions and other specifications supplied in the catalog.' },
       { question: 'Can I order products online?', answer: 'Available products can be added to the cart and ordered through checkout.' },
       { question: 'Where are product prices listed?', answer: 'Prices appear on product cards and product detail pages.' },
       { question: 'How can I check availability?', answer: 'Open a product page to see its current availability status.' },
-      { question: 'Does FYNE SURFACES work with businesses?', answer: 'The team can discuss greenery needs for offices, hotels, retail spaces and larger installations.' },
+      { question: 'Does FYNE SURFACES work with businesses?', answer: 'The team can discuss plant needs for offices, hotels, retail spaces and larger installations.' },
       { question: 'How can I contact FYNE SURFACES?', answer: 'Use the phone number or address shown on the contact page.' },
     ];
   }
@@ -149,14 +149,14 @@ export function contentPageFaqs(slug: string, title: string, excerpt?: string, s
     { question: `What is covered on the ${title} page?`, answer: pageSummary },
     { question: `Where can I find the latest ${title} information?`, answer: 'The information published on this page is the current reference. Contact FYNE SURFACES if you need clarification.' },
     { question: `Who can I contact about ${title.toLowerCase()}?`, answer: 'Use the phone number or other contact details on the contact page to reach FYNE SURFACES.' },
-    { question: 'What products does FYNE SURFACES offer?', answer: 'The store offers lifelike artificial trees, plants, bush packs, hanging creepers and vertical garden greenery.' },
-    { question: 'Are the plants artificial?', answer: 'Yes. FYNE SURFACES specializes in lifelike artificial greenery.' },
+    { question: 'What products does FYNE SURFACES offer?', answer: 'The store offers lifelike artificial trees, plants, bush packs, hanging creepers and plants for vertical gardens.' },
+    { question: 'Are the plants artificial?', answer: 'Yes. FYNE SURFACES specializes in lifelike artificial plants.' },
     { question: 'Do artificial plants need watering?', answer: 'No watering is needed for artificial plants.' },
-    { question: 'Do artificial plants need sunlight?', answer: 'Artificial greenery does not need sunlight.' },
+    { question: 'Do artificial plants need sunlight?', answer: 'Artificial plants do not need sunlight.' },
     { question: 'Where can I browse the collections?', answer: 'Visit the collections page to browse the available product groups.' },
     { question: 'Where can I see product dimensions?', answer: 'Product pages show the dimensions and other specifications supplied in the catalog.' },
     { question: 'How can I check product availability?', answer: 'Open a product page to see its current availability status.' },
     { question: 'Can I order products online?', answer: 'Available products can be added to the cart and ordered through checkout.' },
-    { question: 'How do I request help for a project?', answer: 'Use the contact page to discuss your space or a larger greenery project with the team.' },
+    { question: 'How do I request help for a project?', answer: 'Use the contact page to discuss your space or a larger artificial plant project with the team.' },
   ];
 }

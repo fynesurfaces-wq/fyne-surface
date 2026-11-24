@@ -52,6 +52,7 @@ module.exports = Object.freeze({
   corsOrigins: [
     ...new Set([
       'http://localhost:3000',
+      'http://localhost:3001',
       'http://localhost:5173',
       'https://fyne-surface.vercel.app',
       'https://fyne-surface-qivi.vercel.app',

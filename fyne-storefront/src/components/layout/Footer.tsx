@@ -30,6 +30,9 @@ export function Footer({ settings, collections }: { settings: StoreSettings | nu
           <p className="mt-6 max-w-xs text-sm leading-relaxed">
             {settings?.tagline || 'Premium Vertical Garden'} — lifelike artificial trees, plants and bush packs that stay green all year, with zero maintenance.
           </p>
+          <Link href="/collections" className="mt-4 inline-flex text-sm font-medium text-white underline decoration-white/40 underline-offset-4 transition hover:text-accent-300">
+            Shop artificial plants in Mumbai
+          </Link>
           <p className="mt-4 text-[11px] font-semibold uppercase tracking-[0.22em] text-accent-300">Natural spaces. Better living.</p>
           {socials.length > 0 && (
             <ul className="mt-8 flex gap-3">

@@ -178,19 +178,19 @@ export function Navbar({ collections }: { collections: CollectionSummary[] }) {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.3, ease: EASE }}
-              className="absolute inset-x-0 top-full hidden border-t border-line bg-white shadow-lift lg:block"
+              className="absolute inset-x-0 top-full hidden max-h-[calc(100svh-5rem)] overflow-y-auto overscroll-contain border-t border-line bg-white shadow-lift lg:block"
             >
               <div className="container grid grid-cols-12 gap-10 py-10">
                 <div className="col-span-3">
                   <p className="text-eyebrow uppercase text-accent">Collections</p>
-                  <p className="mt-3 text-2xl font-semibold tracking-tight text-ink">Greenery that never fades.</p>
+                  <p className="mt-3 text-2xl font-semibold tracking-tight text-ink">Plants that stay fresh all year.</p>
                   <p className="mt-3 text-sm leading-relaxed text-ink-muted">Lifelike trees, plants and bush packs for homes, offices and hospitality spaces.</p>
                   <Link href="/collections" className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-primary hover:gap-3 transition-all">
                     Shop all collections <ArrowRight className="h-4 w-4" />
                   </Link>
                 </div>
                 <ul className="col-span-9 grid grid-cols-3 gap-6">
-                  {collections.slice(0, 10).map((c) => (
+                  {collections.map((c) => (
                     <li key={c.id}>
                       <Link href={`/collections/${c.slug}`} className="group block">
                         <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-sand">
@@ -200,7 +200,6 @@ export function Navbar({ collections }: { collections: CollectionSummary[] }) {
                           {c.name}
                           <ArrowRight className="h-4 w-4 -translate-x-2 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100" />
                         </p>
-                        <p className="text-sm text-ink-muted">{c.productCount} {c.productCount === 1 ? 'product' : 'products'}</p>
                       </Link>
                     </li>
                   ))}
@@ -231,23 +230,23 @@ export function Navbar({ collections }: { collections: CollectionSummary[] }) {
                 <Logo />
                 <button onClick={() => setMobileOpen(false)} className="rounded-full p-2 text-ink" aria-label="Close menu"><X className="h-6 w-6" /></button>
               </div>
-              <div className="flex-1 overflow-y-auto px-5 py-6">
+              <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 py-6 [-webkit-overflow-scrolling:touch]">
                 <p className="text-eyebrow uppercase text-accent">Collections</p>
                 <ul className="mt-3 divide-y divide-line">
                   {collections.map((c) => (
                     <li key={c.id}>
                       <Link href={`/collections/${c.slug}`} className={cn('flex items-center justify-between py-4 text-lg font-medium text-ink', mobileLinkCls(pathname === `/collections/${c.slug}`))} aria-current={pathname === `/collections/${c.slug}` ? 'page' : undefined}>
-                        {c.name} <span className="text-sm text-ink-faint">{c.productCount}</span>
+                        {c.name}
                       </Link>
                     </li>
                   ))}
                 </ul>
-                <div className="mt-8 space-y-4 text-base font-medium text-ink-soft">
+                {/* <div className="mt-8 space-y-4 text-base font-medium text-ink-soft">
                   <Link href="/collections" className={mobileLinkCls(pathname === '/collections')} aria-current={pathname === '/collections' ? 'page' : undefined}>Shop All</Link>
                   <Link href="/pages/about" className={mobileLinkCls(pathname === '/pages/about')} aria-current={pathname === '/pages/about' ? 'page' : undefined}>Our Story</Link>
                   <Link href="/pages/contact" className={mobileLinkCls(pathname === '/pages/contact')} aria-current={pathname === '/pages/contact' ? 'page' : undefined}>Contact</Link>
                   <Link href="/cart" className={mobileLinkCls(pathname === '/cart')} aria-current={pathname === '/cart' ? 'page' : undefined}>Cart{hydrated && count ? ` (${count})` : ''}</Link>
-                </div>
+                </div> */}
               </div>
             </motion.nav>
           </motion.div>

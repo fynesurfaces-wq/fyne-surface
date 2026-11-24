@@ -72,14 +72,14 @@ export function ProductCard({ product: p, priority, headingLevel = 'h3' }: { pro
       </div>
 
       <div className="flex flex-1 flex-col pt-4">
-        <div className="flex items-start justify-between gap-4">
-          <div className="min-w-0">
+        <div className="flex min-w-0 flex-col items-start gap-2 sm:flex-row sm:justify-between">
+          <div className="min-w-0 w-full sm:flex-1">
             <Heading className="text-[15px] font-semibold leading-snug tracking-[-0.01em] text-ink transition-colors duration-300 group-hover:text-primary">
               <Link href={href} className="hover:text-primary">{p.name}</Link>
             </Heading>
             <p className="mt-1 text-[12px] uppercase tracking-[0.12em] text-ink-faint">SKU {p.sku}</p>
           </div>
-          <div className="text-right">
+          <div className="max-w-full text-left sm:shrink-0 sm:text-right">
             <p className="whitespace-nowrap text-[15px] font-semibold tabular-nums text-ink">{formatINR(p.price.amount)}</p>
             {discount > 0 && <p className="text-xs tabular-nums text-ink-faint line-through">{formatINR(p.price.compareAt!)}</p>}
           </div>

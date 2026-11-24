@@ -14,6 +14,7 @@ import { RelatedProducts } from '@/components/product/RelatedProducts';
 import { Reveal, TextReveal } from '@/components/ui/Motion';
 import { FaqSection, faqSchemaNode } from '@/components/seo/FaqSection';
 import { productFaqs } from '@/lib/page-faqs';
+import { SeoAnswerSection } from '@/components/seo/SeoAnswerSection';
 
 // ── ISR: pre-render every active product at build, refresh every 5 minutes ──
 export const revalidate = REVALIDATE;
@@ -106,7 +107,7 @@ export default async function ProductPage({ params }: Props) {
                 {p.collection.name}
               </Link>
             )}
-            <TextReveal as="h1" className="mt-3 text-display-md text-ink">{p.name} — Artificial Greenery for Mumbai Homes</TextReveal>
+            <TextReveal as="h1" className="mt-3 text-display-md text-ink">{p.name} — Artificial Plants in Mumbai</TextReveal>
             <p className="mt-3 text-[13px] uppercase tracking-[0.16em] text-ink-muted">
               SKU <span className="font-semibold text-ink-soft">{p.sku}</span>
             </p>
@@ -174,6 +175,13 @@ export default async function ProductPage({ params }: Props) {
         {p.related.length > 0 && <RelatedProducts items={p.related} />}
       </div>
 
+      <SeoAnswerSection
+        heading={`About ${p.name}`}
+        paragraphs={[
+          `Find artificial plants in Mumbai such as ${p.name} at FYNE SURFACES. ${p.summary}`,
+          `${p.name} is listed${p.collection ? ` in the ${p.collection.name} collection` : ''} for ${formatINR(p.price.amount)} and is currently ${p.availability.inStock ? 'in stock' : 'out of stock'}. Review the product specifications for the dimensions, materials and pack details provided in the catalog before ordering.`,
+        ]}
+      />
       <FaqSection faqs={faqs} id="product-faqs" includeJsonLd={false} />
     </>
   );

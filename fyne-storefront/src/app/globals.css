@@ -8,10 +8,19 @@
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     scroll-behavior: smooth;
+    overflow-x: clip;
   }
   body {
     @apply bg-white text-ink;
     font-feature-settings: 'ss01', 'cv11'; /* Inter: refined single-storey a & tidy numerals */
+    min-width: 320px;
+    overflow-x: clip;
+  }
+  img, video, svg {
+    max-width: 100%;
+  }
+  h1, h2, h3, p, a, button, summary {
+    overflow-wrap: anywhere;
   }
   ::selection {
     @apply bg-primary-100 text-primary-900;

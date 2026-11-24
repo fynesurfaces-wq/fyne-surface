@@ -9,6 +9,7 @@ import { CartDrawer } from '@/components/cart/CartDrawer';
 import { MotionProvider } from '@/components/ui/Motion';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { PageViewTracker } from '@/components/layout/PageViewTracker';
+import { ContactActions } from '@/components/layout/ContactActions';
 import { CartHydrator } from '@/store/CartHydrator';
 
 export const revalidate = 300;
@@ -19,7 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const title = s?.seo?.defaultMetaTitle || `${name} | Premium Artificial Plants & Vertical Gardens`;
   const description =
     s?.seo?.defaultMetaDescription ||
-    'Lifelike artificial trees, plants and bush packs for homes, offices and hospitality. Zero maintenance greenery by FYNE SURFACES — Premium Vertical Garden.';
+    'Shop artificial plants in Mumbai, including lifelike trees, plants and bush packs for homes, offices and hospitality spaces.';
   return {
     metadataBase: new URL(SITE_URL),
     title: { default: title, template: `%s | ${name}` },
@@ -58,6 +59,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <main id="main" className="flex-1">{children}</main>
           <Footer settings={settings} collections={collections} />
           <CartDrawer />
+          <ContactActions phone={settings?.contact?.phone} whatsapp={settings?.contact?.whatsapp} />
         </MotionProvider>
         <CartHydrator />
         <PageViewTracker />

@@ -60,7 +60,7 @@ export function CartDrawer() {
               <div className="flex flex-1 flex-col items-center justify-center px-8 text-center">
                 <span className="flex h-16 w-16 items-center justify-center rounded-full bg-primary-50 text-primary"><ShoppingBag className="h-7 w-7" /></span>
                 <p className="mt-5 text-lg font-semibold text-ink">Your cart is empty</p>
-                <p className="mt-1.5 text-sm text-ink-muted">Discover lifelike greenery for every space.</p>
+                <p className="mt-1.5 text-sm text-ink-muted">Discover lifelike artificial plants for every space.</p>
                 <ButtonLink href="/collections" className="mt-7" onClick={close}>Explore collections</ButtonLink>
               </div>
             ) : (

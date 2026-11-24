@@ -7,12 +7,13 @@ import { JsonLd } from '@/components/seo/JsonLd';
 import { SITE_URL } from '@/lib/utils';
 import { FaqSection } from '@/components/seo/FaqSection';
 import { collectionIndexFaqs } from '@/lib/page-faqs';
+import { SeoAnswerSection } from '@/components/seo/SeoAnswerSection';
 
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: 'Artificial Plant Collections from a Mumbai Manufacturer',
-  description: 'Browse every FYNE SURFACES collection: tall artificial trees above 1.2 m, compact plants under 1.2 m, and bush packs for vertical gardens.',
+  title: 'Artificial Plant Collections in Mumbai | FYNE SURFACES',
+  description: 'Browse artificial plants in Mumbai across FYNE SURFACES collections, from tall decorative trees to compact plants and bush packs for vertical gardens.',
   alternates: { canonical: '/collections' },
 };
 
@@ -33,8 +34,8 @@ export default async function CollectionsIndex() {
       <section className="container pb-20 pt-12 lg:pb-28 lg:pt-20">
         <Reveal className="mb-12 max-w-3xl lg:mb-16">
           <p className="text-eyebrow uppercase text-accent">Shop</p>
-          <h1 className="mt-4 text-display-lg text-ink">Artificial Plant Décor Collections in Mumbai</h1>
-          <p className="mt-5 text-lg leading-relaxed text-ink-muted">Premium artificial greenery, organised by scale — from statement trees to bush packs for living walls.</p>
+          <h1 className="mt-4 text-display-lg text-ink">Artificial Plant Collections in Mumbai</h1>
+          <p className="mt-5 text-lg leading-relaxed text-ink-muted">Artificial plants organised by scale — from statement trees to bush packs for vertical gardens.</p>
         </Reveal>
         <CollectionTiles collections={collections} />
       </section>
@@ -48,6 +49,13 @@ export default async function CollectionsIndex() {
         </section>
       )}
 
+      <SeoAnswerSection
+        heading="How to choose artificial plants"
+        paragraphs={[
+          `Browse artificial plants in Mumbai across ${collections.length ? collections.map((collection) => collection.name).join(', ') : 'our available plant collections'} to compare styles and find plants for your space. The collection pages group products by type so you can narrow your options before opening a product.`,
+          'Check each product page for its photographs, listed size, specifications, current availability and price. For a vertical garden or a larger commercial project, contact FYNE SURFACES with your approximate measurements to discuss product selection and quantities.',
+        ]}
+      />
       <FaqSection faqs={collectionIndexFaqs(collections)} id="collections-faqs" />
     </>
   );
