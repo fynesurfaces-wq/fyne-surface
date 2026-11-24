@@ -31,7 +31,7 @@ function BackgroundSlide({ image, index, count, progress }: { image: HeroImage; 
 
 /** Pinned hero whose five lifestyle backgrounds crossfade as the visitor scrolls. */
 export function Hero({ images }: { images: HeroImage[] }) {
-  const sectionRef = useRef<HTMLElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start start', 'end end'] });
 
