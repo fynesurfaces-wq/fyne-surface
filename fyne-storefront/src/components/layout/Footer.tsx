@@ -89,6 +89,7 @@ export function Footer({ settings, collections }: { settings: StoreSettings | nu
       <div className="border-t border-white/10">
         <div className="container flex flex-col gap-3 py-6 text-xs text-white/50 sm:flex-row sm:items-center sm:justify-between">
           <p>© {year} {settings?.storeName || 'FYNE SURFACES'}. All rights reserved.</p>
+          <p>SEO Company in Mumbai</p>
           <p>Prices in INR {settings?.tax?.pricesIncludeTax === false ? '(excl. GST)' : '(incl. GST)'}</p>
         </div>
       </div>
