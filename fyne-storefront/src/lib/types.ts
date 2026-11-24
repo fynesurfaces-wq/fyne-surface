@@ -34,7 +34,7 @@ export interface Specifications {
 /** /store/products list item (AEO presenter, no JSON-LD). */
 export interface ProductSummary {
   id: string;
-  name: string;
+  name?: string;
   slug: string;
   sku: string;
   url: string;
@@ -53,6 +53,8 @@ export interface ProductSummary {
   tags: string[];
   faqs: { question: string; answer: string }[];
   isFeatured: boolean;
+  isNewArrival?: boolean;
+  isNewArrival?: boolean;
   seo: { title: string; description: string; keywords: string[]; canonicalUrl: string };
   breadcrumbs: Breadcrumb[];
   updatedAt: string;

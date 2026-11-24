@@ -8,6 +8,8 @@ const PREFIX = 'fyne:store-cache';
 function responseCache(namespace, ttlSeconds = 3600) {
   return async (req, res, next) => {
     if (req.method !== 'GET' || !redis?.isReady) return next();
+    // New-arrival merchandising changes frequently and must reflect admin edits immediately.
+    if (namespace === 'products' && req.query.newArrival === 'true') return next();
 
     const key = `${PREFIX}:${namespace}:${req.originalUrl}`;
     try {

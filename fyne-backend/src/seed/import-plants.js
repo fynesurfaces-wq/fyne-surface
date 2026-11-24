@@ -20,6 +20,30 @@ const APPLY = process.argv.includes('--apply');
 const COLLECTION_SLUG = 'plants';
 const CATALOG = require('./plants-catalog.json');
 const ASSET_DIR = path.join(__dirname, 'assets', 'plants');
+const UNIQUE_PRODUCT_NAMES = {
+  FYN101E: 'Palm - 4 ft, 19 leaves',
+  FYN105E: 'Rubber Plant - 5 ft',
+  FYN106E: 'Birds of Paradise - 5.3 ft',
+  FYN108E: 'Dracaena - 4 ft',
+  FYN110E: 'Codiaeum - 1.5 ft',
+  FYN111E: 'Palm Tree - 3.2 ft',
+  FYN112E: 'Palm Tree - 6 ft',
+  FYN113E: 'Palm Tree - 2 ft',
+  FYN114E: 'Rubber Plant - 3 ft',
+  FYN118E: 'Birds of Paradise - 4.6 ft',
+  FYN119E: 'Palm Tree - 4.3 ft',
+  FYN120E: 'Palm - 4 ft, 8 leaves',
+  FYN121E: 'Palm Tree - 5.3 ft',
+  FYN122E: 'Palm - 3.4 ft, 12 leaves',
+  FYN124E: 'Dracaena - 1.4 ft',
+  FYN125E: 'Codiaeum - 3 ft',
+  FYN128E: 'Birds of Paradise - 1.9 ft',
+  FYN130E: 'Dracaena - 3.6 ft',
+};
+const productNameFor = (item) => {
+  if (UNIQUE_PRODUCT_NAMES[item.sku]) return UNIQUE_PRODUCT_NAMES[item.sku];
+  return item.name === 'Real Touch Foliage Plant' ? undefined : item.name;
+};
 
 const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (char) => ({
   '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
@@ -32,25 +56,27 @@ function contentFor(item) {
   if (item.trunk) facts.push(`${item.trunk.toLowerCase()} trunk`);
   if (item.note) facts.push(item.note);
 
-  const name = escapeHtml(item.name);
+  const productName = productNameFor(item);
+  const label = productName || 'Artificial foliage plant';
+  const name = escapeHtml(label);
   const sku = escapeHtml(item.sku);
   const factText = escapeHtml(facts.join('; '));
   const imageAlt = `${item.name} artificial plant by FYNE SURFACES, ${item.sku}`;
-  const shortDescription = `${item.name} (${item.sku}), an artificial plant listed at ${item.height} ft high. ${facts.slice(1).join('; ')}.`.slice(0, 500);
+  const shortDescription = `${label}, an artificial plant listed at ${item.height} ft high. ${facts.slice(1).join('; ')}.`.slice(0, 500);
   const description = `<p>${name} (${sku}) is an artificial plant from FYNE SURFACES.</p><p>Catalog specifications: ${factText}.</p><p>Height is listed without the pot.</p>`;
-  const metaTitle = `${item.name} ${item.sku} | Artificial Plant | FYNE`.slice(0, 70);
-  const metaDescription = `${item.name} (${item.sku}) artificial plant by FYNE SURFACES. ${facts.join('. ')}. View dimensions and product details.`.slice(0, 170);
-  const terms = [item.name.toLowerCase(), `artificial ${item.name.toLowerCase()}`, item.sku.toLowerCase(), 'artificial plants india'];
+  const metaTitle = `${productName || item.sku} | Artificial Plant | FYNE`.slice(0, 70);
+  const metaDescription = `${label} by FYNE SURFACES. ${facts.join('. ')}. View dimensions and product details.`.slice(0, 170);
+  const terms = [label.toLowerCase(), `artificial ${label.toLowerCase()}`, item.sku.toLowerCase(), 'artificial plants india'];
 
   return {
     imageAlt,
     shortDescription,
     description,
-    tags: [...new Set(['artificial plant', item.name.toLowerCase(), 'plant decor'])],
+    tags: [...new Set(['artificial plant', label.toLowerCase(), 'plant decor'])],
     seo: { metaTitle, metaDescription, keywords: [...new Set(terms)] },
     faqs: [
-      { question: `What are the dimensions of the ${item.name} (${item.sku})?`, answer: `The catalog lists it at ${item.height} ft high, measured without the pot.` },
-      { question: `What materials and details are listed for the ${item.name} (${item.sku})?`, answer: facts.slice(1).join('; ') || 'See the product specifications for the details provided in the catalog.' },
+      { question: `What are the dimensions of this plant?`, answer: `The catalog lists it at ${item.height} ft high, measured without the pot.` },
+      { question: 'What materials and details are listed?', answer: facts.slice(1).join('; ') || 'See the product specifications for the details provided in the catalog.' },
     ],
   };
 }
@@ -99,8 +125,8 @@ async function importOne(item, collection, uploader) {
 
   try {
     product.set({
-      name: item.name,
-      slug: existing?.slug || await uniqueSlug(Product, slugify(`${item.name}-${item.sku}`)),
+      name: productNameFor(item),
+      slug: existing?.slug || await uniqueSlug(Product, slugify(`${productNameFor(item) || item.sku}`)),
       collection: collection._id,
       price: item.price,
       currency: 'INR',

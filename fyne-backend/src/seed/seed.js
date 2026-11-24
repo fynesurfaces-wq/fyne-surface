@@ -47,7 +47,7 @@ const PRODUCTS = [
     stock: 5, tags: ['tree', 'flowering', 'tall'],
   },
   {
-    collection: '1-2mtr-and-above', name: 'Palm Tree', sku: 'FYN112E', price: 169500, slug: 'palm-tree-fyn112e',
+    collection: '1-2mtr-and-above', name: 'Palm Tree - 6 ft', sku: 'FYN112E', price: 169500, slug: 'palm-tree-fyn112e',
     specifications: { height: { value: 6, unit: 'ft' }, leaves: { count: 21, material: 'PE' }, trunkMaterial: 'Plastic', indoorOutdoor: 'indoor' },
     stock: 5, tags: ['tree', 'palm', 'tall', 'tropical'],
   },
@@ -62,12 +62,12 @@ const PRODUCTS = [
     stock: 5, tags: ['orchid', 'flowering', 'white', 'tabletop'],
   },
   {
-    collection: 'bushes-collection-0325', name: 'Bush Pack', sku: 'FS-3026', price: 1550, slug: 'bush-pack-fs-3026',
+    collection: 'bushes-collection-0325', name: 'Bush Pack - Design A', sku: 'FS-3026', price: 1550, slug: 'bush-pack-fs-3026',
     specifications: { packSize: 6 },
     stock: 50, tags: ['bush', 'vertical garden', 'green wall'],
   },
   {
-    collection: 'bushes-collection-0325', name: 'Bush Pack', sku: 'FS-3024', price: 1550, slug: 'bush-pack-fs-3024',
+    collection: 'bushes-collection-0325', name: 'Bush Pack - Design B', sku: 'FS-3024', price: 1550, slug: 'bush-pack-fs-3024',
     specifications: { packSize: 6 },
     stock: 50, tags: ['bush', 'vertical garden', 'green wall'],
   },
@@ -75,6 +75,7 @@ const PRODUCTS = [
 
 function enrich(p, collectionName) {
   const s = p.specifications;
+  const productName = p.name;
   const facts = [
     s.height && `${s.height.value} ${s.height.unit} tall`,
     s.leaves?.count != null && `${s.leaves.count.toLocaleString('en-IN')} ${s.leaves.material ? `${s.leaves.material} ` : ''}leaves`,
@@ -82,19 +83,20 @@ function enrich(p, collectionName) {
     s.trunkMaterial && `${s.trunkMaterial.toLowerCase()} trunk`,
     s.packSize && `pack of ${s.packSize} pieces`,
   ].filter(Boolean);
-  const short = `${p.name} (${p.sku}) — premium artificial ${s.packSize ? 'bush pack' : 'plant'}: ${facts.join(', ')}.`;
+  const short = `${productName} — premium artificial ${s.packSize ? 'bush pack' : 'plant'}: ${facts.join(', ')}.`;
   return {
     ...p,
+    name: productName,
     shortDescription: short,
     description: `<p>${short}</p><p>Part of the ${collectionName} collection by FYNE SURFACES. Maintenance-free, no watering, sunlight or pruning required — stays green all year.</p>`,
     seo: {
-      metaTitle: `${p.name} ${p.sku} | Artificial ${s.packSize ? 'Bushes' : 'Plants'} | FYNE`.slice(0, 70),
+      metaTitle: `${productName} | Artificial ${s.packSize ? 'Bushes' : 'Plants'} | FYNE`.slice(0, 70),
       metaDescription: `${short} Buy online from FYNE SURFACES.`.slice(0, 170),
       keywords: [p.name.toLowerCase(), `artificial ${p.name.toLowerCase()}`, p.sku.toLowerCase()],
     },
     faqs: [
-      { question: `What is the size of the ${p.name} (${p.sku})?`, answer: facts.length ? `It is ${facts.join(', ')}.` : 'Please contact us for exact dimensions.' },
-      { question: `Does the ${p.name} need any maintenance?`, answer: 'No. It is an artificial plant — no watering, sunlight or pruning. Dust occasionally with a soft cloth.' },
+      { question: `What is the size of the ${productName}?`, answer: facts.length ? `It is ${facts.join(', ')}.` : 'Please contact us for exact dimensions.' },
+      { question: `Does the ${productName} need any maintenance?`, answer: 'No. It is an artificial plant — no watering, sunlight or pruning. Dust occasionally with a soft cloth.' },
     ],
     isActive: true,
   };

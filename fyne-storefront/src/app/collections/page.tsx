@@ -17,8 +17,17 @@ export const metadata: Metadata = {
   alternates: { canonical: '/collections' },
 };
 
+async function getAllProducts() {
+  const products = [];
+  for (let page = 1; ; page += 1) {
+    const result = await getProducts({ page, limit: 60 });
+    products.push(...result.data);
+    if (!result.pagination.hasNextPage) return products;
+  }
+}
+
 export default async function CollectionsIndex() {
-  const [collections, all] = await Promise.all([getCollections(), getProducts({ limit: 60 })]);
+  const [collections, allProducts] = await Promise.all([getCollections(), getAllProducts()]);
 
   return (
     <>
@@ -40,11 +49,11 @@ export default async function CollectionsIndex() {
         <CollectionTiles collections={collections} />
       </section>
 
-      {all.data.length > 0 && (
+      {allProducts.length > 0 && (
         <section aria-labelledby="all-products" className="bg-canvas py-20 lg:py-28">
           <div className="container">
             <h2 id="all-products" className="mb-12 text-display-md text-ink">Every product</h2>
-            <ProductGrid products={all.data} headingLevel="h3" />
+            <ProductGrid products={allProducts} headingLevel="h3" />
           </div>
         </section>
       )}

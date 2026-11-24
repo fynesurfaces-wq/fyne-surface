@@ -26,7 +26,7 @@ async function priceCart(items) {
     return {
       product: p._id,
       collection: p.collection,
-      name: p.name,
+      name: p.name || p.sku,
       sku: p.sku,
       image: p.images?.[0]?.url,
       price: p.price,

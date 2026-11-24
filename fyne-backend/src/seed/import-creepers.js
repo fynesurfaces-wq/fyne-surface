@@ -14,8 +14,10 @@ const COLLECTION_SLUG = 'hanging-creepers';
 const CATALOG = require('./creepers-catalog.json');
 const ASSET_DIR = path.join(__dirname, 'assets', 'creepers');
 
+const namesBySku = new Map(CATALOG.map((item) => [item.sku, 'Artificial hanging creeper']));
+
 function contentFor(item) {
-  const name = `Hanging Creeper ${item.sku}`;
+  const name = namesBySku.get(item.sku);
   const imageAlt = `Artificial hanging creeper ${item.sku}, ${item.heightFt} ft long, pack of ${item.packSize}`;
   const shortDescription = `${name} by FYNE SURFACES is ${item.heightFt} ft (${item.heightCm} cm) long and supplied in a pack of ${item.packSize}.`;
   const description = `<p>${name} is an artificial hanging creeper by FYNE SURFACES.</p><p>Catalog dimensions: ${item.heightFt} ft (${item.heightCm} cm). Pack size: ${item.packSize} ${item.packSize === 1 ? 'piece' : 'pieces'}.</p><p>Suitable for adding cascading greenery to indoor décor, planters and vertical garden displays.</p>`;
@@ -31,8 +33,8 @@ function contentFor(item) {
       keywords: ['artificial hanging creeper', 'artificial hanging plant', 'artificial vine', 'vertical garden', item.sku.toLowerCase()],
     },
     faqs: [
-      { question: `What is the size of Hanging Creeper ${item.sku}?`, answer: `The catalog lists a length of ${item.heightFt} ft (${item.heightCm} cm).` },
-      { question: `How many pieces are included in ${item.sku}?`, answer: `The catalog lists ${item.packSize} ${item.packSize === 1 ? 'piece' : 'pieces'} in this pack.` },
+      { question: `What is the size of ${name}?`, answer: `The catalog lists a length of ${item.heightFt} ft (${item.heightCm} cm).` },
+      { question: `How many pieces are included in ${name}?`, answer: `The catalog lists ${item.packSize} ${item.packSize === 1 ? 'piece' : 'pieces'} in this pack.` },
     ],
   };
 }
@@ -59,8 +61,8 @@ async function importOne(item, collection, uploader) {
   const product = existing || new Product({ sku: item.sku });
   try {
     product.set({
-      name: details.name,
-      slug: existing?.slug || await uniqueSlug(Product, slugify(`${details.name}-${item.sku}`)),
+      name: undefined,
+      slug: existing?.slug || await uniqueSlug(Product, slugify(item.sku)),
       collection: collection._id,
       price: item.price,
       currency: 'INR',

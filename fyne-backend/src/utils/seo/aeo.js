@@ -18,8 +18,9 @@ const { productUrl, collectionUrl, productBreadcrumbs, generateProductSchemaGrap
 
 function buildSummary(p, collection, attributes, settings) {
   const brand = settings?.storeName || env.brand.name;
+  const name = String(p.name || '').trim() || p.sku || 'Product';
   const sentences = [
-    `${p.name} (SKU ${p.sku}) is a premium artificial plant by ${brand}${collection ? `, from the "${collection.name}" collection` : ''}.`,
+    `${name} (SKU ${p.sku}) is a premium artificial plant by ${brand}${collection ? `, from the "${collection.name}" collection` : ''}.`,
   ];
   const specBits = attributes
     .filter((a) => ['height', 'leafCount', 'leafMaterial', 'trunkMaterial', 'flowerCount', 'packSize'].includes(a.key))
@@ -38,13 +39,15 @@ function buildSummary(p, collection, attributes, settings) {
  */
 function toPublicProduct(p, { collection, settings, includeJsonLd = true } = {}) {
   const coll = collection || (p.collection && p.collection.name ? p.collection : null);
+  const displayName = String(p.name || '').trim() || p.sku || 'Product';
+  const publicProduct = { ...p, name: displayName };
   const attributes = buildAttributes(p.specifications || {});
   const url = productUrl(p);
   const plainDescription = stripHtml(p.description);
 
   const result = {
     id: String(p._id),
-    name: p.name,
+    name: displayName,
     slug: p.slug,
     sku: p.sku,
     url,
@@ -59,7 +62,7 @@ function toPublicProduct(p, { collection, settings, includeJsonLd = true } = {})
       taxIncluded: settings?.tax ? Boolean(settings.tax.pricesIncludeTax) : null,
     },
     availability: { inStock: p.stock > 0, status: p.stock > 0 ? 'InStock' : 'OutOfStock' },
-    summary: buildSummary(p, coll, attributes, settings),
+    summary: buildSummary(publicProduct, coll, attributes, settings),
     shortDescription: p.shortDescription || truncate(plainDescription, 200),
     descriptionHtml: p.description || '',
     descriptionText: plainDescription,
@@ -73,21 +76,22 @@ function toPublicProduct(p, { collection, settings, includeJsonLd = true } = {})
       ['inStock', p.stock > 0],
       ...attributes.map((a) => [a.key, a.display]),
     ].filter(([, v]) => v !== undefined && v !== null)),
-    images: (p.images || []).map((i) => ({ url: i.url, alt: i.alt || `${p.name} — artificial plant by ${env.brand.name}` })),
+    images: (p.images || []).map((i) => ({ url: i.url, alt: i.alt || `${displayName} — artificial plant by ${env.brand.name}` })),
     tags: p.tags || [],
     faqs: (p.faqs || []).map((f) => ({ question: f.question, answer: stripHtml(f.answer) })),
     isFeatured: Boolean(p.isFeatured),
+    isNewArrival: Boolean(p.isNewArrival),
     seo: {
-      title: p.seo?.metaTitle || `${p.name} | ${coll ? `${coll.name} | ` : ''}${env.brand.name}`.slice(0, 70),
-      description: p.seo?.metaDescription || truncate(plainDescription || buildSummary(p, coll, attributes, settings), 160),
+      title: p.seo?.metaTitle || `${displayName} | ${coll ? `${coll.name} | ` : ''}${env.brand.name}`.slice(0, 70),
+      description: p.seo?.metaDescription || truncate(plainDescription || buildSummary(publicProduct, coll, attributes, settings), 160),
       keywords: p.seo?.keywords || [],
       canonicalUrl: url,
     },
-    breadcrumbs: productBreadcrumbs(p, coll),
+    breadcrumbs: productBreadcrumbs(publicProduct, coll),
     updatedAt: p.updatedAt,
   };
 
-  if (includeJsonLd) result.jsonLd = generateProductSchemaGraph(p, { collection: coll, settings });
+  if (includeJsonLd) result.jsonLd = generateProductSchemaGraph(publicProduct, { collection: coll, settings });
   return result;
 }
 

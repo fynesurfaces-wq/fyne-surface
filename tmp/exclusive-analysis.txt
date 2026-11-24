@@ -1,0 +1,212 @@
+
+PAGE 4
+TEXT [(81.6, 2518.3, 'O u t d o o r & I n d o o r'), (81.6, 2518.3, 'S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s )'), (81.6, 2518.3, '1 2 6 5 0 0'), (323.1, 2436.7, 'F Y N 7 0 1 7 E - A'), (1615.5, 1037.2, 'O u t d o o r & I n d o o r'), (1615.5, 1037.2, 'S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s )'), (1615.5, 1037.2, '1 2 7 5 0 0'), (1857.0, 955.6, 'F Y N 7 0 5 5 E'), (0.0, 850.1, 'F Y N 7 0 1 7 E - A O u t d o o r & I n d o o r S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s ) 1 2 6 5 0 0 F Y N 7 0 5 5 E O u t d o o r & I n d o o r S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s ) 1 2 7 5 0 0')]
+IMAGES [('X5.jpg', (640, 640)), ('X7.jpg', (640, 640)), ('X10.png', (180, 180))]
+
+PAGE 5
+TEXT [(62.5, 2686.4, 'O u t d o o r & I n d o o r'), (62.5, 2686.4, 'S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s )'), (62.5, 2686.4, '1 2 4 0 0 0'), (268.6, 2604.7, 'F Y N 7 0 2 3 E - A'), (1635.8, 982.5, 'O u t d o o r & I n d o o r'), (1635.8, 982.5, 'S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s )'), (1635.8, 982.5, '1 2 9 5 0 0'), (1832.2, 869.3, 'F Y N 7 0 5 6 E'), (0.0, 850.1, 'F Y N 7 0 2 3 E - A O u t d o o r & I n d o o r S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s ) 1 2 4 0 0 0 F Y N 7 0 5 6 E O u t d o o r & I n d o o r S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s ) 1 2 9 5 0 0')]
+IMAGES [('X4.jpg', (675, 675)), ('X8.png', (180, 180)), ('X9.jpg', (720, 720))]
+
+PAGE 6
+TEXT [(2007.3, 3395.2, 'G Z - 1 0 3 8'), (177.2, 3106.9, 'P A G E - 3 3 T O 5 3'), (177.2, 1905.6, 'G R E E N Z I A C o l l e c t i o n P r o d u c t s a r e f o c u s i n g o f'), (177.2, 1905.6, 'm e d i u m c a t a g o r y s e g m e n t w i t h r e a s o n a l'), (177.2, 1905.6, 'q u a l i t y a l o n g w i t h g o o d d u r a l i b i l i t y f o r o u t d o o r .'), (177.2, 1905.6, 's p a c e s .'), (2007.3, 1608.6, 'G Z - 1 0 1 0'), (177.2, 1404.2, 'G R E E NZ I A'), (177.2, 1404.2, 'C O L E C T I O N'), (0.0, 850.1, 'G R E E NZ I A C O L E C T I O N G R E E N Z I A C o l l e c t i o n P r o d u c t s a r e f o c u s i n g o f m e d i u m c a t a g o r y s e g m e n t w i t h r e a s o n a l q u a l i t y a l o n g w i t h g o o d d u r a l i b i l i t y f o r o u t d o o r . s p a c e s . S C A N f o r C a t a l o u g e G Z - 1 0 1 0 G Z - 1 0 3 8 P A G E - 3 3 T O 5 3'), (177.2, 515.6, 'S C A N f o r C a t a l o u g e')]
+IMAGES [('X8.jpg', (720, 720)), ('X11.jpg', (716, 720))]
+
+PAGE 7
+TEXT [(62.5, 2686.4, 'O u t d o o r & I n d o o r'), (62.5, 2686.4, 'S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s )'), (62.5, 2686.4, '1 2 4 0 0 0'), (304.0, 2604.7, 'F Y N 7 0 2 2 E'), (1635.8, 982.5, 'O u t d o o r & I n d o o r'), (1635.8, 982.5, 'S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s )'), (1635.8, 982.5, '1 2 1 5 0 0'), (1832.2, 869.3, 'F Y N 7 0 2 3 E'), (0.0, 850.1, 'F Y N 7 0 2 2 E O u t d o o r & I n d o o r S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s ) 1 2 4 0 0 0 F Y N 7 0 2 3 E O u t d o o r & I n d o o r S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s ) 1 2 1 5 0 0')]
+IMAGES [('X4.jpg', (640, 640)), ('X7.png', (180, 180)), ('X8.jpg', (675, 675))]
+
+PAGE 8
+TEXT [(81.6, 2518.3, 'O u t d o o r & I n d o o r'), (81.6, 2518.3, 'S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s )'), (81.6, 2518.3, '1 3 9 5 0 0'), (323.1, 2436.7, 'F Y N 7 0 3 9 E'), (1615.5, 1037.2, 'O u t d o o r & I n d o o r'), (1615.5, 1037.2, 'S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s )'), (1615.5, 1037.2, '1 2 9 5 0 0'), (1857.0, 955.6, 'F Y N 7 0 3 8 E'), (0.0, 850.1, 'F Y N 7 0 3 9 E O u t d o o r & I n d o o r S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s ) 1 3 9 5 0 0 F Y N 7 0 3 8 E O u t d o o r & I n d o o r S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s ) 1 2 9 5 0 0')]
+IMAGES [('X5.jpg', (720, 720)), ('X7.jpg', (630, 630)), ('X8.jpg', (720, 720)), ('X9.png', (626, 606)), ('X12.png', (150, 150))]
+
+PAGE 9
+TEXT [(2007.3, 3395.2, 'F Y N 7 0 3 0 E'), (217.0, 3106.6, 'P R E M I U M V E R T I C A L G A R D E N'), (177.2, 1905.6, 'F Y N E S u r f a c e s P r o d u c t s a r e s p e c i a l l y c r a f t e d'), (177.2, 1905.6, 'w i t h h i g h q u a l i t y P E m a t e r i a l & P r e m i u m'), (177.2, 1905.6, 'C o l o u r s t o m a k e t h e p r o d u c t l o o k s N a t u r a l'), (177.2, 1905.6, 'b e i n g i t a r t i f i c i a l .'), (2007.3, 1579.2, 'F Y N 7 0 3 8 E'), (177.2, 1404.2, '4D'), (177.2, 1404.2, 'D E SIG NS'), (0.0, 850.1, '4D D E SIG NS F Y N E S u r f a c e s P r o d u c t s a r e s p e c i a l l y c r a f t e d w i t h h i g h q u a l i t y P E m a t e r i a l & P r e m i u m C o l o u r s t o m a k e t h e p r o d u c t l o o k s N a t u r a l b e i n g i t a r t i f i c i a l . S C A N f o r C a t a l o u g e F Y N 7 0 3 8 E F Y N 7 0 3 0 E P R E M I U M V E R T I C A L G A R D E N'), (177.2, 515.6, 'S C A N f o r C a t a l o u g e')]
+IMAGES [('X8.jpg', (720, 720)), ('X11.jpg', (720, 720))]
+
+PAGE 10
+TEXT [(81.6, 2518.3, 'O u t d o o r & I n d o o r'), (81.6, 2518.3, 'S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s )'), (81.6, 2518.3, '1 3 9 5 0 0'), (323.1, 2436.7, 'F Y N 7 0 3 1 E'), (1615.5, 1037.2, 'O u t d o o r & I n d o o r'), (1615.5, 1037.2, 'S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s )'), (1615.5, 1037.2, '1 3 9 5 0 0'), (1857.0, 955.6, 'F Y N 7 0 3 0 E'), (0.0, 850.1, 'F Y N 7 0 3 0 E O u t d o o r & I n d o o r S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s ) 1 3 9 5 0 0 F Y N 7 0 3 1 E O u t d o o r & I n d o o r S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s ) 1 3 9 5 0 0')]
+IMAGES [('X5.jpg', (720, 720)), ('X7.png', (244, 375)), ('X9.png', (250, 384)), ('X12.png', (626, 606)), ('X14.jpg', (720, 720)), ('X15.png', (150, 150))]
+
+PAGE 11
+TEXT [(77.3, 2555.0, 'O u t d o o r & I n d o o r'), (77.3, 2555.0, 'S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s )'), (77.3, 2555.0, '1 2 4 0 0 0'), (318.8, 2473.3, 'F Y N 7 0 1 7 E'), (1679.1, 1014.0, 'O u t d o o r & I n d o o r'), (1679.1, 1014.0, 'S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s )'), (1679.1, 1014.0, '1 2 7 5 0 0'), (1920.6, 932.4, 'F Y N 7 0 1 1 E'), (0.0, 850.1, 'F Y N 7 0 1 7 E F Y N 7 0 1 1 E O u t d o o r & I n d o o r S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s ) 1 2 4 0 0 0 O u t d o o r & I n d o o r S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s ) 1 2 7 5 0 0')]
+IMAGES [('X4.jpg', (640, 640)), ('X30.png', (238, 366)), ('X32.png', (596, 640)), ('X34.png', (269, 419)), ('X36.jpg', (640, 640)), ('X38.png', (150, 150))]
+
+PAGE 12
+TEXT []
+IMAGES [('X4.png', (800, 656)), ('X7.jpg', (800, 800)), ('X9.png', (1278, 1125)), ('X11.png', (150, 150))]
+
+PAGE 13
+TEXT [(62.5, 2666.1, 'O u t d o o r & I n d o o r'), (62.5, 2666.1, 'S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s )'), (62.5, 2666.1, '1 2 2 5 0 0'), (304.0, 2584.5, 'F Y N 7 0 2 4 E'), (298.8, 2519.7, 'F Y N 7 0 2 4 E'), (1631.0, 1009.0, 'O u t d o o r & I n d o o r'), (1631.0, 1009.0, 'S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s )'), (1631.0, 1009.0, '1 2 1 0 0 0'), (1872.5, 927.4, 'F Y N 7 0 2 1 E'), (0.0, 850.1, 'F Y N 7 0 2 4 E F Y N 7 0 2 1 E O u t d o o r & I n d o o r S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s ) 1 2 1 0 0 0 F Y N 7 0 2 4 E O u t d o o r & I n d o o r S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s ) 1 2 2 5 0 0')]
+IMAGES [('X4.jpg', (640, 640)), ('X7.png', (150, 150)), ('X8.jpg', (675, 675))]
+
+PAGE 14
+TEXT [(94.3, 2638.2, 'O u t d o o r & I n d o o r'), (94.3, 2638.2, 'S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s )'), (94.3, 2638.2, '1 2 4 0 0 0'), (335.8, 2556.6, 'F Y N 7 0 3 4 E'), (1674.5, 970.6, 'O u t d o o r & I n d o o r'), (1674.5, 970.6, 'S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s )'), (1674.5, 970.6, '1 2 7 5 0 0'), (1916.1, 889.0, 'F Y N 7 0 3 5 E'), (0.0, 850.1, 'F Y N 7 0 3 4 E F Y N 7 0 3 5 E O u t d o o r & I n d o o r S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s ) 1 2 4 0 0 0 O u t d o o r & I n d o o r S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s ) 1 2 7 5 0 0')]
+IMAGES [('X4.png', (234, 359)), ('X7.jpg', (675, 675)), ('X8.jpg', (800, 600)), ('X9.png', (263, 406)), ('X12.png', (150, 150))]
+
+PAGE 15
+TEXT [(1932.5, 3338.3, 'F Y N 7 0 2 3 E'), (248.1, 2854.5, 'P R E M I U M V E R T I C A L G A R D E N'), (177.2, 1905.6, 'F Y N E S u r f a c e s P r o d u c t s a r e s p e c i a l l y c r a f t e d'), (177.2, 1905.6, 'w i t h h i g h q u a l i t y P E m a t e r i a l & P r e m i u m'), (177.2, 1905.6, 'C o l o u r s t o m a k e t h e p r o d u c t l o o k s N a t u r a l'), (177.2, 1905.6, 'b e i n g i t a r t i f i c i a l .'), (2033.7, 1671.5, 'F Y N 7 0 2 2 E'), (177.2, 1404.2, 'F A L L I NG'), (177.2, 1404.2, 'D E SIG NS'), (0.0, 850.1, 'F A L L I NG D E SIG NS F Y N E S u r f a c e s P r o d u c t s a r e s p e c i a l l y c r a f t e d w i t h h i g h q u a l i t y P E m a t e r i a l & P r e m i u m C o l o u r s t o m a k e t h e p r o d u c t l o o k s N a t u r a l b e i n g i t a r t i f i c i a l . S C A N f o r C a t a l o u g e F Y N 7 0 2 2 E F Y N 7 0 2 3 E P R E M I U M V E R T I C A L G A R D E N'), (177.2, 515.6, 'S C A N f o r C a t a l o u g e')]
+IMAGES [('X8.jpg', (640, 640)), ('X11.jpg', (675, 675)), ('X14.png', (150, 150))]
+
+PAGE 16
+TEXT [(85.6, 2522.1, 'O u t d o o r & I n d o o r'), (85.6, 2522.1, 'S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s )'), (85.6, 2522.1, '1 2 9 5 0 0'), (327.1, 2440.5, 'F Y N 7 0 2 9 E'), (1625.7, 1017.9, 'O u t d o o r & I n d o o r'), (1625.7, 1017.9, 'S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s )'), (1625.7, 1017.9, '1 3 5 0 0 0'), (1867.2, 936.3, 'F Y N 9 0 2 2 E'), (0.0, 850.1, 'F Y N 7 0 2 9 E F Y N 9 0 2 2 E O u t d o o r & I n d o o r S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s ) 1 2 9 5 0 0 O u t d o o r & I n d o o r S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s ) 1 3 5 0 0 0')]
+IMAGES [('X4.png', (244, 375)), ('X7.png', (259, 403)), ('X9.jpg', (720, 682)), ('X10.jpg', (640, 640)), ('X12.png', (150, 150))]
+
+PAGE 17
+TEXT []
+IMAGES [('X4.jpg', (800, 800))]
+
+PAGE 18
+TEXT [(8.6, 2690.4, 'O u t d o o r & I n d o o r'), (8.6, 2690.4, 'S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s )'), (8.6, 2690.4, '1 2 7 5 0 0'), (250.2, 2608.8, 'F Y N 7 0 0 6 E'), (1568.9, 976.5, 'O u t d o o r & I n d o o r'), (1568.9, 976.5, 'S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s )'), (1568.9, 976.5, '1 2 7 5 0 0'), (1810.4, 894.8, 'F Y N 7 0 1 6 E'), (13.4, 850.1, 'F Y N 7 0 0 6 E F Y N 7 0 1 6 E O u t d o o r & I n d o o r S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s ) 1 2 7 5 0 0 O u t d o o r & I n d o o r S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s ) 1 2 7 5 0 0')]
+IMAGES [('X4.png', (565, 800)), ('X6.png', (231, 356)), ('X8.png', (228, 347)), ('X10.png', (640, 616)), ('X12.png', (150, 150))]
+
+PAGE 19
+TEXT [(1977.5, 3335.8, 'F Y N 7 0 1 6 E'), (0.0, 850.1, 'F Y N 7 0 1 6 E')]
+IMAGES [('X4.jpg', (656, 800))]
+
+PAGE 20
+TEXT [(1968.5, 3345.2, 'F Y N 7 0 3 3 E'), (217.0, 3106.6, 'P R E M I U M V E R T I C A L G A R D E N'), (177.2, 1905.6, 'F Y N E S u r f a c e s P r o d u c t s a r e s p e c i a l l y c r a f t e d'), (177.2, 1905.6, 'w i t h h i g h q u a l i t y P E m a t e r i a l & P r e m i u m'), (177.2, 1905.6, 'C o l o u r s t o m a k e t h e p r o d u c t l o o k s N a t u r a l'), (177.2, 1905.6, 'b e i n g i t a r t i f i c i a l .'), (2007.3, 1690.8, 'F Y N 7 0 2 2 E'), (177.2, 1404.2, 'U NI Q U E'), (177.2, 1404.2, 'D E SIG NS'), (0.0, 850.1, 'U NI Q U E D E SIG NS F Y N E S u r f a c e s P r o d u c t s a r e s p e c i a l l y c r a f t e d w i t h h i g h q u a l i t y P E m a t e r i a l & P r e m i u m C o l o u r s t o m a k e t h e p r o d u c t l o o k s N a t u r a l b e i n g i t a r t i f i c i a l . S C A N f o r C a t a l o u g e F Y N 7 0 2 2 E F Y N 7 0 3 3 E P R E M I U M V E R T I C A L G A R D E N'), (177.2, 515.6, 'S C A N f o r C a t a l o u g e')]
+IMAGES [('X8.png', (664, 720)), ('X12.jpg', (640, 640))]
+
+PAGE 21
+TEXT [(58.6, 2522.1, 'O u t d o o r & I n d o o r'), (58.6, 2522.1, 'S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s )'), (58.6, 2522.1, '1 3 7 0 0 0'), (300.1, 2440.5, 'F Y N 7 0 2 8 E'), (1592.5, 1041.0, 'O u t d o o r & I n d o o r'), (1592.5, 1041.0, 'S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s )'), (1592.5, 1041.0, '1 3 7 0 0 0'), (1834.0, 959.4, 'F Y N 7 0 2 7 E'), (6.5, 850.1, 'F Y N 7 0 2 8 E F Y N 7 0 2 7 E O u t d o o r & I n d o o r S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s ) 1 3 7 0 0 0 O u t d o o r & I n d o o r S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s ) 1 3 7 0 0 0')]
+IMAGES [('X4.jpg', (640, 640)), ('X6.jpg', (633, 633)), ('X7.png', (244, 375)), ('X9.png', (250, 384)), ('X13.png', (150, 150))]
+
+PAGE 22
+TEXT [(2007.3, 3395.2, 'G Z - 1 0 4 9'), (177.2, 3106.9, 'P A G E - 3 3 T O 5 3'), (177.2, 1905.6, 'G R E E N Z I A C o l l e c t i o n P r o d u c t s a r e f o c u s i n g o f'), (177.2, 1905.6, 'm e d i u m c a t a g o r y s e g m e n t w i t h r e a s o n a l'), (177.2, 1905.6, 'q u a l i t y a l o n g w i t h g o o d d u r a l i b i l i t y f o r o u t d o o r .'), (177.2, 1905.6, 's p a c e s .'), (2026.1, 1720.2, 'G Z - 1 0 4 5'), (177.2, 1404.2, 'F L O R A L'), (177.2, 1404.2, 'D E SIG NS'), (0.0, 850.1, 'F L O R A L D E SIG NS G R E E N Z I A C o l l e c t i o n P r o d u c t s a r e f o c u s i n g o f m e d i u m c a t a g o r y s e g m e n t w i t h r e a s o n a l q u a l i t y a l o n g w i t h g o o d d u r a l i b i l i t y f o r o u t d o o r . s p a c e s . S C A N f o r C a t a l o u g e G Z - 1 0 4 5 G Z - 1 0 4 9 P A G E - 3 3 T O 5 3'), (177.2, 515.6, 'S C A N f o r C a t a l o u g e')]
+IMAGES [('X8.jpg', (640, 640)), ('X11.jpg', (720, 720))]
+
+PAGE 23
+TEXT [(24.5, 2460.3, 'O u t d o o r & I n d o o r'), (24.5, 2460.3, 'S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s )'), (24.5, 2460.3, '1 2 5 0 0 0'), (246.1, 2340.2, 'F Y N 7 0 1 3 E'), (270.6, 2317.2, 'F Y N 7 0 2 4 E'), (1523.2, 900.5, 'O u t d o o r & I n d o o r'), (1523.2, 900.5, 'S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s )'), (1523.2, 900.5, '1 2 7 5 0 0'), (17.0, 850.1, 'F Y N 7 0 2 4 E O u t d o o r & I n d o o r S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s ) 1 2 5 0 0 0 F Y N 7 0 1 3 E F Y N 7 0 1 4 E O u t d o o r & I n d o o r S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s ) 1 2 7 5 0 0'), (1719.6, 787.3, 'F Y N 7 0 1 4 E')]
+IMAGES [('X4.png', (590, 593)), ('X7.png', (637, 640)), ('X11.png', (150, 150))]
+
+PAGE 24
+TEXT [(0.5, 2522.8, 'O u t d o o r & I n d o o r'), (0.5, 2522.8, 'S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s )'), (0.5, 2522.8, '1 2 7 5 0 0'), (222.0, 2402.6, 'F Y N 7 0 1 9 E'), (246.6, 2379.6, 'F Y N 7 0 2 4 E'), (1522.6, 906.1, 'O u t d o o r & I n d o o r'), (1522.6, 906.1, 'S i z e : - 1 . 5 m t r x 1 m t r ( 1 6 . 1 4 6 s f t / P c s )'), (1522.6, 906.1, '1 3 4 0 0 0'), (18.2, 850.1, 'O u t d o o r & I n d o o r S i z e : - 1 . 5 m t r x 1 m t r ( 1 6 . 1 4 6 s f t / P c s ) 1 3 4 0 0 0 F Y N 7 0 2 0 E F Y N 7 0 2 4 E O u t d o o r & I n d o o r S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s ) 1 2 7 5 0 0 F Y N 7 0 1 9 E'), (1752.3, 783.6, 'F Y N 7 0 2 0 E')]
+IMAGES [('X4.jpg', (640, 629)), ('X6.jpg', (447, 610)), ('X9.png', (150, 150))]
+
+PAGE 25
+TEXT []
+IMAGES [('X4.jpg', (800, 600)), ('X6.png', (210, 210))]
+
+PAGE 26
+TEXT [(0.6, 2522.1, 'O u t d o o r & I n d o o r'), (0.6, 2522.1, 'S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s )'), (0.6, 2522.1, '1 2 9 5 0 0'), (242.1, 2440.5, 'F Y N 7 0 2 5 E'), (1534.5, 1041.0, 'O u t d o o r & I n d o o r'), (1534.5, 1041.0, 'S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s )'), (1534.5, 1041.0, '1 2 9 5 0 0'), (1776.0, 959.4, 'F Y N 7 0 5 2 E'), (20.4, 850.1, 'F Y N 7 0 2 5 E F Y N 7 0 5 2 E O u t d o o r & I n d o o r S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s ) 1 2 9 5 0 0 O u t d o o r & I n d o o r S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s ) 1 2 9 5 0 0')]
+IMAGES [('X4.png', (244, 375)), ('X7.png', (250, 384)), ('X9.png', (584, 587)), ('X12.png', (150, 150)), ('X13.jpg', (675, 720))]
+
+PAGE 27
+TEXT [(1998.5, 3329.8, 'F Y N 7 0 3 4 E'), (217.0, 3106.6, 'W W W . R E A L L Y G R E A T S I T E . C O M'), (177.2, 1905.6, 'F Y N E S u r f a c e s P r o d u c t s a r e s p e c i a l l y c r a f t e d'), (177.2, 1905.6, 'w i t h h i g h q u a l i t y P E m a t e r i a l & P r e m i u m'), (177.2, 1905.6, 'C o l o u r s t o m a k e t h e p r o d u c t l o o k s N a t u r a l'), (177.2, 1905.6, 'b e i n g i t a r t i f i c i a l .'), (1998.5, 1608.6, 'F Y N 7 0 1 6 E'), (177.2, 1404.2, 'D E S I G NE R'), (177.2, 1404.2, 'W A L L S'), (0.0, 850.1, 'D E S I G NE R W A L L S F Y N E S u r f a c e s P r o d u c t s a r e s p e c i a l l y c r a f t e d w i t h h i g h q u a l i t y P E m a t e r i a l & P r e m i u m C o l o u r s t o m a k e t h e p r o d u c t l o o k s N a t u r a l b e i n g i t a r t i f i c i a l . S C A N f o r C a t a l o u g e W W W . R E A L L Y G R E A T S I T E . C O M F Y N 7 0 3 4 E F Y N 7 0 1 6 E'), (177.2, 515.6, 'S C A N f o r C a t a l o u g e')]
+IMAGES [('X9.png', (565, 800)), ('X12.jpg', (675, 675))]
+
+PAGE 28
+TEXT [(0.0, 850.1, 'F Y N 7 0 0 6 E O u t d o o r & I n d o o r S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s ) 1 2 7 5 0 0'), (1432.0, 846.0, 'O u t d o o r & I n d o o r S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s ) 1 2 7 5 0 0'), (1690.0, 766.0, 'F Y N 7 0 0 6 E'), (0.3, 7.6, 'O u t d o o r & I n d o o r'), (0.3, 7.6, 'S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s )'), (0.3, 7.6, '1 2 7 5 0 0'), (0.4, 0.4, 'F Y N 7 0 0 6 E')]
+IMAGES [('X4.jpg', (800, 465)), ('X6.png', (509, 720)), ('X7.png', (247, 381))]
+
+PAGE 29
+TEXT [(80.1, 2626.6, 'O u t d o o r & I n d o o r'), (80.1, 2626.6, 'S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s )'), (80.1, 2626.6, '1 2 7 5 0 0'), (321.6, 2533.2, 'F Y N 7 0 2 6 E'), (1659.9, 1123.5, 'O u t d o o r & I n d o o r'), (1659.9, 1123.5, 'S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s )'), (1659.9, 1123.5, '1 2 7 5 0 0'), (1901.4, 1040.9, 'F Y N 7 0 1 2 E'), (0.0, 850.1, 'F Y N 7 0 1 2 E O u t d o o r & I n d o o r S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s ) 1 2 7 5 0 0 F Y N 7 0 2 6 E O u t d o o r & I n d o o r S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s ) 1 2 7 5 0 0')]
+IMAGES [('X4.png', (259, 403)), ('X7.png', (637, 640)), ('X10.png', (150, 150)), ('X11.png', (234, 359)), ('X13.png', (629, 640))]
+
+PAGE 30
+TEXT []
+IMAGES [('X4.jpg', (800, 534))]
+
+PAGE 31
+TEXT [(62.9, 2618.8, 'O u t d o o r & I n d o o r'), (62.9, 2618.8, 'S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s )'), (62.9, 2618.8, '1 2 4 0 0 0'), (304.4, 2537.1, 'F Y N 9 0 1 9 E'), (1656.2, 967.2, 'O u t d o o r & I n d o o r'), (1656.2, 967.2, 'S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s )'), (1656.2, 967.2, '1 2 7 5 0 0'), (1897.7, 885.6, 'F Y N 9 0 5 0 E'), (0.0, 850.1, 'F Y N 9 0 1 9 E F Y N 9 0 5 0 E O u t d o o r & I n d o o r S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s ) 1 2 4 0 0 0 O u t d o o r & I n d o o r S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s ) 1 2 7 5 0 0')]
+IMAGES [('X4.png', (266, 409)), ('X7.png', (259, 403)), ('X9.png', (720, 684)), ('X11.png', (720, 718)), ('X14.png', (150, 150))]
+
+PAGE 32
+TEXT [(446.0, 880.0, 'S t a yS t a yS t a yS t a y F e a r l e s s F e a r l e s s F e a r l e s s F e a r l e s s'), (0.0, 850.1, 'S t a yS t a yS t a yS t a y F e a r l e s s F e a r l e s s F e a r l e s s F e a r l e s s'), (-20.5, 317.5, 'F e a r l e s s'), (-12.6, 309.9, 'F e a r l e s s'), (-4.7, 302.4, 'F e a r l e s s'), (-4.7, 302.4, 'F e a r l e s s'), (0.0, 289.0, 'F e a r l e s s F e a r l e s s F e a r l e s s F e a r l e s s'), (-198.8, 220.1, 'S t a y'), (-189.4, 211.6, 'S t a y'), (-180.0, 203.2, 'S t a y'), (-180.0, 203.2, 'S t a y'), (278.0, 0.0, 'S t a yS t a yS t a yS t a y')]
+IMAGES [('X4.png', (565, 800)), ('X14.png', (150, 150))]
+
+PAGE 33
+TEXT [(32.7, 2461.9, 'O u t d o o r & I n d o o r'), (32.7, 2461.9, 'S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s )'), (32.7, 2461.9, '1 2 7 5 0 0'), (274.2, 2380.3, 'F Y N 7 0 1 5 E'), (1547.5, 965.8, 'O u t d o o r & I n d o o r'), (1547.5, 965.8, 'S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s )'), (1547.5, 965.8, '1 2 9 5 0 0'), (1789.0, 884.2, 'F Y N 7 0 1 8 E'), (23.0, 850.1, 'F Y N 7 0 1 8 E O u t d o o r & I n d o o r S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s ) 1 2 9 5 0 0 F Y N 7 0 1 5 E O u t d o o r & I n d o o r S i z e : - 1 m t r x 1 m t r ( 1 0 . 7 6 4 s f t / P c s ) 1 2 7 5 0 0')]
+IMAGES [('X4.png', (250, 384)), ('X7.png', (620, 632)), ('X10.png', (150, 150)), ('X11.png', (238, 366)), ('X13.png', (636, 640))]
+
+PAGE 34
+TEXT [(466.5, 2957.1, 'O u t d o o r & I n d o o r / S i z e : - 2 m t r x 1 m t r ( 2 1 . 5 2 s f t / P V C G r i l l )'), (466.5, 2957.1, '1 2 3 0 0 0'), (1047.1, 2796.9, 'F Y N 6 0 1 7 E'), (322.2, 1367.4, 'O u t d o o r & I n d o o r / S i z e : - 2 m t r x 1 m t r ( 2 1 . 5 2 s f t / W o o d e n G r i l l )'), (322.2, 1367.4, '1 1 9 0 0 0'), (1047.1, 1206.2, 'F Y N 6 0 1 8 E'), (1.4, 808.8, 'F Y N 6 0 1 8 E O u t d o o r & I n d o o r / S i z e : - 2 m t r x 1 m t r ( 2 1 . 5 2 s f t / W o o d e n G r i l l ) 1 1 9 0 0 0 F Y N 6 0 1 7 E O u t d o o r & I n d o o r / S i z e : - 2 m t r x 1 m t r ( 2 1 . 5 2 s f t / P V C G r i l l ) 1 2 3 0 0 0')]
+IMAGES [('X4.jpg', (800, 800)), ('X6.png', (800, 410))]
+
+PAGE 36
+TEXT [(25.3, 3283.6, 'W h i t e , P i n k , R e d F l o w e r s'), (25.3, 3283.6, '1 1 8 5 0 0'), (1242.2, 2909.5, 'A p p l i c a t i o n - O u t d o o r & I n d o o r'), (1242.2, 2909.5, 'S i z e : 2 x 1 m t r / 2 1 . 5 2 s f t P e r G r i l l "'), (1242.2, 2909.5, '1 1 6 0 0 0'), (1132.8, 2706.7, 'G Z - 3 0 0 6'), (25.3, 1745.1, 'A p p l i c a t i o n - O u t d o o r & I n d o o r'), (25.3, 1745.1, 'S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e "'), (25.3, 1745.1, '1 2 5 0 0 0'), (-107.8, 1552.9, 'G Z - 1 0 3 8'), (0.0, 850.1, 'G Z - 3 0 0 6 G Z - 1 0 1 0 G Z - 1 0 3 8 A p p l i c a t i o n - O u t d o o r & I n d o o r S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e " 1 2 5 0 0 0 A p p l i c a t i o n - O u t d o o r & I n d o o r S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e " 1 2 5 0 0 0 A p p l i c a t i o n - O u t d o o r & I n d o o r S i z e : 2 x 1 m t r / 2 1 . 5 2 s f t P e r G r i l l " 1 1 6 0 0 0 W h i t e , P i n k , R e d F l o w e r s 1 1 8 5 0 0'), (1242.2, 591.9, 'A p p l i c a t i o n - O u t d o o r & I n d o o r'), (1242.2, 591.9, 'S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e "'), (1242.2, 591.9, '1 2 5 0 0 0'), (1132.8, 389.1, 'G Z - 1 0 1 0')]
+IMAGES [('X4.jpg', (557, 560)), ('X6.jpg', (560, 560)), ('X12.jpg', (560, 374))]
+
+PAGE 37
+TEXT [(401.0, 2668.1, 'A p p l i c a t i o n - O u t d o o r & I n d o o r'), (401.0, 2668.1, 'S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e "'), (401.0, 2668.1, '1 2 5 0 0 0'), (401.9, 2441.1, 'G Z - 1 0 1 0'), (0.0, 850.1, 'G Z - 1 0 1 0 A p p l i c a t i o n - O u t d o o r & I n d o o r S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e " 1 2 5 0 0 0')]
+IMAGES [('X4.jpg', (800, 800))]
+
+PAGE 38
+TEXT [(468.1, 2636.1, 'A p p l i c a t i o n - O u t d o o r & I n d o o r'), (468.1, 2636.1, 'S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e "'), (468.1, 2636.1, '1 2 5 0 0 0'), (536.0, 2409.1, 'G Z - 1 0 3 8'), (0.0, 842.4, 'G Z - 1 0 3 8 A p p l i c a t i o n - O u t d o o r & I n d o o r S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e " 1 2 5 0 0 0')]
+IMAGES [('X4.jpg', (795, 800))]
+
+PAGE 39
+TEXT [(1242.2, 2909.5, 'A p p l i c a t i o n - O u t d o o r & I n d o o r'), (1242.2, 2909.5, 'S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e "'), (1242.2, 2909.5, '1 2 6 2 5 0'), (1132.8, 2706.7, 'G Z - 1 0 5 1'), (25.3, 1745.1, 'A p p l i c a t i o n - O u t d o o r & I n d o o r'), (25.3, 1745.1, 'S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e "'), (25.3, 1745.1, '1 2 1 0 0 0'), (-107.8, 1552.9, 'G Z - 1 0 4 7'), (0.0, 850.1, 'G Z - 1 0 4 9 G Z - 1 0 4 7 G Z - 1 0 5 1 A p p l i c a t i o n - O u t d o o r & I n d o o r S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e " 1 2 1 0 0 0 A p p l i c a t i o n - O u t d o o r & I n d o o r S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e " 1 2 1 0 0 0 A p p l i c a t i o n - O u t d o o r & I n d o o r S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e " 1 2 6 2 5 0'), (1242.2, 591.9, 'A p p l i c a t i o n - O u t d o o r & I n d o o r'), (1242.2, 591.9, 'S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e "'), (1242.2, 591.9, '1 2 1 0 0 0'), (1132.8, 389.1, 'G Z - 1 0 4 9')]
+IMAGES [('X9.jpg', (480, 480)), ('X11.jpg', (560, 560)), ('X12.jpg', (480, 480))]
+
+PAGE 40
+TEXT [(401.0, 2668.1, 'A p p l i c a t i o n - O u t d o o r & I n d o o r'), (401.0, 2668.1, 'S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e "'), (401.0, 2668.1, '1 2 1 0 0 0'), (401.9, 2441.1, 'G Z - 1 0 4 9'), (0.0, 850.1, 'G Z - 1 0 4 9 A p p l i c a t i o n - O u t d o o r & I n d o o r S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e " 1 2 1 0 0 0')]
+IMAGES [('X6.jpg', (800, 800))]
+
+PAGE 41
+TEXT [(401.0, 2668.1, 'A p p l i c a t i o n - O u t d o o r & I n d o o r'), (401.0, 2668.1, 'S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e "'), (401.0, 2668.1, '1 2 1 0 0 0'), (401.9, 2441.1, 'G Z - 1 0 4 7'), (0.0, 850.1, 'G Z - 1 0 4 7 A p p l i c a t i o n - O u t d o o r & I n d o o r S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e " 1 2 1 0 0 0')]
+IMAGES [('X4.jpg', (800, 800))]
+
+PAGE 42
+TEXT [(297.0, 2561.1, 'A p p l i c a t i o n - O u t d o o r & I n d o o r'), (297.0, 2561.1, 'S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e "'), (297.0, 2561.1, '1 2 6 2 5 0'), (297.9, 2334.1, 'G Z - 1 0 5 1'), (25.0, 824.4, 'G Z - 1 0 5 1 A p p l i c a t i o n - O u t d o o r & I n d o o r S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e " 1 2 6 2 5 0')]
+IMAGES [('X4.jpg', (800, 800))]
+
+PAGE 43
+TEXT [(1242.2, 2909.5, 'A p p l i c a t i o n - O u t d o o r & I n d o o r'), (1242.2, 2909.5, 'S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e "'), (1242.2, 2909.5, '1 2 5 0 0 0'), (1132.8, 2706.7, 'G Z - 1 0 4 6'), (25.3, 1745.1, 'A p p l i c a t i o n - O u t d o o r & I n d o o r'), (25.3, 1745.1, 'S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e "'), (25.3, 1745.1, '1 2 3 0 0 0'), (-107.8, 1552.9, 'G Z - 1 0 4 3'), (0.0, 850.1, 'G Z - 1 0 4 8 G Z - 1 0 4 3 G Z - 1 0 4 6 A p p l i c a t i o n - O u t d o o r & I n d o o r S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e " 1 2 4 0 0 0 A p p l i c a t i o n - O u t d o o r & I n d o o r S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e " 1 2 3 0 0 0 A p p l i c a t i o n - O u t d o o r & I n d o o r S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e " 1 2 5 0 0 0'), (1242.2, 591.9, 'A p p l i c a t i o n - O u t d o o r & I n d o o r'), (1242.2, 591.9, 'S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e "'), (1242.2, 591.9, '1 2 4 0 0 0'), (1132.8, 389.1, 'G Z - 1 0 4 8')]
+IMAGES [('X9.jpg', (480, 480)), ('X11.jpg', (560, 560)), ('X12.jpg', (560, 560))]
+
+PAGE 44
+TEXT [(364.0, 2615.1, 'A p p l i c a t i o n - O u t d o o r & I n d o o r'), (364.0, 2615.1, 'S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e "'), (364.0, 2615.1, '1 2 4 0 0 0'), (364.9, 2388.1, 'G Z - 1 0 4 8'), (8.9, 837.4, 'G Z - 1 0 4 8 A p p l i c a t i o n - O u t d o o r & I n d o o r S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e " 1 2 4 0 0 0')]
+IMAGES [('X6.jpg', (800, 800))]
+
+PAGE 45
+TEXT [(401.0, 2668.1, 'A p p l i c a t i o n - O u t d o o r & I n d o o r'), (401.0, 2668.1, 'S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e "'), (401.0, 2668.1, '1 2 3 0 0 0'), (401.9, 2441.1, 'G Z - 1 0 4 3'), (0.0, 850.1, 'G Z - 1 0 4 3 A p p l i c a t i o n - O u t d o o r & I n d o o r S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e " 1 2 3 0 0 0')]
+IMAGES [('X6.jpg', (800, 800))]
+
+PAGE 46
+TEXT [(401.0, 2668.1, 'A p p l i c a t i o n - O u t d o o r & I n d o o r'), (401.0, 2668.1, 'S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e "'), (401.0, 2668.1, '1 2 5 0 0 0'), (401.9, 2441.1, 'G Z - 1 0 4 6'), (0.0, 850.1, 'G Z - 1 0 4 6 A p p l i c a t i o n - O u t d o o r & I n d o o r S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e " 1 2 5 0 0 0')]
+IMAGES [('X6.jpg', (800, 800))]
+
+PAGE 47
+TEXT [(1242.2, 2909.5, 'A p p l i c a t i o n - O u t d o o r & I n d o o r'), (1242.2, 2909.5, 'S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e "'), (1242.2, 2909.5, '1 2 6 2 5 0'), (1132.8, 2706.7, 'G Z - 1 0 5 4'), (25.3, 1745.1, 'A p p l i c a t i o n - O u t d o o r & I n d o o r'), (25.3, 1745.1, 'S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e "'), (25.3, 1745.1, '1 2 5 0 0 0'), (-107.8, 1552.9, 'G Z - 1 0 4 5'), (0.0, 850.1, 'G Z - 1 0 4 4 G Z - 1 0 4 5 G Z - 1 0 5 4 A p p l i c a t i o n - O u t d o o r & I n d o o r S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e " 1 2 3 0 0 0 A p p l i c a t i o n - O u t d o o r & I n d o o r S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e " 1 2 5 0 0 0 A p p l i c a t i o n - O u t d o o r & I n d o o r S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e " 1 2 6 2 5 0'), (1242.2, 591.9, 'A p p l i c a t i o n - O u t d o o r & I n d o o r'), (1242.2, 591.9, 'S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e "'), (1242.2, 591.9, '1 2 3 0 0 0'), (1132.8, 338.6, 'G Z - 1 0 4 4')]
+IMAGES [('X9.jpg', (560, 560)), ('X11.jpg', (480, 480)), ('X12.jpg', (560, 560))]
+
+PAGE 48
+TEXT [(401.0, 2668.1, 'A p p l i c a t i o n - O u t d o o r & I n d o o r'), (401.0, 2668.1, 'S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e "'), (401.0, 2668.1, '1 2 3 0 0 0'), (401.9, 2441.1, 'G Z - 1 0 4 4'), (0.0, 850.1, 'G Z - 1 0 4 4 A p p l i c a t i o n - O u t d o o r & I n d o o r S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e " 1 2 3 0 0 0')]
+IMAGES [('X6.jpg', (800, 800))]
+
+PAGE 49
+TEXT [(334.0, 2583.1, 'A p p l i c a t i o n - O u t d o o r & I n d o o r'), (334.0, 2583.1, 'S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e "'), (334.0, 2583.1, '1 2 5 0 0 0'), (334.9, 2356.1, 'G Z - 1 0 4 5'), (16.1, 829.7, 'G Z - 1 0 4 5 A p p l i c a t i o n - O u t d o o r & I n d o o r S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e " 1 2 5 0 0 0')]
+IMAGES [('X6.jpg', (800, 800))]
+
+PAGE 50
+TEXT [(401.0, 2651.1, 'A p p l i c a t i o n - O u t d o o r & I n d o o r'), (401.0, 2651.1, 'S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e "'), (401.0, 2651.1, '1 2 6 2 5 0'), (401.9, 2424.1, 'G Z - 1 0 5 4'), (0.0, 846.0, 'G Z - 1 0 5 4 A p p l i c a t i o n - O u t d o o r & I n d o o r S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e " 1 2 6 2 5 0')]
+IMAGES [('X6.jpg', (800, 800))]
+
+PAGE 51
+TEXT [(1242.2, 2909.5, 'A p p l i c a t i o n - O u t d o o r & I n d o o r'), (1242.2, 2909.5, 'S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e "'), (1242.2, 2909.5, '1 2 1 0 0 0'), (1132.8, 2706.7, 'G Z - 1 0 0 1'), (25.3, 1745.1, 'A p p l i c a t i o n - O u t d o o r & I n d o o r'), (25.3, 1745.1, 'S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e "'), (25.3, 1745.1, '1 2 6 2 5 0'), (-107.8, 1552.9, 'G Z - 1 0 5 0'), (0.0, 850.1, 'G Z - 1 0 5 3 G Z - 1 0 5 0 G Z - 1 0 0 1 A p p l i c a t i o n - O u t d o o r & I n d o o r S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e " 1 2 6 2 5 0 A p p l i c a t i o n - O u t d o o r & I n d o o r S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e " 1 2 6 2 5 0 A p p l i c a t i o n - O u t d o o r & I n d o o r S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e " 1 2 1 0 0 0'), (1242.2, 591.9, 'A p p l i c a t i o n - O u t d o o r & I n d o o r'), (1242.2, 591.9, 'S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e "'), (1242.2, 591.9, '1 2 6 2 5 0'), (1132.8, 338.6, 'G Z - 1 0 5 3')]
+IMAGES [('X9.jpg', (480, 480)), ('X11.jpg', (480, 480)), ('X12.jpg', (480, 479))]
+
+PAGE 52
+TEXT [(401.0, 2668.1, 'A p p l i c a t i o n - O u t d o o r & I n d o o r'), (401.0, 2668.1, 'S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e "'), (401.0, 2668.1, '1 2 6 2 5 0'), (401.9, 2441.1, 'G Z - 1 0 5 3'), (0.0, 850.1, 'G Z - 1 0 5 3 A p p l i c a t i o n - O u t d o o r & I n d o o r S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e " 1 2 6 2 5 0')]
+IMAGES [('X6.jpg', (800, 800))]
+
+PAGE 53
+TEXT [(401.0, 2668.1, 'A p p l i c a t i o n - O u t d o o r & I n d o o r'), (401.0, 2668.1, 'S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e "'), (401.0, 2668.1, '1 2 6 2 5 0'), (401.9, 2441.1, 'G Z - 1 0 5 0'), (0.0, 850.1, 'G Z - 1 0 5 0 A p p l i c a t i o n - O u t d o o r & I n d o o r S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e " 1 2 6 2 5 0')]
+IMAGES [('X6.jpg', (800, 800))]
+
+PAGE 54
+TEXT [(240.0, 2562.1, 'A p p l i c a t i o n - O u t d o o r & I n d o o r'), (240.0, 2562.1, 'S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e "'), (240.0, 2562.1, '1 2 1 0 0 0'), (240.9, 2335.1, 'G Z - 1 0 0 1'), (38.6, 824.6, 'G Z - 1 0 0 1 A p p l i c a t i o n - O u t d o o r & I n d o o r S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e " 1 2 1 0 0 0')]
+IMAGES [('X6.jpg', (800, 797))]
+
+PAGE 55
+TEXT [(1242.2, 2909.5, 'A p p l i c a t i o n - O u t d o o r & I n d o o r'), (1242.2, 2909.5, 'S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e "'), (1242.2, 2909.5, '1 2 4 0 0 0'), (1132.8, 2706.7, 'G Z - 1 0 0 5'), (25.3, 1745.1, 'A p p l i c a t i o n - O u t d o o r & I n d o o r'), (25.3, 1745.1, 'S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e "'), (25.3, 1745.1, '1 2 5 0 0 0'), (-107.8, 1552.9, 'G Z - 1 0 0 8'), (0.0, 850.1, 'G Z - 1 0 2 1 G Z - 1 0 0 8 G Z - 1 0 0 5 A p p l i c a t i o n - O u t d o o r & I n d o o r S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e " 1 2 3 0 0 0 A p p l i c a t i o n - O u t d o o r & I n d o o r S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e " 1 2 5 0 0 0 A p p l i c a t i o n - O u t d o o r & I n d o o r S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e " 1 2 4 0 0 0'), (1242.2, 591.9, 'A p p l i c a t i o n - O u t d o o r & I n d o o r'), (1242.2, 591.9, 'S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e "'), (1242.2, 591.9, '1 2 3 0 0 0'), (1132.8, 338.6, 'G Z - 1 0 2 1')]
+IMAGES [('X4.jpg', (640, 480)), ('X9.jpg', (525, 525)), ('X12.png', (513, 560))]
+
+PAGE 56
+TEXT [(41.9, 2906.3, 'A p p l i c a t i o n - O u t d o o r & I n d o o r'), (41.9, 2906.3, 'S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e "'), (41.9, 2906.3, '1 2 1 0 0 0'), (-107.8, 2706.7, 'G Z - 1 0 0 2'), (1242.2, 1748.3, 'A p p l i c a t i o n - O u t d o o r & I n d o o r'), (1242.2, 1748.3, 'S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e "'), (1242.2, 1748.3, '1 2 1 0 0 0'), (1132.8, 1532.3, 'G Z - 1 0 0 4'), (0.0, 850.1, 'G Z - 1 0 0 6 G Z - 1 0 0 4 G Z - 1 0 0 2 A p p l i c a t i o n - O u t d o o r & I n d o o r S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e " 1 2 5 0 0 0 A p p l i c a t i o n - O u t d o o r & I n d o o r S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e " 1 2 1 0 0 0 A p p l i c a t i o n - O u t d o o r & I n d o o r S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e " 1 2 1 0 0 0'), (41.9, 557.0, 'A p p l i c a t i o n - O u t d o o r & I n d o o r'), (41.9, 557.0, 'S i z e : 1 x 1 m t r / 1 0 . 7 6 4 s f t P e r T i l e "'), (41.9, 557.0, '1 2 5 0 0 0'), (-109.7, 356.7, 'G Z - 1 0 0 6')]
+IMAGES [('X5.png', (517, 560)), ('X10.png', (492, 560)), ('X14.jpg', (480, 480))]
+
+PAGE 57
+TEXT [(165.2, 3103.4, 'A R T I F I C I A L G R A S S | G R E E N W A L L | F E N C E | P L A N T S & C R E E P E R S'), (457.9, 2404.9, 'P l a n t s'), (1453.7, 2400.0, 'L a n d s c a p e G r a s s'), (1268.0, 1770.1, 'C u s t o m i s e - P r e m i u m G r e e n w a l l'), (215.2, 1764.7, 'K i d s P l a y - A r t i f i c i a l G r a s s'), (277.7, 1136.9, 'W a l l - A r t i f i c i a l G r a s s'), (1587.9, 1136.5, 'P l a n t s'), (33.6, 804.5, 'A R T I F I C I A L G R A S S | G R E E N W A L L | F E N C E | P L A N T S & C R E E P E R S P l a n t s E x c l u s i v e G r e e n w a l l W a l l - A r t i f i c i a l G r a s s K i d s P l a y - A r t i f i c i a l G r a s s P l a n t s S p o r t s G r a s s L a n d s c a p e G r a s s C u s t o m i s e - P r e m i u m G r e e n w a l l'), (291.8, 494.7, 'E x c l u s i v e G r e e n w a l l'), (1504.9, 489.5, 'S p o r t s G r a s s')]
+IMAGES [('X4.jpg', (428, 194)), ('X6.jpg', (428, 193)), ('X7.jpg', (425, 193)), ('X8.jpg', (428, 193)), ('X9.jpg', (428, 194)), ('X10.jpg', (480, 240)), ('X11.jpg', (428, 193)), ('X12.jpg', (428, 193)), ('X14.png', (300, 300))]

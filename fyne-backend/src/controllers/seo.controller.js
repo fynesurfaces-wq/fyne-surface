@@ -46,7 +46,7 @@ exports.sitemap = asyncHandler(async (_req, res) => {
 
   STATIC_PAGES.forEach((p) => add({ loc: `${env.siteUrl}${p.path === '/' ? '' : p.path}` || env.siteUrl, changefreq: p.changefreq, priority: p.priority }));
   collections.forEach((c) => add({ loc: collectionUrl(c), lastmod: iso(c.updatedAt), changefreq: 'weekly', priority: '0.8', images: c.coverImage ? [{ ...c.coverImage, alt: c.coverImage.alt || c.name }] : [] }));
-  products.forEach((p) => add({ loc: productUrl(p), lastmod: iso(p.updatedAt), changefreq: 'weekly', priority: '0.9', images: p.images.map((i) => ({ ...i, alt: i.alt || p.name })) }));
+  products.forEach((p) => add({ loc: productUrl(p), lastmod: iso(p.updatedAt), changefreq: 'weekly', priority: '0.9', images: p.images.map((i) => ({ ...i, alt: i.alt || p.name || p.sku })) }));
   content.forEach((c) => add({ loc: `${env.siteUrl}/${c.type === 'page' ? 'pages' : 'blog'}/${c.slug}`, lastmod: iso(c.updatedAt), changefreq: 'monthly', priority: '0.5' }));
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
@@ -127,7 +127,7 @@ exports.llmsTxt = asyncHandler(async (_req, res) => {
     items.forEach((p) => {
       const pub = toPublicProduct(p, { collection: c, settings, includeJsonLd: false });
       const facts = pub.attributes.map((a) => `${a.name}: ${a.display}`).join('; ');
-      lines.push(`- [${p.name} (${p.sku})](${pub.url}): ${formatINR(p.price)}${facts ? ` — ${facts}` : ''}${p.stock > 0 ? '' : ' — out of stock'}`);
+      lines.push(`- [${p.name || p.sku}](${pub.url}): ${formatINR(p.price)}${facts ? ` — ${facts}` : ''}${p.stock > 0 ? '' : ' — out of stock'}`);
     });
     lines.push('');
   }

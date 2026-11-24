@@ -14,7 +14,7 @@ const { invalidateStoreCache } = require('../middleware/responseCache');
 
 const FIELDS = [
   'name', 'slug', 'sku', 'collection', 'price', 'compareAtPrice', 'shortDescription', 'description',
-  'specifications', 'images', 'stock', 'lowStockThreshold', 'tags', 'faqs', 'seo', 'isActive', 'isFeatured',
+  'specifications', 'images', 'stock', 'lowStockThreshold', 'tags', 'faqs', 'seo', 'isActive', 'isFeatured', 'isNewArrival',
 ];
 const SORTABLE = ['name', 'sku', 'price', 'stock', 'createdAt', 'updatedAt'];
 
@@ -52,7 +52,8 @@ async function withSeoPreview(product) {
   const settings = await Setting.getStore();
   const obj = product.toObject({ virtuals: true });
   const collection = obj.collection && obj.collection.name ? obj.collection : await Collection.findById(obj.collection).lean();
-  const pub = toPublicProduct(obj, { collection, settings, includeJsonLd: false });
+  const publicProduct = { ...obj, name: String(obj.name || '').trim() || undefined };
+  const pub = toPublicProduct(publicProduct, { collection, settings, includeJsonLd: false });
   return {
     ...obj,
     seoPreview: {
@@ -73,11 +74,12 @@ exports.adminList = asyncHandler(async (req, res) => {
   const { items, pagination } = await paginate(Product, filter, {
     ...pg,
     sort,
-    select: 'name slug sku collection price compareAtPrice stock lowStockThreshold images isActive isFeatured tags updatedAt createdAt',
+    select: 'name slug sku collection price compareAtPrice stock lowStockThreshold images isActive isFeatured isNewArrival tags updatedAt createdAt',
     populate: { path: 'collection', select: 'name slug' },
   });
   const data = items.map((p) => ({
     ...p,
+    name: String(p.name || '').trim() || undefined,
     thumbnail: p.images?.[0]?.url || null,
     inventoryStatus: p.stock <= 0 ? 'out_of_stock' : p.stock <= (p.lowStockThreshold ?? env.lowStockThreshold) ? 'low_stock' : 'in_stock',
   }));
@@ -95,7 +97,7 @@ exports.adminGet = asyncHandler(async (req, res) => {
 exports.create = asyncHandler(async (req, res) => {
   const data = pick(req.body, FIELDS);
   await assertCollection(data.collection);
-  data.slug = await uniqueSlug(Product, data.slug || data.name);
+  data.slug = await uniqueSlug(Product, data.slug || data.name || data.sku);
   data.createdBy = req.user._id;
   data.updatedBy = req.user._id;
   const product = await Product.create(data);
@@ -199,6 +201,7 @@ exports.storeList = asyncHandler(async (req, res) => {
   }
   if (toBool(req.query.inStock)) base.stock = { $gt: 0 };
   if (toBool(req.query.featured)) base.isFeatured = true;
+  if (toBool(req.query.newArrival)) base.isNewArrival = true;
 
   const filter = combine(base, searchFilter(req.query.q, ['name', 'sku', 'tags', 'shortDescription']));
   const { items, pagination } = await paginate(Product, filter, { ...pg, sort, populate: { path: 'collection', select: 'name slug' } });
@@ -229,7 +232,7 @@ exports.storeGet = asyncHandler(async (req, res) => {
     success: true,
     data: {
       ...toPublicProduct(product, { settings }),
-      related: related.map((r) => ({ name: r.name, slug: r.slug, sku: r.sku, url: productUrl(r), price: r.price, image: r.images?.[0]?.url || null, inStock: r.stock > 0 })),
+      related: related.map((r) => ({ name: r.name || r.sku, slug: r.slug, sku: r.sku, url: productUrl(r), price: r.price, image: r.images?.[0]?.url || null, inStock: r.stock > 0 })),
     },
   });
 });

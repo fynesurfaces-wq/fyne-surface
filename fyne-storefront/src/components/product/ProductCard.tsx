@@ -16,7 +16,7 @@ function keyFact(p: ProductSummary) {
   const ft = heightInFeet(s.height);
   if (ft) return `${s.height?.value} ${s.height?.unit ?? 'ft'} · ${ftToCm(ft)} cm`;
   if (s.packSize) return `Pack of ${s.packSize}`;
-  return p.collection?.name;
+  return undefined;
 }
 
 /**
@@ -30,22 +30,23 @@ export function ProductCard({ product: p, priority, headingLevel = 'h3' }: { pro
   const [img1, img2] = p.images;
   const Heading = headingLevel;
   const discount = p.price.compareAt && p.price.compareAt > p.price.amount ? Math.round((1 - p.price.amount / p.price.compareAt) * 100) : 0;
+  const productLabel = p.name?.trim();
 
   return (
     <motion.article className="group relative flex flex-col" initial="rest" whileHover="hover" animate="rest">
       <div className="relative aspect-[4/5] overflow-hidden rounded-[1.5rem] border border-white/70 bg-gradient-to-br from-sand via-sand to-primary-50/60 shadow-image transition-[transform,box-shadow] duration-700 ease-premium group-hover:-translate-y-1 group-hover:shadow-lift">
-        <Link href={href} className="absolute inset-0 block rounded-[1.5rem] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary" aria-label={`${p.name} — ${p.price.formatted}`}>
+        <Link href={href} className="absolute inset-0 block rounded-[1.5rem] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary" aria-label={`${productLabel ? `${productLabel} — ` : ''}${p.price.formatted}`}>
           <motion.div className="absolute inset-0" variants={{ rest: { scale: 1 }, hover: { scale: 1.06 } }} transition={{ duration: 1.1, ease: EASE }}>
             <PlantImage
               src={img1?.url}
-              alt={img1?.alt || `${p.name} artificial plant by FYNE SURFACES`}
+              alt={img1?.alt || (productLabel ? `${productLabel} artificial plant by FYNE SURFACES` : `Product image, SKU ${p.sku}`)}
               seed={p.slug}
               priority={priority}
               sizes="(min-width: 1280px) 25vw, (min-width: 768px) 33vw, 50vw"
             />
             {img2 && (
               <motion.div className="absolute inset-0" variants={{ rest: { opacity: 0 }, hover: { opacity: 1 } }} transition={{ duration: 0.6 }}>
-                <PlantImage src={img2.url} alt={img2.alt || `${p.name} — alternate view`} seed={`${p.slug}-2`} sizes="(min-width: 1280px) 25vw, 50vw" />
+                <PlantImage src={img2.url} alt={img2.alt || (productLabel ? `${productLabel} — alternate view` : `Product image, SKU ${p.sku}`)} seed={`${p.slug}-2`} sizes="(min-width: 1280px) 25vw, 50vw" />
               </motion.div>
             )}
           </motion.div>
@@ -56,6 +57,7 @@ export function ProductCard({ product: p, priority, headingLevel = 'h3' }: { pro
           {!p.availability.inStock && <span className="rounded-full bg-white/95 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-ink">Sold out</span>}
           {discount > 0 && <span className="rounded-full bg-accent px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-white">−{discount}%</span>}
           {p.isFeatured && !discount && <span className="rounded-full bg-white/95 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-primary">Featured</span>}
+          {p.isNewArrival && <span className="rounded-full bg-primary px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-white">New arrival</span>}
         </div>
 
         {/* Hover actions (pointer devices) — siblings of the link, not nested inside it */}
@@ -65,7 +67,7 @@ export function ProductCard({ product: p, priority, headingLevel = 'h3' }: { pro
           transition={{ duration: 0.45, ease: EASE }}
         >
           <AddToCartButton product={p} inStock={p.availability.inStock} size="md" className="flex-1" />
-          <Link href={href} className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white text-ink shadow-soft transition hover:bg-ink hover:text-white" aria-label={`View details of ${p.name}`}>
+          <Link href={href} className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-white text-ink shadow-soft transition hover:bg-ink hover:text-white" aria-label={`View details of ${productLabel || `SKU ${p.sku}`}`}>
             <ArrowUpRight className="h-4 w-4" />
           </Link>
         </motion.div>
@@ -74,9 +76,9 @@ export function ProductCard({ product: p, priority, headingLevel = 'h3' }: { pro
       <div className="flex flex-1 flex-col pt-4">
         <div className="flex min-w-0 flex-col items-start gap-2 sm:flex-row sm:justify-between">
           <div className="min-w-0 w-full sm:flex-1">
-            <Heading className="text-[15px] font-semibold leading-snug tracking-[-0.01em] text-ink transition-colors duration-300 group-hover:text-primary">
-              <Link href={href} className="hover:text-primary">{p.name}</Link>
-            </Heading>
+            {productLabel && <Heading className="text-[15px] font-semibold leading-snug tracking-[-0.01em] text-ink transition-colors duration-300 group-hover:text-primary">
+              <Link href={href} className="hover:text-primary">{productLabel}</Link>
+            </Heading>}
             <p className="mt-1 text-[12px] uppercase tracking-[0.12em] text-ink-faint">SKU {p.sku}</p>
           </div>
           <div className="max-w-full text-left sm:shrink-0 sm:text-right">

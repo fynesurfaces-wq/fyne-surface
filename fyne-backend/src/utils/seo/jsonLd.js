@@ -27,11 +27,12 @@ const priceValidUntil = () => {
 };
 
 function productDescription(product) {
+  const name = String(product.name || '').trim() || product.sku || 'Product';
   return (
     product.seo?.metaDescription ||
     product.shortDescription ||
     truncate(stripHtml(product.description), 300) ||
-    `${product.name} — premium artificial plant by ${env.brand.name}.`
+    `${name} — premium artificial plant by ${env.brand.name}.`
   );
 }
 
@@ -47,7 +48,7 @@ function generateProductJsonLd(product, { collection, settings } = {}) {
   return prune({
     '@type': 'Product',
     '@id': `${url}#product`,
-    name: product.name,
+    name: String(product.name || '').trim() || product.sku || 'Product',
     sku: product.sku,
     mpn: product.sku,
     url,
@@ -117,7 +118,7 @@ function generateOrganizationJsonLd(settings = {}) {
 const productBreadcrumbs = (product, collection) => [
   { name: 'Home', url: env.siteUrl },
   ...(collection ? [{ name: collection.name, url: collectionUrl(collection) }] : []),
-  { name: product.name, url: productUrl(product) },
+  { name: String(product.name || '').trim() || product.sku || 'Product', url: productUrl(product) },
 ];
 
 /** Full graph for a product detail page. */
@@ -148,7 +149,7 @@ function generateCollectionSchemaGraph(collection, products = [], { settings, of
         mainEntity: {
           '@type': 'ItemList',
           numberOfItems: products.length,
-          itemListElement: products.map((p, i) => ({ '@type': 'ListItem', position: offset + i + 1, url: productUrl(p), name: p.name })),
+          itemListElement: products.map((p, i) => ({ '@type': 'ListItem', position: offset + i + 1, url: productUrl(p), name: String(p.name || '').trim() || p.sku || 'Product' })),
         },
       }),
       generateBreadcrumbJsonLd([{ name: 'Home', url: env.siteUrl }, { name: collection.name, url }]),

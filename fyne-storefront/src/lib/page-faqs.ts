@@ -60,7 +60,7 @@ export function collectionFaqs(name: string, productCount: number): Faq[] {
 }
 
 export function productFaqs(product: ProductSummary): Faq[] {
-  const name = product.name;
+  const name = product.name || `SKU ${product.sku}`;
   const specs = product.specifications;
   const height = specs.height ? `${specs.height.value ?? 'Not specified'} ${specs.height.unit || ''}`.trim() : null;
   const material = [specs.trunkMaterial, specs.leaves?.material && `${specs.leaves.material} leaves`].filter(Boolean).join(', ');

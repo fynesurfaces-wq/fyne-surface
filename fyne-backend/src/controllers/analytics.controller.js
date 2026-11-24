@@ -85,7 +85,7 @@ exports.dashboard = asyncHandler(async (req, res) => {
     },
     lowStockAlerts: lowStockAlerts.map((p) => ({
       _id: p._id,
-      name: p.name,
+      name: p.name || p.sku,
       sku: p.sku,
       stock: p.stock,
       threshold: p.lowStockThreshold ?? env.lowStockThreshold,

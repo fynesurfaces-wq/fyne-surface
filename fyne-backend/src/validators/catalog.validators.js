@@ -22,7 +22,7 @@ const specRules = [
 
 const productRules = (isUpdate) => [
   ...(isUpdate ? [mongoIdParam()] : []),
-  field('name', isUpdate).isString().trim().isLength({ min: 2, max: 150 }),
+  body('name').optional({ values: 'null' }).isString().trim().isLength({ max: 150 }),
   body('slug').optional().isString().trim().isLength({ min: 2, max: 160 }),
   field('sku', isUpdate).isString().trim().matches(/^[A-Za-z0-9-]{3,30}$/).withMessage('SKU: 3–30 letters, numbers or dashes').toUpperCase(),
   field('collection', isUpdate).isMongoId().withMessage('Valid collection id required'),
@@ -34,6 +34,7 @@ const productRules = (isUpdate) => [
   body('lowStockThreshold').optional({ values: 'null' }).isInt({ min: 0 }).toInt(),
   body('isActive').optional().isBoolean().toBoolean(),
   body('isFeatured').optional().isBoolean().toBoolean(),
+  body('isNewArrival').optional().isBoolean().toBoolean(),
   body('images').optional().isArray({ max: 20 }),
   ...imageRules('images.*'),
   body('faqs').optional().isArray({ max: 20 }),

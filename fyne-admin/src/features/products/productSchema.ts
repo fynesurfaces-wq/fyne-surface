@@ -19,7 +19,7 @@ const optionalNumber = (opts: { int?: boolean; min?: number; max?: number; label
 export const productSchema = z
   .object({
     // General
-    name: z.string().trim().min(2, 'Name must be at least 2 characters').max(150),
+    name: z.string().trim().max(150),
     sku: z
       .string()
       .trim()
@@ -36,6 +36,7 @@ export const productSchema = z
     tags: z.string(),
     isActive: z.boolean(),
     isFeatured: z.boolean(),
+    isNewArrival: z.boolean(),
     images: z.array(z.object({ url: z.string().url(), alt: z.string().max(160).optional(), publicId: z.string().optional() })).max(20),
 
     // Specifications
@@ -81,6 +82,7 @@ export const emptyProduct = (collection = ''): ProductFormValues => ({
   tags: '',
   isActive: true,
   isFeatured: false,
+  isNewArrival: false,
   images: [],
   spec: { heightValue: '', heightUnit: 'ft', leavesCount: '', leavesMaterial: '', trunkMaterial: '', flowers: '', packSize: '', indoorOutdoor: '', uvResistant: false, fireRetardant: false, potIncluded: false },
   seo: { metaTitle: '', metaDescription: '', keywords: '' },
@@ -92,7 +94,7 @@ const str = (n?: number | null) => (n === undefined || n === null ? '' : String(
 export function toFormValues(p: Product): ProductFormValues {
   const s = p.specifications || {};
   return {
-    name: p.name,
+    name: p.name || '',
     sku: p.sku,
     collection: typeof p.collection === 'string' ? p.collection : p.collection?._id ?? '',
     price: p.price,
@@ -104,6 +106,7 @@ export function toFormValues(p: Product): ProductFormValues {
     tags: (p.tags || []).join(', '),
     isActive: p.isActive,
     isFeatured: !!p.isFeatured,
+    isNewArrival: !!p.isNewArrival,
     images: p.images || [],
     spec: {
       heightValue: str(s.height?.value),
@@ -155,6 +158,7 @@ export function toPayload(v: ProductFormOutput) {
     tags: splitList(v.tags).map((t) => t.toLowerCase()),
     isActive: v.isActive,
     isFeatured: v.isFeatured,
+    isNewArrival: v.isNewArrival,
     images: v.images.map((i) => ({ url: i.url, ...(i.alt && { alt: i.alt }), ...(i.publicId && { publicId: i.publicId }) })),
     specifications,
     seo: {

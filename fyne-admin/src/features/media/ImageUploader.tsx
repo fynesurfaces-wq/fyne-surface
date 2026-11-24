@@ -9,6 +9,8 @@ import { cn } from '@/lib/utils';
 
 const MAX_MB = 8;
 const ACCEPT = 'image/jpeg,image/png,image/webp,image/avif';
+// Relative catalog images are served through the admin Next.js /images proxy.
+const displayImageUrl = (url: string) => url;
 
 /**
  * Upload → POST /admin/media (multipart "files") → ImageKit → [{url, publicId}].
@@ -88,7 +90,7 @@ export function ImageUploader({ value, onChange, folder = 'products', max = 10, 
         <ul className={cn('grid gap-3', single ? 'grid-cols-1' : 'grid-cols-2 sm:grid-cols-4')}>
           {value.map((img, i) => (
             <li key={`${img.url}-${i}`} className="group relative overflow-hidden rounded-xl border border-border bg-muted">
-              <img src={img.url} alt={img.alt || altFallback} className={cn('w-full object-cover', single ? 'aspect-[16/7]' : 'aspect-square')} />
+              <img src={displayImageUrl(img.url)} alt={img.alt || altFallback} className={cn('w-full object-cover', single ? 'aspect-[16/7]' : 'aspect-square')} />
               {!single && i === 0 && (
                 <span className="absolute left-2 top-2 rounded-md bg-primary px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-white">Cover</span>
               )}

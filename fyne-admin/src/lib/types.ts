@@ -85,7 +85,7 @@ export interface Specifications {
 
 export interface Product {
   _id: string;
-  name: string;
+  name?: string;
   slug: string;
   sku: string;
   collection: CollectionRef | string;
@@ -102,6 +102,7 @@ export interface Product {
   seo?: Seo;
   isActive: boolean;
   isFeatured?: boolean;
+  isNewArrival?: boolean;
   thumbnail?: string | null;
   inventoryStatus?: 'in_stock' | 'low_stock' | 'out_of_stock';
   createdAt: string;

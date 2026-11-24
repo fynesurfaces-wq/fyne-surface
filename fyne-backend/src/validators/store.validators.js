@@ -73,6 +73,7 @@ exports.storeList = [
   query('maxPrice').optional().isFloat({ min: 0 }).toFloat(),
   query('inStock').optional().isIn(['true', 'false']),
   query('featured').optional().isIn(['true', 'false']),
+  query('newArrival').optional().isIn(['true', 'false']),
 ];
 
 exports.orderList = [

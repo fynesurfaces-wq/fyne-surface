@@ -55,6 +55,7 @@ export default async function HomePage() {
     collection,
     products: (await getProducts({ collection: collection.slug, featured: true, limit: 10 })).data,
   })));
+  const newArrivals = (await getProducts({ newArrival: true, sort: '-createdAt', limit: 10 })).data;
 
   return (
     <>
@@ -103,6 +104,19 @@ export default async function HomePage() {
           </div>
         </section>
       ))}
+
+      {newArrivals.length > 0 && (
+        <section aria-labelledby="new-arrivals-heading" className="bg-white py-20 lg:py-28">
+          <div className="container">
+            <Reveal className="mb-12 max-w-2xl lg:mb-16">
+              <p className="text-eyebrow uppercase text-accent">Just added</p>
+              <h2 id="new-arrivals-heading" className="mt-4 text-display-lg text-ink">New arrivals</h2>
+              <p className="mt-4 text-[17px] leading-relaxed text-ink-muted">Discover the latest additions to our collection.</p>
+            </Reveal>
+            <ProductCarousel products={newArrivals} />
+          </div>
+        </section>
+      )}
 
       {/* One-line auto-advancing home gallery */}
       <section aria-labelledby="spaces-heading" className="bg-canvas py-16 lg:py-20">

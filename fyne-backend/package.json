@@ -15,6 +15,11 @@
     "import:plants": "node src/seed/import-plants.js",
     "import:bushes": "node src/seed/import-bushes.js",
     "import:creepers": "node src/seed/import-creepers.js",
+    "rename:creepers-bushes": "node src/seed/rename-creepers-bushes.js",
+    "import:premium-greenwall": "node src/seed/import-premium-greenwall.js",
+    "import:exclusive-greenwall": "node src/seed/import-exclusive-greenwall.js",
+    "import:economy-greenwall": "node src/seed/import-economy-greenwall.js",
+    "normalize:product-names": "node src/seed/make-product-names-unique.js",
     "seed:destroy": "node src/seed/seed.js --destroy"
   },
   "dependencies": {

@@ -1,0 +1,210 @@
+
+PAGE 4 TEXT {'L': [(2518, 'Size  : -  1mtr  x  1mtr  ( 10 . 764sft  /  Pcs )'), (2518, 'Outdoor  &  Indoor'), (2518, '126500'), (2437, 'FYN7017E -  A')], 'R': [(1037, 'Size  : -  1mtr  x  1mtr  ( 10 . 764sft  /  Pcs )'), (1037, 'Outdoor  &  Indoor'), (1037, '127500'), (956, 'FYN7055E')]}
+ IMG X5.jpg (640, 640) MATCH (0.03955078125, '6.jpg')
+ IMG X7.jpg (640, 640) MATCH (0.031494140625, '7.jpg')
+
+PAGE 5 TEXT {'L': [(2686, 'Size  : -  1mtr  x  1mtr  ( 10 . 764sft  /  Pcs )'), (2686, 'Outdoor  &  Indoor'), (2686, '124000'), (2605, 'FYN7023E  -  A')], 'R': [(983, 'Size  : -  1mtr  x  1mtr  ( 10 . 764sft  /  Pcs )'), (983, 'Outdoor  &  Indoor'), (983, '129500'), (869, 'FYN7056E')]}
+ IMG X4.jpg (675, 675) MATCH (0.048828125, '9.jpg')
+ IMG X9.jpg (720, 720) MATCH (0.024169921875, '10.jpg')
+
+PAGE 6 TEXT {'L': [(3107, 'PAGE  -  33  TO  53'), (1906, 'spaces .'), (1906, 'quality  along  with  good  duralibility  for  outdoor .'), (1906, 'medium  catagory  segment  with  reasonal'), (1906, 'GREENZIA  Collection  Products  are  focusing  of'), (1404, 'GREENZIA'), (1404, 'COLECTION'), (516, 'SCAN  for  Catalouge')], 'R': [(3395, 'GZ - 1038'), (1609, 'GZ - 1010')]}
+ IMG X8.jpg (720, 720) MATCH (0.0263671875, '11.jpg')
+ IMG X11.jpg (716, 720) MATCH (0.020263671875, '12.jpg')
+
+PAGE 7 TEXT {'L': [(2686, 'Size  : -  1mtr  x  1mtr  ( 10 . 764sft  /  Pcs )'), (2686, 'Outdoor  &  Indoor'), (2686, '124000'), (2605, 'FYN7022E')], 'R': [(983, 'Size  : -  1mtr  x  1mtr  ( 10 . 764sft  /  Pcs )'), (983, 'Outdoor  &  Indoor'), (983, '121500'), (869, 'FYN7023E')]}
+ IMG X4.jpg (640, 640) MATCH (0.05859375, '13.jpg')
+ IMG X8.jpg (675, 675) MATCH (0.03955078125, '14.jpg')
+
+PAGE 8 TEXT {'L': [(2518, 'Size  : -  1mtr  x  1mtr  ( 10 . 764sft  /  Pcs )'), (2518, 'Outdoor  &  Indoor'), (2518, '139500'), (2437, 'FYN7039E')], 'R': [(1037, 'Size  : -  1mtr  x  1mtr  ( 10 . 764sft  /  Pcs )'), (1037, 'Outdoor  &  Indoor'), (1037, '129500'), (956, 'FYN7038E')]}
+ IMG X5.jpg (720, 720) MATCH (0.0205078125, '15.jpg')
+ IMG X7.jpg (630, 630) MATCH (0.042236328125, '16.jpg')
+ IMG X8.jpg (720, 720) MATCH (0.02685546875, '17.jpg')
+ IMG X9.png (626, 606) MATCH (0, '18.png')
+
+PAGE 9 TEXT {'L': [(3107, 'PREMIUM  VERTICAL  GARDEN'), (1906, 'with  high  quality  PE  material  &  Premium'), (1906, 'being  it  artificial  .'), (1906, 'FYNE  Surfaces  Products  are  specially  crafted'), (1906, 'Colours  to  make  the  product  looks  Natural'), (1404, 'DESIGNS'), (1404, '4D'), (516, 'SCAN  for  Catalouge')], 'R': [(3395, 'FYN7030E'), (1579, 'FYN7038E')]}
+ IMG X8.jpg (720, 720) MATCH (0.0205078125, '15.jpg')
+ IMG X11.jpg (720, 720) MATCH (0.04736328125, '20.jpg')
+
+PAGE 10 TEXT {'L': [(2518, 'Size  : -  1mtr  x  1mtr  ( 10 . 764sft  /  Pcs )'), (2518, 'Outdoor  &  Indoor'), (2518, '139500'), (2437, 'FYN7031E')], 'R': [(1037, 'Size  : -  1mtr  x  1mtr  ( 10 . 764sft  /  Pcs )'), (1037, 'Outdoor  &  Indoor'), (1037, '139500'), (956, 'FYN7030E')]}
+ IMG X5.jpg (720, 720) MATCH (0.023193359375, '21.jpg')
+ IMG X12.png (626, 606) MATCH (0, '18.png')
+ IMG X14.jpg (720, 720) MATCH (0.027099609375, '24.jpg')
+
+PAGE 11 TEXT {'L': [(2555, 'Size  : -  1mtr  x  1mtr  ( 10 . 764sft  /  Pcs )'), (2555, 'Outdoor  &  Indoor'), (2555, '124000'), (2473, 'FYN7017E')], 'R': [(1014, 'Size  : -  1mtr  x  1mtr  ( 10 . 764sft  /  Pcs )'), (1014, 'Outdoor  &  Indoor'), (1014, '127500'), (932, 'FYN7011E')]}
+ IMG X4.jpg (640, 640) MATCH (0.028564453125, '25.jpg')
+ IMG X32.png (596, 640) MATCH (0, '27.png')
+ IMG X34.png (269, 419) MATCH (0, '28.png')
+ IMG X36.jpg (640, 640) MATCH (0.03369140625, '29.jpg')
+
+PAGE 12 TEXT {'L': [], 'R': []}
+ IMG X4.png (800, 656) MATCH (0, '30.png')
+ IMG X7.jpg (800, 800) MATCH (0.03955078125, '31.jpg')
+ IMG X9.png (1278, 1125) MATCH (0.0, '32.png')
+
+PAGE 13 TEXT {'L': [(2666, 'Size  : -  1mtr  x  1mtr  ( 10 . 764sft  /  Pcs )'), (2666, 'Outdoor  &  Indoor'), (2666, '122500'), (2584, 'FYN7024E'), (2520, 'FYN7024E')], 'R': [(1009, 'Size  : -  1mtr  x  1mtr  ( 10 . 764sft  /  Pcs )'), (1009, 'Outdoor  &  Indoor'), (1009, '121000'), (927, 'FYN7021E')]}
+ IMG X4.jpg (640, 640) MATCH (0.03515625, '33.jpg')
+ IMG X8.jpg (675, 675) MATCH (0.055908203125, '34.jpg')
+
+PAGE 14 TEXT {'L': [(2638, 'Size  : -  1mtr  x  1mtr  ( 10 . 764sft  /  Pcs )'), (2638, 'Outdoor  &  Indoor'), (2638, '124000'), (2557, 'FYN7034E')], 'R': [(971, 'Size  : -  1mtr  x  1mtr  ( 10 . 764sft  /  Pcs )'), (971, 'Outdoor  &  Indoor'), (971, '127500'), (889, 'FYN7035E')]}
+ IMG X7.jpg (675, 675) MATCH (0.03125, '36.jpg')
+ IMG X8.jpg (800, 600) MATCH (0.03515625, '37.jpg')
+ IMG X9.png (263, 406) MATCH (0, '38.png')
+
+PAGE 15 TEXT {'L': [(2854, 'PREMIUM  VERTICAL  GARDEN'), (1906, 'with  high  quality  PE  material  &  Premium'), (1906, 'being  it  artificial  .'), (1906, 'FYNE  Surfaces  Products  are  specially  crafted'), (1906, 'Colours  to  make  the  product  looks  Natural'), (1404, 'FALLING'), (1404, 'DESIGNS'), (516, 'SCAN  for  Catalouge')], 'R': [(3338, 'FYN7023E'), (1672, 'FYN7022E')]}
+ IMG X8.jpg (640, 640) MATCH (0.05859375, '13.jpg')
+ IMG X11.jpg (675, 675) MATCH (0.03955078125, '14.jpg')
+
+PAGE 16 TEXT {'L': [(2522, 'Size  : -  1mtr  x  1mtr  ( 10 . 764sft  /  Pcs )'), (2522, 'Outdoor  &  Indoor'), (2522, '129500'), (2441, 'FYN7029E')], 'R': [(1018, 'Size  : -  1mtr  x  1mtr  ( 10 . 764sft  /  Pcs )'), (1018, 'Outdoor  &  Indoor'), (1018, '135000'), (936, 'FYN9022E')]}
+ IMG X7.png (259, 403) MATCH (0, '40.png')
+ IMG X9.jpg (720, 682) MATCH (0.0185546875, '41.jpg')
+ IMG X10.jpg (640, 640) MATCH (0.03857421875, '42.jpg')
+
+PAGE 17 TEXT {'L': [], 'R': []}
+ IMG X4.jpg (800, 800) MATCH (0.0380859375, '43.jpg')
+
+PAGE 18 TEXT {'L': [(2609, 'FYN7006E')], 'R': [(976, 'Size  : -  1mtr  x  1mtr  ( 10 . 764sft  /  Pcs )'), (976, 'Outdoor  &  Indoor'), (976, '127500'), (895, 'FYN7016E')]}
+ IMG X4.png (565, 800) MATCH (0, '44.png')
+ IMG X10.png (640, 616) MATCH (0, '47.png')
+
+PAGE 19 TEXT {'L': [], 'R': [(3336, 'FYN7016E')]}
+ IMG X4.jpg (656, 800) MATCH (48.456298828125, '43.jpg')
+
+PAGE 20 TEXT {'L': [(3107, 'PREMIUM  VERTICAL  GARDEN'), (1906, 'with  high  quality  PE  material  &  Premium'), (1906, 'being  it  artificial  .'), (1906, 'FYNE  Surfaces  Products  are  specially  crafted'), (1906, 'Colours  to  make  the  product  looks  Natural'), (1404, 'UNIQUE'), (1404, 'DESIGNS'), (516, 'SCAN  for  Catalouge')], 'R': [(3345, 'FYN7033E'), (1691, 'FYN7022E')]}
+ IMG X8.png (664, 720) MATCH (0, '48.png')
+ IMG X12.jpg (640, 640) MATCH (0.022705078125, '49.jpg')
+
+PAGE 21 TEXT {'L': [(2522, 'Size  : -  1mtr  x  1mtr  ( 10 . 764sft  /  Pcs )'), (2522, 'Outdoor  &  Indoor'), (2522, '137000'), (2441, 'FYN7028E')], 'R': [(1041, 'Size  : -  1mtr  x  1mtr  ( 10 . 764sft  /  Pcs )'), (1041, 'Outdoor  &  Indoor'), (1041, '137000'), (959, 'FYN7027E')]}
+ IMG X4.jpg (640, 640) MATCH (0.031005859375, '50.jpg')
+ IMG X6.jpg (633, 633) MATCH (0.033203125, '51.jpg')
+
+PAGE 22 TEXT {'L': [(3107, 'PAGE  -  33  TO  53'), (1906, 'spaces .'), (1906, 'quality  along  with  good  duralibility  for  outdoor .'), (1906, 'medium  catagory  segment  with  reasonal'), (1906, 'GREENZIA  Collection  Products  are  focusing  of'), (1404, 'FLORAL'), (1404, 'DESIGNS'), (516, 'SCAN  for  Catalouge')], 'R': [(3395, 'GZ - 1049'), (1720, 'GZ - 1045')]}
+ IMG X8.jpg (640, 640) MATCH (0.050537109375, '54.jpg')
+ IMG X11.jpg (720, 720) MATCH (0.030517578125, '55.jpg')
+
+PAGE 23 TEXT {'L': [(2340, 'FYN7013E'), (2317, 'FYN7024E')], 'R': [(901, 'Size  : -  1mtr  x  1mtr  ( 10 . 764sft  /  Pcs )'), (901, 'Outdoor  &  Indoor'), (901, '127500'), (787, 'FYN7014E')]}
+ IMG X4.png (590, 593) MATCH (0, '56.png')
+ IMG X7.png (637, 640) MATCH (0, '57.png')
+
+PAGE 24 TEXT {'L': [(2403, 'FYN7019E'), (2380, 'FYN7024E')], 'R': [(906, 'Size  : -  1 . 5mtr  x  1mtr  ( 16 . 146sft  /  Pcs )'), (906, 'Outdoor  &  Indoor'), (906, '134000'), (784, 'FYN7020E')]}
+ IMG X4.jpg (640, 629) MATCH (0.025390625, '58.jpg')
+ IMG X6.jpg (447, 610) MATCH (0.044921875, '59.jpg')
+
+PAGE 25 TEXT {'L': [], 'R': []}
+ IMG X4.jpg (800, 600) MATCH (0.055908203125, '60.jpg')
+
+PAGE 26 TEXT {'L': [(2441, 'FYN7025E')], 'R': [(1041, 'Size  : -  1mtr  x  1mtr  ( 10 . 764sft  /  Pcs )'), (1041, 'Outdoor  &  Indoor'), (1041, '129500'), (959, 'FYN7052E')]}
+ IMG X9.png (584, 587) MATCH (0, '64.png')
+ IMG X13.jpg (675, 720) MATCH (0.028564453125, '65.jpg')
+
+PAGE 27 TEXT {'L': [(3107, 'WWW . REALLYGREATSITE . COM'), (1906, 'with  high  quality  PE  material  &  Premium'), (1906, 'being  it  artificial  .'), (1906, 'FYNE  Surfaces  Products  are  specially  crafted'), (1906, 'Colours  to  make  the  product  looks  Natural'), (1404, 'WALLS'), (1404, 'DESIGNER'), (516, 'SCAN  for  Catalouge')], 'R': [(3330, 'FYN7034E'), (1609, 'FYN7016E')]}
+ IMG X9.png (565, 800) MATCH (0, '66.png')
+ IMG X12.jpg (675, 675) MATCH (0.03125, '36.jpg')
+
+PAGE 28 TEXT {'L': [], 'R': [(766, 'FYN7006E')]}
+ IMG X4.jpg (800, 465) MATCH (0.02197265625, '67.jpg')
+ IMG X6.png (509, 720) MATCH (0, '68.png')
+
+PAGE 29 TEXT {'L': [(2627, 'Size  : -  1mtr  x  1mtr  ( 10 . 764sft  /  Pcs )'), (2627, 'Outdoor  &  Indoor'), (2627, '127500'), (2533, 'FYN7026E')], 'R': [(1123, 'Size  : -  1mtr  x  1mtr  ( 10 . 764sft  /  Pcs )'), (1123, 'Outdoor  &  Indoor'), (1123, '127500'), (1041, 'FYN7012E')]}
+ IMG X4.png (259, 403) MATCH (0, '70.png')
+ IMG X7.png (637, 640) MATCH (0, '71.png')
+ IMG X13.png (629, 640) MATCH (0, '72.png')
+
+PAGE 30 TEXT {'L': [], 'R': []}
+ IMG X4.jpg (800, 534) MATCH (0.02978515625, '73.jpg')
+
+PAGE 31 TEXT {'L': [(2619, 'Size  : -  1mtr  x  1mtr  ( 10 . 764sft  /  Pcs )'), (2619, 'Outdoor  &  Indoor'), (2619, '124000'), (2537, 'FYN9019E')], 'R': [(967, 'Size  : -  1mtr  x  1mtr  ( 10 . 764sft  /  Pcs )'), (967, 'Outdoor  &  Indoor'), (967, '127500'), (886, 'FYN9050E')]}
+ IMG X4.png (266, 409) MATCH (0, '74.png')
+ IMG X7.png (259, 403) MATCH (0, '75.png')
+ IMG X9.png (720, 684) MATCH (0, '76.png')
+ IMG X11.png (720, 718) MATCH (0, '77.png')
+
+PAGE 32 TEXT {'L': [(880, 'StayStayStayStay\nFearless\nFearless\nFearless\nFearless'), (220, 'Stay'), (212, 'Stay'), (203, 'Stay'), (203, 'Stay'), (0, 'StayStayStayStay')], 'R': []}
+ IMG X4.png (565, 800) MATCH (0, '78.png')
+
+PAGE 33 TEXT {'L': [(2462, 'Size  : -  1mtr  x  1mtr  ( 10 . 764sft  /  Pcs )'), (2462, 'Outdoor  &  Indoor'), (2462, '127500'), (2380, 'FYN7015E')], 'R': [(966, 'Size  : -  1mtr  x  1mtr  ( 10 . 764sft  /  Pcs )'), (966, 'Outdoor  &  Indoor'), (966, '129500'), (884, 'FYN7018E')]}
+ IMG X7.png (620, 632) MATCH (0, '80.png')
+ IMG X13.png (636, 640) MATCH (0, '82.png')
+
+PAGE 34 TEXT {'L': [(2957, 'Outdoor  &  Indoor  /  Size  : -  2mtr  x  1mtr  ( 21 . 52sft  / PVC  Grill )'), (2957, '123000'), (1367, 'Outdoor  &  Indoor  /  Size  : -  2mtr  x  1mtr  ( 21 . 52sft  /  Wooden  Grill )'), (1367, '119000')], 'R': [(2797, 'FYN6017E'), (1206, 'FYN6018E')]}
+ IMG X4.jpg (800, 800) MATCH (0.012939453125, '83.jpg')
+ IMG X6.png (800, 410) MATCH (0, '84.png')
+
+PAGE 36 TEXT {'L': [(1553, 'GZ -  1038')], 'R': [(2909, 'Size  :  2  x  1mtr  /  21 . 52sft  Per  Grill "'), (2909, 'Application  - Outdoor  &  Indoor'), (2909, '116000'), (2707, 'GZ -  3006'), (592, 'Size  :  1  x  1mtr  /  10 . 764  sft  Per  Tile "'), (592, 'Application  - Outdoor  &  Indoor'), (592, '125000'), (389, 'GZ -  1010')]}
+ IMG X4.jpg (557, 560) MATCH (0.023681640625, '86.jpg')
+ IMG X6.jpg (560, 560) MATCH (0.02783203125, '87.jpg')
+ IMG X12.jpg (560, 374) MATCH (0.05078125, '88.jpg')
+
+PAGE 37 TEXT {'L': [(2668, 'Size  :  1  x  1mtr  /  10 . 764  sft  Per  Tile "'), (2668, 'Application  - Outdoor  &  Indoor'), (2668, '125000'), (2441, 'GZ -  1010')], 'R': []}
+ IMG X4.jpg (800, 800) MATCH (0.032470703125, '89.jpg')
+
+PAGE 38 TEXT {'L': [(2636, 'Size  :  1  x  1mtr  /  10 . 764  sft  Per  Tile "'), (2636, 'Application  - Outdoor  &  Indoor'), (2636, '125000'), (2409, 'GZ -  1038')], 'R': []}
+ IMG X4.jpg (795, 800) MATCH (0.021728515625, '90.jpg')
+
+PAGE 39 TEXT {'L': [(1553, 'GZ -  1047')], 'R': [(2909, 'Size  :  1  x  1mtr  /  10 . 764  sft  Per  Tile "'), (2909, 'Application  - Outdoor  &  Indoor'), (2909, '126250'), (2707, 'GZ -  1051'), (592, 'Size  :  1  x  1mtr  /  10 . 764  sft  Per  Tile "'), (592, 'Application  - Outdoor  &  Indoor'), (592, '121000'), (389, 'GZ -  1049')]}
+ IMG X9.jpg (480, 480) MATCH (0.02880859375, '91.jpg')
+ IMG X11.jpg (560, 560) MATCH (0.02197265625, '92.jpg')
+ IMG X12.jpg (480, 480) MATCH (0.03955078125, '93.jpg')
+
+PAGE 40 TEXT {'L': [(2668, 'Size  :  1  x  1mtr  /  10 . 764  sft  Per  Tile "'), (2668, 'Application  - Outdoor  &  Indoor'), (2668, '121000'), (2441, 'GZ -  1049')], 'R': []}
+ IMG X6.jpg (800, 800) MATCH (0.042724609375, '94.jpg')
+
+PAGE 41 TEXT {'L': [(2668, 'Size  :  1  x  1mtr  /  10 . 764  sft  Per  Tile "'), (2668, 'Application  - Outdoor  &  Indoor'), (2668, '121000'), (2441, 'GZ -  1047')], 'R': []}
+ IMG X4.jpg (800, 800) MATCH (0.03662109375, '95.jpg')
+
+PAGE 42 TEXT {'L': [(2561, 'Size  :  1  x  1mtr  /  10 . 764  sft  Per  Tile "'), (2561, 'Application  - Outdoor  &  Indoor'), (2561, '126250'), (2334, 'GZ -  1051')], 'R': []}
+ IMG X4.jpg (800, 800) MATCH (0.040283203125, '96.jpg')
+
+PAGE 43 TEXT {'L': [(1553, 'GZ -  1043')], 'R': [(2909, 'Size  :  1  x  1mtr  /  10 . 764  sft  Per  Tile "'), (2909, 'Application  - Outdoor  &  Indoor'), (2909, '125000'), (2707, 'GZ -  1046'), (592, 'Size  :  1  x  1mtr  /  10 . 764  sft  Per  Tile "'), (592, 'Application  - Outdoor  &  Indoor'), (592, '124000'), (389, 'GZ - 1048')]}
+ IMG X9.jpg (480, 480) MATCH (0.067626953125, '97.jpg')
+ IMG X11.jpg (560, 560) MATCH (0.035400390625, '98.jpg')
+ IMG X12.jpg (560, 560) MATCH (0.02392578125, '99.jpg')
+
+PAGE 44 TEXT {'L': [(2615, 'Size  :  1  x  1mtr  /  10 . 764  sft  Per  Tile "'), (2615, 'Application  - Outdoor  &  Indoor'), (2615, '124000'), (2388, 'GZ -  1048')], 'R': []}
+ IMG X6.jpg (800, 800) MATCH (0.09423828125, '4.jpg')
+
+PAGE 45 TEXT {'L': [(2668, 'Size  :  1  x  1mtr  /  10 . 764  sft  Per  Tile "'), (2668, 'Application  - Outdoor  &  Indoor'), (2668, '123000'), (2441, 'GZ -  1043')], 'R': []}
+ IMG X6.jpg (800, 800) MATCH (0.06591796875, '100.jpg')
+
+PAGE 46 TEXT {'L': [(2668, 'Size  :  1  x  1mtr  /  10 . 764  sft  Per  Tile "'), (2668, 'Application  - Outdoor  &  Indoor'), (2668, '125000'), (2441, 'GZ -  1046')], 'R': []}
+ IMG X6.jpg (800, 800) MATCH (0.028564453125, '101.jpg')
+
+PAGE 47 TEXT {'L': [(1553, 'GZ -  1045')], 'R': [(2909, 'Size  :  1  x  1mtr  /  10 . 764  sft  Per  Tile "'), (2909, 'Application  - Outdoor  &  Indoor'), (2909, '126250'), (2707, 'GZ -  1054'), (592, 'Size  :  1  x  1mtr  /  10 . 764  sft  Per  Tile "'), (592, 'Application  - Outdoor  &  Indoor'), (592, '123000'), (339, 'GZ -  1044')]}
+ IMG X9.jpg (560, 560) MATCH (0.030029296875, '102.jpg')
+ IMG X11.jpg (480, 480) MATCH (0.045654296875, '103.jpg')
+ IMG X12.jpg (560, 560) MATCH (0.037841796875, '104.jpg')
+
+PAGE 48 TEXT {'L': [(2668, 'Size  :  1  x  1mtr  /  10 . 764  sft  Per  Tile "'), (2668, 'Application  - Outdoor  &  Indoor'), (2668, '123000'), (2441, 'GZ -  1044')], 'R': []}
+ IMG X6.jpg (800, 800) MATCH (0.029541015625, '105.jpg')
+
+PAGE 49 TEXT {'L': [(2583, 'Size  :  1  x  1mtr  /  10 . 764  sft  Per  Tile "'), (2583, 'Application  - Outdoor  &  Indoor'), (2583, '125000'), (2356, 'GZ -  1045')], 'R': []}
+ IMG X6.jpg (800, 800) MATCH (0.0654296875, '106.jpg')
+
+PAGE 50 TEXT {'L': [(2651, 'Size  :  1  x  1mtr  /  10 . 764  sft  Per  Tile "'), (2651, 'Application  - Outdoor  &  Indoor'), (2651, '126250'), (2424, 'GZ -  1054')], 'R': []}
+ IMG X6.jpg (800, 800) MATCH (0.04833984375, '107.jpg')
+
+PAGE 51 TEXT {'L': [(1553, 'GZ -  1050')], 'R': [(2909, 'Size  :  1  x  1mtr  /  10 . 764  sft  Per  Tile "'), (2909, 'Application  - Outdoor  &  Indoor'), (2909, '121000'), (2707, 'GZ -  1001'), (592, 'Size  :  1  x  1mtr  /  10 . 764  sft  Per  Tile "'), (592, 'Application  - Outdoor  &  Indoor'), (592, '126250'), (339, 'GZ -  1053')]}
+ IMG X9.jpg (480, 480) MATCH (0.02490234375, '108.jpg')
+ IMG X11.jpg (480, 480) MATCH (0.04931640625, '109.jpg')
+ IMG X12.jpg (480, 479) MATCH (0.030517578125, '110.jpg')
+
+PAGE 52 TEXT {'L': [(2668, 'Size  :  1  x  1mtr  /  10 . 764  sft  Per  Tile "'), (2668, 'Application  - Outdoor  &  Indoor'), (2668, '126250'), (2441, 'GZ -  1053')], 'R': []}
+ IMG X6.jpg (800, 800) MATCH (0.032470703125, '111.jpg')
+
+PAGE 53 TEXT {'L': [(2668, 'Size  :  1  x  1mtr  /  10 . 764  sft  Per  Tile "'), (2668, 'Application  - Outdoor  &  Indoor'), (2668, '126250'), (2441, 'GZ -  1050')], 'R': []}
+ IMG X6.jpg (800, 800) MATCH (0.05615234375, '112.jpg')
+
+PAGE 54 TEXT {'L': [(2562, 'Size  :  1  x  1mtr  /  10 . 764  sft  Per  Tile "'), (2562, 'Application  - Outdoor  &  Indoor'), (2562, '121000'), (2335, 'GZ -  1001'), (825, 'GZ -  1001\nApplication  - Outdoor  &  Indoor\nSize  :  1  x  1mtr  /  10 . 764  sft  Per  Tile "\n121000')], 'R': []}
+ IMG X6.jpg (800, 797) MATCH (0.024169921875, '113.jpg')
+
+PAGE 55 TEXT {'L': [(1553, 'GZ -  1008')], 'R': [(2909, 'Size  :  1  x  1mtr  /  10 . 764  sft  Per  Tile "'), (2909, 'Application  - Outdoor  &  Indoor'), (2909, '124000'), (2707, 'GZ -  1005'), (592, 'Size  :  1  x  1mtr  /  10 . 764  sft  Per  Tile "'), (592, 'Application  - Outdoor  &  Indoor'), (592, '123000'), (339, 'GZ -  1021')]}
+ IMG X4.jpg (640, 480) MATCH (0.0234375, '114.jpg')
+ IMG X9.jpg (525, 525) MATCH (0.05078125, '115.jpg')
+ IMG X12.png (513, 560) MATCH (0, '116.png')
+
+PAGE 56 TEXT {'L': [(2906, 'Size  :  1  x  1mtr  /  10 . 764  sft  Per  Tile "'), (2906, 'Application  - Outdoor  &  Indoor'), (2906, '121000'), (2707, 'GZ -  1002'), (557, 'Size  :  1  x  1mtr  /  10 . 764  sft  Per  Tile "'), (557, 'Application  - Outdoor  &  Indoor'), (557, '125000'), (357, 'GZ -  1006')], 'R': [(1748, 'Size  :  1  x  1mtr  /  10 . 764  sft  Per  Tile "'), (1748, 'Application  - Outdoor  &  Indoor'), (1748, '121000'), (1532, 'GZ -  1004')]}
+ IMG X5.png (517, 560) MATCH (0, '117.png')
+ IMG X10.png (492, 560) MATCH (0, '118.png')
+ IMG X14.jpg (480, 480) MATCH (0.0341796875, '119.jpg')
+
+PAGE 57 TEXT {'L': [(3103, 'ARTIFICIAL  GRASS  |  GREENWALL  |  FENCE  |  PLANTS  &  CREEPERS'), (2405, 'Plants'), (1765, 'Kids  Play  -  Artificial  Grass'), (1137, 'Wall  -  Artificial  Grass'), (804, 'ARTIFICIAL  GRASS  |  GREENWALL  |  FENCE  |  PLANTS  &  CREEPERS  \nPlants\nExclusive  Greenwall\nWall  -  Artificial  Grass\nKids  Play  -  Artificial  Grass\nPlants\nSports  Grass\nLandscape  Grass\nCustomise  -  Premium  Greenwall'), (495, 'Exclusive  Greenwall')], 'R': [(2400, 'Landscape  Grass'), (1770, 'Customise  -  Premium  Greenwall'), (1136, 'Plants'), (490, 'Sports  Grass')]}
+ IMG X14.png (300, 300) MATCH (0, '128.png')

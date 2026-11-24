@@ -60,6 +60,7 @@ export interface ProductQuery {
   maxPrice?: number;
   inStock?: boolean;
   featured?: boolean;
+  newArrival?: boolean;
   sort?: string;
   page?: number;
   limit?: number;
@@ -67,7 +68,7 @@ export interface ProductQuery {
 
 export const getProducts = (params: ProductQuery = {}) =>
   safe(
-    storeFetch<{ data: ProductSummary[]; pagination: Pagination; jsonLd?: Record<string, unknown> }>(`/products${qs({ ...params })}`, { tags: ['products'] }),
+    storeFetch<{ data: ProductSummary[]; pagination: Pagination; jsonLd?: Record<string, unknown> }>(`/products${qs({ ...params })}`, { tags: ['products'], ...(params.newArrival && { revalidate: 60 }) }),
     { data: [] as ProductSummary[], pagination: { page: 1, limit: 0, total: 0, totalPages: 0, hasNextPage: false, hasPrevPage: false } as Pagination, jsonLd: undefined }
   );
 

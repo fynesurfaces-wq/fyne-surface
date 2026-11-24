@@ -67,7 +67,7 @@ export function ProductFormModal({ open, onClose, productId }: { open: boolean; 
       return isEdit ? patch<{ data: Product }>(`/admin/products/${productId}`, body) : post<{ data: Product }>('/admin/products', body);
     },
     onSuccess: ({ data }) => {
-      toast.success(isEdit ? `“${data.name}” saved` : `“${data.name}” created`);
+      toast.success(isEdit ? `“${data.name || data.sku}” saved` : `“${data.name || data.sku}” created`);
       qc.invalidateQueries({ queryKey: ['products'] });
       qc.invalidateQueries({ queryKey: ['collections'] });
       qc.invalidateQueries({ queryKey: ['dashboard'] });
@@ -80,6 +80,7 @@ export function ProductFormModal({ open, onClose, productId }: { open: boolean; 
       if (e.code === 'DUPLICATE_KEY') {
         const field = (e.details as { field?: string } | undefined)?.field;
         if (field === 'sku') { setError('sku', { message: 'This SKU is already used by another product' }); setTab('general'); return; }
+        if (field === 'name') { setError('name', { message: 'Product names must be unique. Add the SKU to distinguish this product.' }); setTab('general'); return; }
       }
       const fieldErrors = getFieldErrors(err);
       if (fieldErrors.length) {
@@ -117,7 +118,7 @@ export function ProductFormModal({ open, onClose, productId }: { open: boolean; 
       onClose={close}
       size="lg"
       title={isEdit ? 'Edit product' : 'Add product'}
-      description={isEdit && product ? `${product.name} · ${product.sku}` : 'Create a new product in your catalog'}
+      description={isEdit && product ? `${product.name || product.sku} · ${product.sku}` : 'Create a new product in your catalog'}
       footer={
         <>
           <Button variant="outline" onClick={close} disabled={mutation.isPending}>Cancel</Button>
@@ -143,7 +144,7 @@ export function ProductFormModal({ open, onClose, productId }: { open: boolean; 
 
           {/* ── GENERAL ─────────────────────────────── */}
           <div className={cn('space-y-5 pt-5', tab !== 'general' && 'hidden')}>
-            <Field label="Product name" htmlFor="name" required error={errors.name?.message}>
+            <Field label="Product name (optional)" htmlFor="name" error={errors.name?.message} hint="Leave blank to show the product SKU instead.">
               <Input id="name" placeholder="e.g. Rhododendron" invalid={!!errors.name} {...register('name')} />
             </Field>
 
@@ -203,6 +204,9 @@ export function ProductFormModal({ open, onClose, productId }: { open: boolean; 
               )} />
               <Controller control={control} name="isFeatured" render={({ field }) => (
                 <Switch checked={field.value} onChange={field.onChange} label="Featured" description="Show first in listings" />
+              )} />
+              <Controller control={control} name="isNewArrival" render={({ field }) => (
+                <Switch checked={field.value} onChange={field.onChange} label="New arrival" description="Show in the homepage new arrivals section" />
               )} />
             </div>
           </div>

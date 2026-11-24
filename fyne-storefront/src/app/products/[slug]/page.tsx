@@ -40,7 +40,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!p) return { title: 'Product not found', robots: { index: false } };
 
   const images = p.images.length
-    ? p.images.slice(0, 4).map((i) => ({ url: i.url, alt: i.alt || p.name, width: 1200, height: 1500 }))
+    ? p.images.slice(0, 4).map((i) => ({ url: i.url, alt: i.alt || p.name || `SKU ${p.sku}`, width: 1200, height: 1500 }))
     : undefined;
 
   return {
@@ -72,6 +72,7 @@ export default async function ProductPage({ params }: Props) {
   if (!p) notFound();
 
   const facts = keyFacts(p);
+  const productLabel = p.name?.trim();
   const sections = specSections(p);
   const discount = p.price.compareAt && p.price.compareAt > p.price.amount ? p.price.compareAt : null;
   const faqs = productFaqs(p);
@@ -96,7 +97,7 @@ export default async function ProductPage({ params }: Props) {
           {/* Gallery */}
           <div className="lg:col-span-7">
             <div className="lg:sticky lg:top-28">
-              <ProductGallery images={p.images} name={p.name} slug={p.slug} />
+              <ProductGallery images={p.images} name={productLabel || `SKU ${p.sku}`} slug={p.slug} />
             </div>
           </div>
 
@@ -107,7 +108,7 @@ export default async function ProductPage({ params }: Props) {
                 {p.collection.name}
               </Link>
             )}
-            <TextReveal as="h1" className="mt-3 text-display-md text-ink">{p.name} — Artificial Plants in Mumbai</TextReveal>
+            {productLabel && <TextReveal as="h1" className="mt-3 text-display-md text-ink">{productLabel}</TextReveal>}
             <p className="mt-3 text-[13px] uppercase tracking-[0.16em] text-ink-muted">
               SKU <span className="font-semibold text-ink-soft">{p.sku}</span>
             </p>
@@ -162,7 +163,7 @@ export default async function ProductPage({ params }: Props) {
         {/* Description + summary + FAQ */}
         <div className="mt-24 grid gap-14 border-t border-line pt-16 lg:grid-cols-12">
           <Reveal className="lg:col-span-7">
-            <h2 className="text-display-md text-ink">About the {p.name}</h2>
+            {productLabel && <h2 className="text-display-md text-ink">About the {productLabel}</h2>}
             {p.descriptionHtml ? (
               <div className="prose prose-lg mt-6 max-w-none prose-p:text-ink-soft prose-headings:text-ink prose-a:text-primary" dangerouslySetInnerHTML={{ __html: p.descriptionHtml }} />
             ) : null}
@@ -176,10 +177,10 @@ export default async function ProductPage({ params }: Props) {
       </div>
 
       <SeoAnswerSection
-        heading={`About ${p.name}`}
+        heading={productLabel ? `About ${productLabel}` : `Product details for SKU ${p.sku}`}
         paragraphs={[
-          `Find artificial plants in Mumbai such as ${p.name} at FYNE SURFACES. ${p.summary}`,
-          `${p.name} is listed${p.collection ? ` in the ${p.collection.name} collection` : ''} for ${formatINR(p.price.amount)} and is currently ${p.availability.inStock ? 'in stock' : 'out of stock'}. Review the product specifications for the dimensions, materials and pack details provided in the catalog before ordering.`,
+          `${productLabel ? `Find ${productLabel} at FYNE SURFACES. ` : ''}${p.summary}`,
+          `This product is listed for ${formatINR(p.price.amount)} and is currently ${p.availability.inStock ? 'in stock' : 'out of stock'}. Review the product specifications for the dimensions, materials and pack details provided in the catalog before ordering.`,
         ]}
       />
       <FaqSection faqs={faqs} id="product-faqs" includeJsonLd={false} />

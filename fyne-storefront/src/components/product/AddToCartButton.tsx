@@ -10,7 +10,7 @@ export function toCartItem(p: Pick<ProductSummary, 'id' | 'slug' | 'name' | 'sku
   return {
     productId: p.id,
     slug: p.slug,
-    name: p.name,
+    name: p.name || `SKU ${p.sku}`,
     sku: p.sku,
     price: p.price.amount,
     image: p.images[0]?.url ?? null,

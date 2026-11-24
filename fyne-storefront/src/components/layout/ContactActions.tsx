@@ -1,6 +1,6 @@
 'use client';
 
-import { MessageCircle, Phone } from 'lucide-react';
+import { Phone } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 function internationalNumber(value?: string) {
@@ -32,9 +32,9 @@ export function ContactActions({ phone, whatsapp }: { phone?: string; whatsapp?:
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.94 }}
             transition={{ duration: 0.35, delay: 0.08 }}
-            className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lift transition-colors hover:bg-[#1DA851] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25D366] focus-visible:ring-offset-2"
+            className="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl shadow-lift focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#25D366] focus-visible:ring-offset-2"
           >
-            <MessageCircle className="h-5 w-5" aria-hidden="true" />
+            <img src="/images/whatsapp-icon.png" alt="" aria-hidden="true" className="h-full w-full object-contain" />
           </motion.a>
         )}
         {callNumber && (

@@ -78,7 +78,7 @@ function ProductsView() {
       header: 'Image',
       hideable: false,
       className: 'w-16',
-      cell: (p) => <Thumb src={p.thumbnail ?? p.images?.[0]?.url} alt={p.name} size={44} />,
+      cell: (p) => <Thumb src={p.thumbnail ?? p.images?.[0]?.url} alt={p.name || p.sku} size={44} />,
     },
     {
       id: 'name',
@@ -87,7 +87,7 @@ function ProductsView() {
       hideable: false,
       cell: (p) => (
         <div className="min-w-[180px]">
-          <p className="font-medium text-ink">{p.name}</p>
+          <p className="font-medium text-ink">{p.name || p.sku}</p>
           {p.isFeatured && <span className="text-[11px] font-medium text-secondary">★ Featured</span>}
         </div>
       ),
@@ -123,12 +123,12 @@ function ProductsView() {
       cell: (p) => (
         <div className="flex justify-end gap-1" onClick={(e) => e.stopPropagation()}>
           {canEdit && (
-            <Button variant="ghost" size="icon" className="h-8 w-8" aria-label={`Edit ${p.name}`} onClick={() => setModal({ open: true, id: p._id })}>
+            <Button variant="ghost" size="icon" className="h-8 w-8" aria-label={`Edit ${p.name || p.sku}`} onClick={() => setModal({ open: true, id: p._id })}>
               <Pencil className="h-4 w-4" />
             </Button>
           )}
           {can(P.PRODUCTS_DELETE) && (
-            <Button variant="ghost" size="icon" className="h-8 w-8 hover:bg-danger-50 hover:text-danger" aria-label={`Delete ${p.name}`} onClick={() => setToDelete(p)}>
+            <Button variant="ghost" size="icon" className="h-8 w-8 hover:bg-danger-50 hover:text-danger" aria-label={`Delete ${p.name || p.sku}`} onClick={() => setToDelete(p)}>
               <Trash2 className="h-4 w-4" />
             </Button>
           )}
@@ -208,7 +208,7 @@ function ProductsView() {
         title="Delete product?"
         message={
           <>
-            <strong className="text-ink">{toDelete?.name}</strong> ({toDelete?.sku}) will be permanently removed along with its images. Past orders keep their copy.
+            <strong className="text-ink">{toDelete?.name || toDelete?.sku}</strong> ({toDelete?.sku}) will be permanently removed along with its images. Past orders keep their copy.
             <span className="mt-2 block text-muted-foreground">Tip: set it to <em>Draft</em> instead to hide it without deleting.</span>
           </>
         }

@@ -21,13 +21,15 @@ const COLLECTION_SLUG = 'bushes-collection-0325';
 const CATALOG = require('./bushes-catalog.json');
 const ASSET_DIR = path.join(__dirname, 'assets', 'bushes');
 
+const namesBySku = new Map(CATALOG.map((item) => [item.sku, 'Artificial bush pack']));
+
 function contentFor(item) {
-  const name = `Bush Pack ${item.sku}`;
+  const name = namesBySku.get(item.sku);
   const imageAlt = `Artificial bush pack ${item.sku}, ${item.packSize} pieces for vertical gardens and green walls`;
   const shortDescription = `${name} includes ${item.packSize} artificial foliage pieces for vertical gardens, green walls and planters.`;
   const description = `<p>${name} by FYNE SURFACES includes ${item.packSize} artificial foliage pieces.</p><p>Use this bush pack to build vertical gardens, green walls, planters and landscaping displays.</p>`;
-  const metaTitle = `Artificial Bush Pack ${item.sku} | FYNE SURFACES`.slice(0, 70);
-  const metaDescription = `Shop artificial bush pack ${item.sku} by FYNE SURFACES. Includes ${item.packSize} foliage pieces for vertical gardens, green walls and planters.`.slice(0, 170);
+  const metaTitle = `${name} | FYNE SURFACES`.slice(0, 70);
+  const metaDescription = `Shop ${name} by FYNE SURFACES. Includes ${item.packSize} foliage pieces for vertical gardens, green walls and planters.`.slice(0, 170);
 
   return {
     name,
@@ -41,8 +43,8 @@ function contentFor(item) {
       keywords: ['artificial bush pack', 'artificial bushes', 'vertical garden plants', 'green wall foliage', item.sku.toLowerCase()],
     },
     faqs: [
-      { question: `How many pieces are in Bush Pack ${item.sku}?`, answer: `The catalog lists ${item.packSize} pieces in this pack.` },
-      { question: `Where can Bush Pack ${item.sku} be used?`, answer: 'The catalog describes bush packs for vertical gardens, green walls, planters and landscaping.' },
+      { question: `How many pieces are in ${name}?`, answer: `The catalog lists ${item.packSize} pieces in this pack.` },
+      { question: `Where can ${name} be used?`, answer: 'The catalog describes bush packs for vertical gardens, green walls, planters and landscaping.' },
     ],
   };
 }
@@ -84,8 +86,8 @@ async function importOne(item, collection, uploader) {
 
   try {
     product.set({
-      name: details.name,
-      slug: existing?.slug || await uniqueSlug(Product, slugify(`${details.name}-${item.sku}`)),
+      name: undefined,
+      slug: existing?.slug || await uniqueSlug(Product, slugify(item.sku)),
       collection: collection._id,
       price: item.price,
       currency: 'INR',

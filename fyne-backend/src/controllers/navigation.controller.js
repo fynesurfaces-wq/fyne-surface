@@ -68,7 +68,7 @@ exports.globalSearch = asyncHandler(async (req, res) => {
 
   if (hasPermission(role, P.PRODUCTS_READ)) {
     tasks.products = Product.find({ $or: [{ name: rx }, { sku: rx }, { tags: rx }] }).limit(5).select('name sku images isActive').lean()
-      .then((r) => r.map((p) => ({ id: p._id, title: p.name, subtitle: p.sku, image: p.images?.[0]?.url, path: `/products/${p._id}` })));
+      .then((r) => r.map((p) => ({ id: p._id, title: p.name || p.sku, subtitle: p.sku, image: p.images?.[0]?.url, path: `/products/${p._id}` })));
   }
   if (hasPermission(role, P.COLLECTIONS_READ)) {
     tasks.collections = Collection.find({ name: rx }).limit(5).select('name slug').lean()
