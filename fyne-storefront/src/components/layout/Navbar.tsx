@@ -292,8 +292,9 @@ export function Navbar({ collections }: { collections: CollectionSummary[] }) {
                     <Link href="/pages/about" className={cn('py-3', mobileLinkCls(pathname === '/pages/about'))}>Our Story</Link>
                     <Link href="/contact" className={cn('py-3', mobileLinkCls(pathname === '/contact'))}>Contact</Link>
                     <Link href="/locations" className={cn('py-3', mobileLinkCls(pathname.startsWith('/locations')))}>Locations</Link>
-                    {isCustomer && <Link href="/account" className={cn('py-3', mobileLinkCls(pathname.startsWith('/account')))} aria-current={pathname.startsWith('/account') ? 'page' : undefined}><UserRound className="mr-1 inline h-4 w-4" />Account</Link>}
+                    {/* {isCustomer && <Link href="/account" className={cn('py-3', mobileLinkCls(pathname.startsWith('/account')))} aria-current={pathname.startsWith('/account') ? 'page' : undefined}><UserRound className="mr-1 inline h-4 w-4" />Account</Link>}
                     <Link href="/cart" className={cn('py-3', mobileLinkCls(pathname === '/cart'))}>Cart{hydrated && count ? ` (${count})` : ''}</Link>
+                    */}
                     {isCustomer
                       ? <button type="button" onClick={signOutCustomer} className="mt-2 flex items-center justify-center gap-2 rounded-xl border border-line px-4 py-3 text-sm font-semibold text-ink-soft transition hover:bg-canvas"><LogOut className="h-4 w-4" />Sign out</button>
                       : <Link href="/login" className="mt-2 flex items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-white"><UserRound className="h-4 w-4" />Login / Register</Link>}

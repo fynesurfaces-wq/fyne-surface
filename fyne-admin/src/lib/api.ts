@@ -105,10 +105,11 @@ export function getApiError(err: unknown): ApiErrorBody {
     const body = (err.response?.data as { error?: ApiErrorBody } | undefined)?.error;
     if (body) return body;
     if (err.code === 'ECONNABORTED') return { code: 'TIMEOUT', message: 'The server took too long to respond.' };
-    if (!err.response) return { code: 'NETWORK', message: 'Cannot reach the server. Is the API running?' };
-    return { code: `HTTP_${err.response.status}`, message: err.message };
+    if (!err.response) return { code: 'NETWORK', message: 'We couldn’t reach the server. Check your connection and try again.' };
+    if (err.response.status >= 500) return { code: err.response.status === 503 ? 'SERVICE_UNAVAILABLE' : 'INTERNAL_ERROR', message: 'Something went wrong. Please try again.' };
+    return { code: `HTTP_${err.response.status}`, message: 'The request could not be completed.' };
   }
-  return { code: 'UNKNOWN', message: err instanceof Error ? err.message : 'Something went wrong' };
+  return { code: 'UNKNOWN', message: 'Something went wrong. Please try again.' };
 }
 
 export const getErrorMessage = (err: unknown) => getApiError(err).message;
