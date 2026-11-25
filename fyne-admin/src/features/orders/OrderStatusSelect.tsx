@@ -40,6 +40,7 @@ export function OrderStatusSelect({ orderId, orderNumber, status, className }: {
           className={cn(
             'h-7 cursor-pointer appearance-none rounded-full border py-0 pl-2.5 pr-7 text-xs font-medium transition focus:outline-none focus:shadow-ring',
             status === 'Pending' && 'border-secondary-200 bg-secondary-50 text-secondary-700',
+            status === 'Processing' && 'border-purple-200 bg-purple-50 text-purple-700',
             status === 'Shipped' && 'border-blue-200 bg-info-50 text-info'
           )}
         >

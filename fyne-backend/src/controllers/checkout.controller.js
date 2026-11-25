@@ -6,6 +6,9 @@ const { asyncHandler, round2 } = require('../utils/helpers');
 const { evaluateDiscount } = require('../services/discount.service');
 const { commitInventory } = require('../services/order.service');
 const { getPaymentService } = require('../services/payment/PaymentService');
+const mongoose = require('mongoose');
+const { invalidateStoreCache } = require('../middleware/responseCache');
+const env = require('../config/env');
 const email = require('../services/email.service');
 
 /**
@@ -49,6 +52,77 @@ function computeTotals({ subtotal, discountAmount, freeShipping, settings }) {
   return { shippingFee, tax: { amount: taxAmount, rate, included }, total };
 }
 
+/** COD-only, transactional checkout. Request prices/payment method are deliberately ignored. */
+exports.placeOrder = asyncHandler(async (req, res) => {
+  const session = await mongoose.startSession();
+  let order;
+  try {
+    await session.withTransaction(async () => {
+      const qtyById = new Map();
+      for (const item of req.body.items) {
+        const id = String(item.product);
+        const nextQty = (qtyById.get(id) || 0) + Number(item.qty);
+        if (nextQty > 100) throw new ApiError(422, 'Maximum quantity per product is 100', 'INVALID_QUANTITY');
+        qtyById.set(id, nextQty);
+      }
+      const ids = [...qtyById.keys()];
+      const products = await Product.find({ _id: { $in: ids }, isActive: true }).session(session).lean();
+      if (products.length !== ids.length) throw new ApiError(422, 'One or more products are no longer available', 'PRODUCT_UNAVAILABLE');
+      const lines = products.map((p) => ({ product: p._id, collection: p.collection, name: p.name || p.sku, sku: p.sku, image: p.images?.[0]?.url, price: p.price, qty: qtyById.get(String(p._id)), lineTotal: round2(p.price * qtyById.get(String(p._id))) }));
+      const subtotal = round2(lines.reduce((sum, line) => sum + line.lineTotal, 0));
+      const applied = req.body.discountCode ? await evaluateDiscount(req.body.discountCode, { items: lines, subtotal, customerId: req.customer._id }) : { discount: null, amount: 0, freeShipping: false };
+
+      // Conditional atomic decrement. The surrounding transaction rolls back every decrement if any item fails.
+      for (const line of lines) {
+        const result = await Product.updateOne({ _id: line.product, isActive: true, stock: { $gte: line.qty } }, { $inc: { stock: -line.qty } }, { session });
+        if (result.modifiedCount !== 1) throw new ApiError(409, `Insufficient stock for ${line.name}`, 'INSUFFICIENT_STOCK', { product: String(line.product), requested: line.qty });
+      }
+
+      const settings = await Setting.getStore();
+      const shippingFee = env.mockShippingFee;
+      const totals = computeTotals({ subtotal, discountAmount: applied.amount, freeShipping: applied.freeShipping, settings: { ...settings.toObject?.() || settings, shipping: { flatRate: shippingFee, freeShippingThreshold: 0 } } });
+      const address = { ...req.body.shippingAddress };
+      order = new Order({
+        orderNumber: await Counter.next('order', 1000, { session }), user: req.customer._id, email: req.customer.email,
+        orderItems: lines.map(({ collection: _collection, ...line }) => line), shippingAddress: address,
+        subtotal, discount: { ...(applied.discount && { code: applied.discount.code }), amount: applied.amount }, shippingFee: totals.shippingFee, tax: totals.tax, totalAmount: totals.total,
+        currency: 'INR', orderStatus: 'Pending', paymentStatus: 'Pending', paymentMethod: 'cod', inventoryCommitted: true,
+        notes: req.body.notes, history: [{ type: 'order', status: 'Pending', note: 'COD order placed' }],
+      });
+      await order.save({ session });
+      const customerUpdate = { $inc: { ordersCount: 1 }, $set: { lastOrderAt: new Date() } };
+      if (!req.customer.addresses?.length) customerUpdate.$push = { addresses: address };
+      await Customer.updateOne({ _id: req.customer._id }, customerUpdate, { session });
+    });
+  } catch (error) {
+    if (error.code === 20 || error.codeName === 'IllegalOperation' || /Transaction numbers are only allowed/i.test(error.message || '')) {
+      throw new ApiError(503, 'Order checkout requires MongoDB replica-set transaction support.', 'TRANSACTIONS_REQUIRED');
+    }
+    throw error;
+  } finally {
+    await session.endSession();
+  }
+  try { await invalidateStoreCache('products', 'collections'); } catch { /* order is committed; cache invalidation must not misreport checkout failure */ }
+  void email.sendCodOrderConfirmation(order);
+  res.status(201).json({ success: true, data: { order: { id: order._id, orderNumber: order.orderNumber, orderStatus: order.orderStatus, paymentStatus: order.paymentStatus, paymentMethod: order.paymentMethod, items: order.orderItems, subtotal: order.subtotal, discount: order.discount, shippingFee: order.shippingFee, tax: order.tax, totalAmount: order.totalAmount, currency: order.currency }, payment: null } });
+});
+
+/** Authenticated cart quote; all line prices and shipping are read/calculated on the server. */
+exports.quote = asyncHandler(async (req, res) => {
+  const qtyById = new Map();
+  for (const item of req.body.items) {
+    const id = String(item.product);
+    const qty = (qtyById.get(id) || 0) + Number(item.qty);
+    if (qty > 100) throw new ApiError(422, 'Maximum quantity per product is 100', 'INVALID_QUANTITY');
+    qtyById.set(id, qty);
+  }
+  const { lines, subtotal } = await priceCart([...qtyById].map(([product, qty]) => ({ product, qty })));
+  const applied = req.body.discountCode ? await evaluateDiscount(req.body.discountCode, { items: lines, subtotal, customerId: req.customer._id }) : { discount: null, amount: 0, freeShipping: false };
+  const settings = await Setting.getStore();
+  const totals = computeTotals({ subtotal, discountAmount: applied.amount, freeShipping: applied.freeShipping, settings: { ...settings.toObject?.() || settings, shipping: { flatRate: env.mockShippingFee, freeShippingThreshold: 0 } } });
+  res.json({ success: true, data: { items: lines.map(({ collection: _collection, ...line }) => line), subtotal, discount: { ...(applied.discount && { code: applied.discount.code }), amount: applied.amount }, shippingFee: totals.shippingFee, tax: totals.tax, totalAmount: totals.total, currency: 'INR' } });
+});
+
 /** POST /api/v1/store/discounts/validate — cart preview before checkout. */
 exports.validateDiscount = asyncHandler(async (req, res) => {
   const settings = await Setting.getStore();
@@ -65,22 +139,12 @@ exports.validateDiscount = asyncHandler(async (req, res) => {
  * Stock is reserved when payment succeeds (webhook) — or immediately for COD.
  */
 exports.checkout = asyncHandler(async (req, res) => {
-  const { customer: c, items, shippingAddress, discountCode, paymentMethod = 'online', notes } = req.body;
+  const { customer: submittedCustomer, items, shippingAddress, discountCode, paymentMethod = 'online', notes } = req.body;
+  const c = { ...submittedCustomer, name: req.customer.name, email: req.customer.email, phone: submittedCustomer.phone || req.customer.phone };
   const settings = await Setting.getStore();
   const { lines, subtotal } = await priceCart(items);
 
-  // Guest checkout: link to an existing customer by email or create one.
-  // Existing customers' details are never overwritten by an anonymous request.
-  const customerResult = await Customer.findOneAndUpdate(
-    { email: c.email },
-    { $setOnInsert: { email: c.email, name: c.name, phone: c.phone, acceptsMarketing: Boolean(c.acceptsMarketing), source: 'checkout' } },
-    { upsert: true, new: true, setDefaultsOnInsert: true, includeResultMetadata: true }
-  );
-  const customer = customerResult.value;
-  const isNewCustomer = Boolean(customerResult.lastErrorObject?.upserted);
-  // This project has guest checkout rather than shopper accounts; first-time
-  // customer creation is its registration moment for the welcome message.
-  if (isNewCustomer) void email.sendWelcome(customer);
+  const customer = req.customer;
 
   let discount = { amount: 0 };
   let freeShipping = false;
@@ -122,11 +186,13 @@ exports.checkout = asyncHandler(async (req, res) => {
   }
   await order.save();
 
+  if (paymentMethod === 'cod') void email.sendCodOrderConfirmation(order);
+
   await Customer.updateOne(
     { _id: customer._id },
     {
       $inc: { ordersCount: 1 },
-      $set: { lastOrderAt: new Date() },
+      $set: { lastOrderAt: new Date(), ...(c.acceptsMarketing && { acceptsMarketing: true }) },
       ...(!customer.addresses?.length && { $push: { addresses: order.shippingAddress } }),
     }
   );

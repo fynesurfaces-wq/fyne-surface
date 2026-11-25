@@ -73,6 +73,7 @@ productSchema.index({ isActive: 1, collection: 1, price: 1 });
 productSchema.index({ isActive: 1, createdAt: -1 });
 productSchema.index({ stock: 1 });
 productSchema.index({ tags: 1 });
+productSchema.index({ name: 'text', sku: 'text', shortDescription: 'text', description: 'text' }, { weights: { name: 10, sku: 8, shortDescription: 4, description: 1 }, name: 'product_search_text' });
 productSchema.index({ name: 1 }, { unique: true, sparse: true, collation: { locale: 'en', strength: 2 }, name: 'uniq_product_name_ci' });
 
 productSchema.virtual('inStock').get(function inStock() {

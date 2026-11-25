@@ -1,0 +1,110 @@
+import { ArrowUpRight, Building2, Globe2, Leaf, PackageOpen, Sparkles, Store } from 'lucide-react';
+import { PlantImage } from '@/components/ui/PlantImage';
+
+const PRODUCTS = [
+  { title: 'Premium Artificial Landscape Grass', icon: Leaf },
+  { title: 'Sports Grass', detail: 'Football, cricket and other sports', icon: Sparkles },
+  { title: 'Decorative Greenwalls', detail: 'Indoor and outdoor', icon: Building2 },
+  { title: 'Hanging Creepers & Bunches', icon: Leaf },
+  { title: 'Innovative Decorative Greenery Solutions', icon: PackageOpen },
+];
+
+const STATS = [
+  { value: '1,500+', label: 'Dealer network', icon: Store },
+  { value: '10+', label: 'Distributors', icon: Building2 },
+  { value: 'PAN-INDIA', label: 'Market presence', icon: Globe2 },
+  { value: 'GROWING', label: 'Product portfolio', icon: PackageOpen },
+];
+
+const STORY_IMAGES = [
+  { src: '/images/home/planning-vertical-garden.webp', alt: 'Outdoor artificial grass and garden greenery', label: 'Landscape grass' },
+  { src: '/images/banners/lush-tropical-greenery-wall.webp', alt: 'Lush decorative green wall with layered artificial foliage', label: 'Decorative greenwalls' },
+  { src: '/images/banners/warm-modern-vertical-garden-entryway.webp', alt: 'Modern interior entryway with a vertical greenery feature', label: 'Greener interiors' },
+];
+
+export function OurStory() {
+  return (
+    <div className="container pb-16 sm:pb-20 lg:pb-24">
+      <section className="relative isolate -mt-5 overflow-hidden rounded-[2rem] border border-primary-100 bg-gradient-to-br from-white via-primary-50 to-accent-50 p-6 shadow-soft sm:p-10 lg:p-14">
+        <div aria-hidden className="absolute -right-20 -top-24 -z-10 h-72 w-72 rounded-full bg-accent-300/25 blur-3xl" />
+        <p className="text-eyebrow uppercase text-accent-700">Our story · Since 2010</p>
+        <h2 className="mt-4 max-w-4xl font-serif text-display-md leading-tight text-primary-950">From Direct Decor to a greener India.</h2>
+        <div className="mt-6 grid gap-5 text-[15px] leading-7 text-ink-soft md:grid-cols-2 md:gap-8">
+          <p>At FYNE Surfaces, our journey began in 2010 as Direct Decor, driven by a passion for transforming spaces through the beauty of greenery and innovative surface solutions.</p>
+          <p>Over the years, we have grown into an established name in India’s artificial greenery market, building an extensive nationwide network of 1,500+ dealers and 10+ distributors. This network brings our products and solutions closer to customers, businesses and design professionals across the country.</p>
+          <p className="md:col-span-2">We believe every space deserves a touch of creativity, and every environment has the potential to become more beautiful, functional and inspiring.</p>
+        </div>
+        <div className="mt-8 inline-flex items-center gap-2 rounded-full bg-accent-100 px-4 py-2 text-sm font-semibold text-primary-950"><span className="h-2 w-2 rounded-full bg-accent-600" /> Building greener spaces since 2010</div>
+        <div className="mt-9 grid gap-4 sm:grid-cols-3">
+          {STORY_IMAGES.map((image) => (
+            <figure key={image.src} className="group relative aspect-[4/3] overflow-hidden rounded-2xl border border-white/80 bg-primary-100 shadow-image">
+              <PlantImage src={image.src} alt={image.alt} seed={image.label} sizes="(min-width: 1024px) 30vw, (min-width: 640px) 30vw, 100vw" className="transition-transform duration-700 group-hover:scale-105" />
+              <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-primary-950/80 via-primary-950/25 to-transparent px-4 pb-4 pt-12 text-sm font-semibold text-white">{image.label}</figcaption>
+            </figure>
+          ))}
+        </div>
+      </section>
+
+      <section aria-labelledby="story-products-heading" className="py-14 sm:py-16 lg:py-20">
+        <div className="max-w-2xl">
+          <p className="text-eyebrow uppercase text-accent-700">What we do</p>
+          <h2 id="story-products-heading" className="mt-3 font-serif text-3xl text-ink sm:text-4xl">Thoughtful greenery for every kind of space.</h2>
+          <p className="mt-4 leading-7 text-ink-muted">Our expertise in artificial greenery spans a diverse range of products, thoughtfully curated for residential, commercial, hospitality and landscape environments.</p>
+        </div>
+        <ul className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {PRODUCTS.map(({ title, detail, icon: Icon }) => (
+            <li key={title} className="group flex min-h-24 items-start gap-4 rounded-2xl border border-line bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-primary-200 hover:shadow-soft">
+              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-primary-50 text-primary transition group-hover:bg-accent-100"><Icon className="h-5 w-5" /></span>
+              <span><span className="block font-semibold leading-6 text-ink">{title}</span>{detail && <span className="mt-1 block text-sm text-ink-muted">{detail}</span>}</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section aria-labelledby="beyond-greenery-heading" className="grid overflow-hidden rounded-[2rem] bg-primary-950 text-white lg:grid-cols-[0.9fr_1.1fr]">
+        <div className="relative isolate flex min-h-64 flex-col justify-center overflow-hidden p-7 sm:p-10 lg:p-12">
+          <div aria-hidden className="absolute -bottom-20 -left-16 -z-10 h-72 w-72 rounded-full bg-primary-700/60 blur-3xl" />
+          <p className="text-eyebrow uppercase text-accent-300">Beyond greenery</p>
+          <h2 id="beyond-greenery-heading" className="mt-3 font-serif text-3xl leading-tight sm:text-4xl">More possibilities for modern living.</h2>
+        </div>
+        <div className="flex items-center border-t border-white/10 bg-white/[0.04] p-7 sm:p-10 lg:border-l lg:border-t-0 lg:p-12">
+          <p className="max-w-2xl text-[15px] leading-7 text-white/75">Our vision extends beyond artificial greenery. We continuously explore new materials, designs and surface innovations to expand the possibilities of modern living. By combining quality, aesthetics, product innovation and strong distribution partnerships, we strive to deliver solutions that create lasting value.</p>
+        </div>
+      </section>
+
+      <section aria-labelledby="network-heading" className="py-14 sm:py-16 lg:py-20">
+        <div className="mx-auto max-w-3xl text-center">
+          <p className="text-eyebrow uppercase text-accent-700">Our strength is our network</p>
+          <h2 id="network-heading" className="mt-3 font-serif text-3xl text-ink sm:text-4xl">Built on trust, relationships and partnership.</h2>
+          <p className="mt-4 leading-7 text-ink-muted">Our nationwide presence reflects the trust, relationships and partnerships we have built over the years. Together with our dealers, distributors and business partners, we are making innovative greenery and surface solutions accessible across India.</p>
+        </div>
+        <ul className="mt-8 grid grid-cols-2 gap-3 lg:grid-cols-4">
+          {STATS.map(({ value, label, icon: Icon }) => (
+            <li key={label} className="rounded-2xl border border-primary-100 bg-gradient-to-br from-primary-50 to-white p-5 text-center sm:p-7">
+              <Icon className="mx-auto h-5 w-5 text-primary" />
+              <p className="mt-3 font-serif text-2xl font-semibold tracking-tight text-primary-950 sm:text-3xl">{value}</p>
+              <p className="mt-1 text-xs font-semibold uppercase tracking-[0.12em] text-ink-muted sm:text-sm">{label}</p>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section className="grid gap-4 md:grid-cols-2">
+        <article className="rounded-[1.75rem] border border-accent-200 bg-accent-50 p-7 sm:p-9">
+          <p className="text-eyebrow uppercase text-accent-800">Our vision</p>
+          <h2 className="mt-3 font-serif text-2xl text-primary-950 sm:text-3xl">Setting new benchmarks.</h2>
+          <p className="mt-4 text-[15px] leading-7 text-ink-soft">To continue being one of India’s most trusted and recognised brands in decorative greenery and innovative surface solutions, setting new benchmarks in quality, design and customer experience.</p>
+        </article>
+        <article className="rounded-[1.75rem] border border-primary-100 bg-primary-50 p-7 sm:p-9">
+          <p className="text-eyebrow uppercase text-primary">Our promise</p>
+          <h2 className="mt-3 font-serif text-2xl text-primary-950 sm:text-3xl">Made to create lasting value.</h2>
+          <ul className="mt-5 space-y-3 text-[15px] font-medium text-ink-soft">
+            {['Quality in every product.', 'Innovation in every collection.', 'Trust in every relationship.'].map((promise) => <li key={promise} className="flex items-center gap-3"><span className="h-2 w-2 rounded-full bg-accent-500" />{promise}</li>)}
+          </ul>
+        </article>
+      </section>
+
+      <a href="https://www.instagram.com/fynesurfaces" target="_blank" rel="noopener noreferrer" className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary-700">See what we’re creating <ArrowUpRight className="h-4 w-4" /></a>
+    </div>
+  );
+}

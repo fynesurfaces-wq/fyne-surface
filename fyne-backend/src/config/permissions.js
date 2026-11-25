@@ -45,6 +45,9 @@ const P = Object.freeze({
   LEADS_READ: 'leads:read',
   LEADS_WRITE: 'leads:write',
 
+  CONTACTS_READ: 'contacts:read',
+  CONTACTS_WRITE: 'contacts:write',
+
   ANALYTICS_VIEW: 'analytics:view',
   GROWTH_VIEW: 'growth:view',
 
@@ -78,6 +81,7 @@ const ROLE_PERMISSIONS = Object.freeze({
     P.CONTENT_READ, P.CONTENT_WRITE,
     P.MARKETS_READ,
     P.LEADS_READ, P.LEADS_WRITE,
+    P.CONTACTS_READ, P.CONTACTS_WRITE,
     P.ANALYTICS_VIEW, P.GROWTH_VIEW,
     P.CHANNELS_READ,
     P.SETTINGS_READ,

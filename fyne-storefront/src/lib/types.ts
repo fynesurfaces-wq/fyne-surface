@@ -62,7 +62,7 @@ export interface ProductSummary {
 /** /store/products/:slug */
 export interface ProductDetail extends ProductSummary {
   jsonLd: Record<string, unknown>;
-  related: { name: string; slug: string; sku: string; url: string; price: number; image: string | null; inStock: boolean }[];
+  related: { name: string; slug: string; sku: string; collectionName: string; url: string; price: number; image: string | null; inStock: boolean }[];
 }
 
 export interface CollectionSummary {
@@ -119,4 +119,37 @@ export interface ContentPage {
   seo: { title: string; description: string; canonicalUrl: string };
   jsonLd: Record<string, unknown>;
   updatedAt: string;
+}
+
+export interface BlogEntry {
+  _id: string;
+  title: string;
+  slug: string;
+  excerpt?: string;
+  body?: string;
+  coverImage?: StoreImage | null;
+  tags?: string[];
+  author?: { name?: string } | string | null;
+  publishedAt?: string;
+  updatedAt: string;
+  url: string;
+  seo?: { title: string; description: string; canonicalUrl: string };
+  jsonLd?: Record<string, unknown>;
+}
+
+export interface LegacySiteContent {
+  isEnabled: boolean;
+  eyebrow: string;
+  title: string;
+  body: string;
+  ctaLabel: string;
+  ctaHref: string;
+  image?: StoreImage | null;
+  reels?: InstagramReel[];
+}
+
+export interface InstagramReel {
+  url: string;
+  caption: string;
+  isActive: boolean;
 }

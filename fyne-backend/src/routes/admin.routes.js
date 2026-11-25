@@ -10,6 +10,7 @@ const { protect } = require('../middleware/auth');
 const { authorize } = require('../middleware/rbac');
 const { imageUpload } = require('../middleware/upload');
 const { P } = require('../config/permissions');
+const { body } = require('express-validator');
 
 const cv = require('../validators/catalog.validators');
 const av = require('../validators/admin.validators');
@@ -28,6 +29,8 @@ const analytics = require('../controllers/analytics.controller');
 const growth = require('../controllers/growth.controller');
 const nav = require('../controllers/navigation.controller');
 const { discounts, content, markets, integrations } = require('../controllers/resources.controller');
+const siteContent = require('../controllers/siteContent.controller');
+const contactMessages = require('../controllers/contactMessage.controller');
 
 const can = authorize;
 const id = validate(av.idParam);
@@ -107,6 +110,23 @@ router.route('/content/:id')
   .get(can(P.CONTENT_READ), id, content.getOne)
   .patch(can(P.CONTENT_WRITE), validate(av.contentUpdate), content.update)
   .delete(can(P.CONTENT_WRITE), id, content.remove);
+router.get('/site-content/legacy', can(P.CONTENT_READ), siteContent.adminGet);
+router.patch('/site-content/legacy', can(P.CONTENT_WRITE), validate([
+  body('isEnabled').optional().isBoolean().toBoolean(),
+  body('eyebrow').optional().isString().trim().isLength({ max: 80 }),
+  body('title').optional().isString().trim().isLength({ min: 2, max: 160 }),
+  body('body').optional().isString().trim().isLength({ max: 1200 }),
+  body('ctaLabel').optional().isString().trim().isLength({ max: 60 }),
+  body('ctaHref').optional().isString().trim().matches(/^\/(?!\/)[^\\\s]*$/).isLength({ max: 300 }),
+  body('image').optional({ values: 'null' }).isObject(),
+  body('image.url').optional().isURL({ require_protocol: true, protocols: ['http', 'https'] }),
+  body('image.alt').optional().isString().isLength({ max: 160 }),
+  body('image.publicId').optional().isString().isLength({ max: 200 }),
+  body('reels').optional().isArray({ max: 8 }),
+  body('reels.*.url').if(body('reels').exists()).isString().trim().isLength({ max: 300 }).matches(/^https:\/\/(?:www\.)?instagram\.com\/reel\/[A-Za-z0-9_-]+\/?(?:\?[A-Za-z0-9_=&%-]*)?$/i),
+  body('reels.*.caption').optional().isString().trim().isLength({ max: 180 }),
+  body('reels.*.isActive').optional().isBoolean().toBoolean(),
+]), siteContent.adminUpdate);
 
 // ── Files (media library) ──────────────────────────────────
 router.route('/media')
@@ -131,6 +151,12 @@ router.route('/leads/:id')
   .patch(can(P.LEADS_WRITE), validate(av.leadUpdate), leads.update)
   .delete(can(P.LEADS_WRITE), id, leads.remove);
 router.post('/leads/:id/notes', can(P.LEADS_WRITE), validate(av.leadNote), leads.addNote);
+
+// ── Contact form inbox ─────────────────────────────────────
+router.get('/contact-messages', can(P.CONTACTS_READ), validate(av.contactMessageList), contactMessages.list);
+router.get('/contact-messages/:id', can(P.CONTACTS_READ), id, contactMessages.get);
+router.patch('/contact-messages/:id', can(P.CONTACTS_WRITE), validate(av.contactMessageUpdate), contactMessages.update);
+router.delete('/contact-messages/:id', can(P.CONTACTS_WRITE), id, contactMessages.remove);
 
 // ── Sales channels (Agentic, Online Store) ─────────────────
 router.get('/channels', can(P.CHANNELS_READ), settings.listChannels);

@@ -73,10 +73,11 @@ fyne-backend/
 |---|---|
 | Access token | JWT HS256, 15 min, in JSON. Send as `Authorization: Bearer …`. Issuer, audience and type are checked. |
 | Refresh token | JWT, 7 days, in an HttpOnly + Secure + SameSite=Strict cookie scoped to `/api/v1/auth`. Only a SHA-256 hash is stored. Rotated on every refresh; reuse of an old token revokes the session. |
+| Customer session | 15-minute HttpOnly access cookie plus a random refresh token in an HttpOnly + Secure + SameSite=Strict cookie. Refresh tokens are SHA-256 hashed in MongoDB, rotate on use and expire after 7 days of inactivity; password reset and logout invalidate the session. |
 | Session invalidation | The role is re-read from the DB on every request. Deactivating a user or changing a password takes effect immediately. |
 | Passwords | bcrypt (12 rounds). Strong-password rule. Constant-time login, so the response doesn't reveal whether an email exists. |
 | Headers / CORS | `helmet` with a strict CSP. CORS uses an origin whitelist with credentials. |
-| Rate limiting | `express-rate-limit`. Login: 10 failed attempts per 15 min. Checkout, leads and discount checks: 30 per 15 min. Tracking: 120 per min. Global: 1500 per 15 min. |
+| Rate limiting | `express-rate-limit`. Redis-backed counters are shared across instances when `REDIS_URL` is configured; a local in-memory fallback is used if Redis is unavailable. |
 | Injection | `express-mongo-sanitize` (NoSQL injection) and `xss-clean` on plain-text fields. Rich-text fields (`description`, `body`, `answer`) use an allow-list HTML sanitiser. |
 | Mass assignment | Every controller whitelists fields with `pick()`. Prices are recomputed server-side at checkout. |
 | Uploads | Images only, 8 MB, max 10 per request. Held in memory and uploaded to ImageKit. |
@@ -113,6 +114,7 @@ Permissions live in `src/config/permissions.js`, which is the only place to edit
 | Growth | `GET /admin/growth/overview` · `GET /admin/growth/abandoned-checkouts` |
 | Discounts | `GET/POST /admin/discounts` · `GET/PATCH/DELETE /admin/discounts/:id` |
 | Content | `GET/POST /admin/content?type=page\|blog_post` · `GET/PATCH/DELETE /admin/content/:id` |
+| Contact messages `[contacts:read/write]` | `GET /admin/contact-messages` · `GET/PATCH/DELETE /admin/contact-messages/:id` |
 | Files | `GET/POST /admin/media` (multipart `files[]`) · `PATCH/DELETE /admin/media/:id` |
 | Markets | `GET/POST /admin/markets` · `GET/PATCH/DELETE /admin/markets/:id` |
 | Leads | `GET /admin/leads` · `GET/PATCH/DELETE /admin/leads/:id` · `POST /admin/leads/:id/notes` |
@@ -127,6 +129,14 @@ Every list endpoint accepts `?page&limit(≤100)&sort=-field,field&q=` plus reso
 |---|---|
 | GET | `/store/settings` · `/store/collections` · `/store/collections/:slug` · `/store/products` · `/store/products/:slug` · `/store/content/:type(pages\|blog)` · `/store/content/:type/:slug` |
 | POST | `/store/checkout` · `/store/discounts/validate` · `/store/leads` · `/store/analytics/track` |
+
+### Customer account
+| Method | Path | Notes |
+|---|---|---|
+| POST | `/auth/customer/register` · `/verify-email` · `/login` · `/forgot-password` · `/reset-password` · `/change-password` · `/logout` · `/refresh` | Customer sign-up and sign-in do not require email delivery or verification. Access cookie lasts 15 minutes and refresh token rotates for up to 7 days. |
+| GET/PATCH | `/auth/customer/profile` · `/auth/customer/orders` | Customer cookie protected. |
+| POST/GET | `/orders/quote` · `/orders` · `/orders/my-orders` · `/orders/:id` | Authenticated COD checkout with server-side pricing, stock checks and owner checks. |
+| POST | `/contact` | Validated contact message; stored in MongoDB and optionally emailed to the configured business inbox. |
 
 ### Payments
 | Method | Path |
@@ -169,8 +179,9 @@ To plug in **Razorpay or Stripe**, add a class that extends `PaymentGateway`, re
 
 ## Deployment notes
 
-- Set `REDIS_URL` to a Redis-compatible URL (for example `redis://localhost:6379`). Product and collection storefront GET responses are cached for one hour. Admin catalog edits and inventory changes clear the affected product and collection cache namespaces. If Redis is unavailable, requests bypass the cache; `/health` returns `503` until both MongoDB and Redis pass their checks.
-- Set `RESEND_API_KEY` and `EMAIL_FROM` to enable transactional mail through Resend. Use a sender address on a domain verified in Resend. Without these settings, notification delivery is skipped and logged. The current storefront uses guest checkout rather than shopper accounts, so the welcome email is sent when a customer's first record is created at checkout. Order confirmation follows verified successful payment, and shipment mail follows the admin transition to `Shipped`.
+- Set `REDIS_URL` to the connection URL from your Redis provider (use its TLS URL in production). It backs product/collection response caching and shared API rate limits. Product and collection list responses cache for one hour; detail recommendations bypass Redis. Admin catalog/inventory changes clear affected cache namespaces. `/health` returns `503` until MongoDB and Redis are both available.
+- Outgoing mail is optional. Without a provider, account registration, login, checkout, order tracking, and password changes from Account settings continue to work. Configure `RESEND_API_KEY` + `EMAIL_FROM` or SMTP + `EMAIL_FROM` to enable password-reset links and order notifications. Set `CONTACT_TO_EMAIL` for contact-form notifications and `ORDER_NOTIFICATION_EMAIL` for internal new-COD-order alerts. Contact submissions remain available in Admin → Contact Messages.
+- `IMAGEKIT_PRIVATE_KEY`, `IMAGEKIT_PUBLIC_KEY` and `IMAGEKIT_URL_ENDPOINT` are required for admin media uploads. These are obtained from the ImageKit dashboard.
 - HTTP requests are emitted as Morgan JSON lines; backend events and errors use JSON structured logs. Production API errors never include stack traces.
 - Phase 5 is intentionally not implemented. The planned coupon, verified-review, and advanced-search architecture is documented in `docs/PHASE_5_ECOMMERCE_ARCHITECTURE.md`.
 

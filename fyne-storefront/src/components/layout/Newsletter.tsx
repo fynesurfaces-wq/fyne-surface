@@ -47,7 +47,7 @@ export function Newsletter() {
           aria-invalid={state === 'error'}
           aria-describedby="newsletter-msg"
         />
-        <button type="submit" disabled={state === 'loading'} className="flex h-11 items-center gap-2 rounded-full bg-accent px-6 text-sm font-semibold text-white transition hover:bg-accent-600 disabled:opacity-70">
+        <button type="submit" disabled={state === 'loading'} className="flex h-11 items-center gap-2 rounded-full bg-accent px-6 text-sm font-semibold text-ink transition hover:bg-accent-500 disabled:opacity-70">
           {state === 'loading' ? <Loader2 className="h-4 w-4 animate-spin" /> : state === 'done' ? <Check className="h-4 w-4" /> : <ArrowRight className="h-4 w-4" />}
           <span className="hidden sm:inline">Subscribe</span>
         </button>

@@ -4,12 +4,13 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { ArrowRight, ChevronDown, Menu, Search, ShoppingBag, X } from 'lucide-react';
+import { ArrowRight, ChevronDown, LogOut, Menu, Search, ShoppingBag, UserRound, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { selectCount, useCart } from '@/store/cart';
 import type { CollectionSummary } from '@/lib/types';
 import { Logo } from '@/components/ui/Logo';
 import { PlantImage } from '@/components/ui/PlantImage';
+import { useCustomerAuth } from '@/components/auth/CustomerAuthProvider';
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -27,6 +28,7 @@ export function Navbar({ collections }: { collections: CollectionSummary[] }) {
   const [mega, setMega] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileCollectionsOpen, setMobileCollectionsOpen] = useState(false);
   const [q, setQ] = useState('');
   const searchRef = useRef<HTMLInputElement>(null);
   const megaTimer = useRef<ReturnType<typeof setTimeout>>();
@@ -34,6 +36,8 @@ export function Navbar({ collections }: { collections: CollectionSummary[] }) {
   const count = useCart(selectCount);
   const hydrated = useCart((s) => s.hydrated);
   const openCart = useCart((s) => s.open);
+  const { customer, status: customerStatus, logout } = useCustomerAuth();
+  const isCustomer = customerStatus !== 'unauthenticated' && Boolean(customer);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -46,6 +50,7 @@ export function Navbar({ collections }: { collections: CollectionSummary[] }) {
   useEffect(() => {
     setMega(false);
     setMobileOpen(false);
+    setMobileCollectionsOpen(false);
     setSearchOpen(false);
   }, [pathname]);
 
@@ -74,6 +79,14 @@ export function Navbar({ collections }: { collections: CollectionSummary[] }) {
   const closeMega = () => {
     megaTimer.current = setTimeout(() => setMega(false), 120);
   };
+  const signOutCustomer = async () => {
+    try {
+      await logout();
+      setMobileOpen(false);
+      router.replace('/');
+      router.refresh();
+    } catch { /* Keep the signed-in controls visible if the server could not end the session. */ }
+  };
 
   const linkCls = (active = false) => cn(
     "relative text-[14px] font-medium tracking-[-0.005em] transition-colors duration-300 after:absolute after:-bottom-2 after:left-0 after:h-[2px] after:w-full after:origin-left after:scale-x-0 after:bg-accent after:content-[''] after:transition-transform after:duration-300 hover:after:scale-x-100 focus-visible:after:scale-x-100",
@@ -97,9 +110,9 @@ export function Navbar({ collections }: { collections: CollectionSummary[] }) {
         <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-3 focus:rounded-full focus:bg-white focus:px-4 focus:py-2 focus:text-sm">
           Skip to content
         </a>
-        <div className="container flex h-[72px] items-center gap-6 lg:h-20">
+        <div className="container flex h-[72px] items-center gap-3 sm:gap-4 xl:h-20 xl:gap-3">
           {/* Mobile menu button */}
-          <button onClick={() => setMobileOpen(true)} className={cn('-ml-2 rounded-full p-2 lg:hidden', transparent ? 'text-white' : 'text-ink')} aria-label="Open menu">
+          <button onClick={() => { setMobileCollectionsOpen(false); setMobileOpen(true); }} className={cn('-ml-2 rounded-full p-2 xl:hidden', transparent ? 'text-white' : 'text-ink')} aria-label="Open menu">
             <Menu className="h-6 w-6" />
           </button>
 
@@ -107,7 +120,7 @@ export function Navbar({ collections }: { collections: CollectionSummary[] }) {
             <Logo inverted={transparent} />
           </Link>
 
-          <nav aria-label="Primary" className="ml-6 hidden items-center gap-8 lg:flex">
+          <nav aria-label="Primary" className="ml-2 hidden items-center gap-3 xl:ml-5 xl:gap-5 xl:flex">
             <button
               className={cn(linkCls(pathname.startsWith('/collections/') || mega), 'flex items-center gap-1')}
               onMouseEnter={openMega}
@@ -120,10 +133,19 @@ export function Navbar({ collections }: { collections: CollectionSummary[] }) {
             </button>
             <Link href="/collections" className={linkCls(pathname === '/collections')} aria-current={pathname === '/collections' ? 'page' : undefined}>Shop All</Link>
             <Link href="/pages/about" className={linkCls(pathname === '/pages/about')} aria-current={pathname === '/pages/about' ? 'page' : undefined}>Our Story</Link>
-            <Link href="/pages/contact" className={linkCls(pathname === '/pages/contact')} aria-current={pathname === '/pages/contact' ? 'page' : undefined}>Contact</Link>
+            <Link href="/blog" className={linkCls(pathname.startsWith('/blog'))} aria-current={pathname.startsWith('/blog') ? 'page' : undefined}>Blog</Link>
+            <Link href="/locations" className={linkCls(pathname.startsWith('/locations'))} aria-current={pathname.startsWith('/locations') ? 'page' : undefined}>Locations</Link>
+            <Link href="/contact" className={linkCls(pathname === '/contact')} aria-current={pathname === '/contact' ? 'page' : undefined}>Contact</Link>
+            {/* <Link href="/faq" className={linkCls(pathname === '/faq')} aria-current={pathname === '/faq' ? 'page' : undefined}>FAQ</Link> */}
+            {isCustomer && <Link href="/account" className={cn(linkCls(pathname.startsWith('/account')), 'inline-flex items-center gap-1.5')} aria-current={pathname.startsWith('/account') ? 'page' : undefined}><UserRound className="h-4 w-4" />Account</Link>}
           </nav>
 
           <div className="ml-auto flex items-center gap-1 sm:gap-2">
+            <Link href={isCustomer ? '/account' : '/login'} className={cn('inline-flex h-10 items-center gap-1.5 rounded-full border px-2.5 text-sm font-semibold transition-colors sm:px-3.5', transparent ? 'border-white/40 text-white hover:bg-white/10' : 'border-primary/20 bg-primary-50 text-primary hover:bg-primary-100')} aria-label={isCustomer ? `Your account${customer?.name ? `, ${customer.name}` : ''}` : 'Login or create an account'}>
+              <UserRound className="h-4 w-4 shrink-0" />
+              <span className="hidden max-w-28 truncate sm:inline">{isCustomer ? customer?.name?.split(' ')[0] || 'Account' : 'Login / Register'}</span>
+            </Link>
+            {isCustomer && <button type="button" onClick={signOutCustomer} className={cn('hidden h-10 w-10 items-center justify-center rounded-full transition-colors sm:inline-flex', transparent ? 'text-white hover:bg-white/10' : 'text-ink-muted hover:bg-ink/5 hover:text-ink')} aria-label="Sign out" title="Sign out"><LogOut className="h-4 w-4" /></button>}
             <button onClick={() => setSearchOpen((s) => !s)} className={cn('rounded-full p-2.5 transition-colors', transparent ? 'text-white hover:bg-white/10' : 'text-ink hover:bg-ink/5')} aria-label="Search" aria-expanded={searchOpen}>
               {searchOpen ? <X className="h-5 w-5" /> : <Search className="h-5 w-5" />}
             </button>
@@ -137,7 +159,7 @@ export function Navbar({ collections }: { collections: CollectionSummary[] }) {
                     animate={{ scale: 1, opacity: 1 }}
                     exit={{ scale: 0.4, opacity: 0 }}
                     transition={{ type: 'spring', stiffness: 500, damping: 25 }}
-                    className="absolute -right-0.5 -top-0.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-accent px-1 text-[10px] font-bold text-white ring-2 ring-white"
+                    className="absolute -right-0.5 -top-0.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-accent px-1 text-[10px] font-bold text-ink ring-2 ring-white"
                   >
                     {count}
                   </motion.span>
@@ -178,11 +200,11 @@ export function Navbar({ collections }: { collections: CollectionSummary[] }) {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.3, ease: EASE }}
-              className="absolute inset-x-0 top-full hidden max-h-[calc(100svh-5rem)] overflow-y-auto overscroll-contain border-t border-line bg-white shadow-lift lg:block"
+              className="absolute inset-x-0 top-full hidden max-h-[calc(100svh-5rem)] overflow-y-auto overscroll-contain border-t border-line bg-white shadow-lift xl:block"
             >
               <div className="container grid grid-cols-12 gap-10 py-10">
                 <div className="col-span-3">
-                  <p className="text-eyebrow uppercase text-accent">Collections</p>
+                  <p className="text-eyebrow uppercase text-accent-700">Collections</p>
                   <p className="mt-3 text-2xl font-semibold tracking-tight text-ink">Plants that stay fresh all year.</p>
                   <p className="mt-3 text-sm leading-relaxed text-ink-muted">Lifelike trees, plants and bush packs for homes, offices and hospitality spaces.</p>
                   <Link href="/collections" className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-primary hover:gap-3 transition-all">
@@ -211,12 +233,12 @@ export function Navbar({ collections }: { collections: CollectionSummary[] }) {
       </header>
 
       {/* Spacer so content isn't hidden under the fixed header (homepage hero sits underneath on purpose) */}
-      {!overlayPage && <div className="h-[72px] lg:h-20" aria-hidden />}
+      {!overlayPage && <div className="h-[72px] xl:h-20" aria-hidden />}
 
       {/* Mobile drawer */}
       <AnimatePresence>
         {mobileOpen && (
-          <motion.div className="fixed inset-0 z-[60] lg:hidden" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+        <motion.div className="fixed inset-0 z-[60] xl:hidden" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
             <div className="absolute inset-0 bg-ink/40 backdrop-blur-sm" onClick={() => setMobileOpen(false)} />
             <motion.nav
               aria-label="Mobile"
@@ -231,22 +253,52 @@ export function Navbar({ collections }: { collections: CollectionSummary[] }) {
                 <button onClick={() => setMobileOpen(false)} className="rounded-full p-2 text-ink" aria-label="Close menu"><X className="h-6 w-6" /></button>
               </div>
               <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-5 py-6 [-webkit-overflow-scrolling:touch]">
-                <p className="text-eyebrow uppercase text-accent">Collections</p>
-                <ul className="mt-3 divide-y divide-line">
-                  {collections.map((c) => (
-                    <li key={c.id}>
-                      <Link href={`/collections/${c.slug}`} className={cn('flex items-center justify-between py-4 text-lg font-medium text-ink', mobileLinkCls(pathname === `/collections/${c.slug}`))} aria-current={pathname === `/collections/${c.slug}` ? 'page' : undefined}>
-                        {c.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-                {/* <div className="mt-8 space-y-4 text-base font-medium text-ink-soft">
-                  <Link href="/collections" className={mobileLinkCls(pathname === '/collections')} aria-current={pathname === '/collections' ? 'page' : undefined}>Shop All</Link>
-                  <Link href="/pages/about" className={mobileLinkCls(pathname === '/pages/about')} aria-current={pathname === '/pages/about' ? 'page' : undefined}>Our Story</Link>
-                  <Link href="/pages/contact" className={mobileLinkCls(pathname === '/pages/contact')} aria-current={pathname === '/pages/contact' ? 'page' : undefined}>Contact</Link>
-                  <Link href="/cart" className={mobileLinkCls(pathname === '/cart')} aria-current={pathname === '/cart' ? 'page' : undefined}>Cart{hydrated && count ? ` (${count})` : ''}</Link>
-                </div> */}
+                <button
+                  type="button"
+                  onClick={() => setMobileCollectionsOpen((open) => !open)}
+                  aria-expanded={mobileCollectionsOpen}
+                  aria-controls="mobile-collections-list"
+                  className="flex w-full items-center justify-between py-2 text-left text-eyebrow uppercase text-accent-700"
+                >
+                  Collections
+                  <ChevronDown className={cn('h-4 w-4 text-primary transition-transform duration-300', mobileCollectionsOpen && 'rotate-180')} />
+                </button>
+                <AnimatePresence initial={false}>
+                  {mobileCollectionsOpen && (
+                    <motion.ul
+                      id="mobile-collections-list"
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: EASE }}
+                      className="mt-2 divide-y divide-line overflow-hidden"
+                    >
+                      {collections.map((c) => (
+                        <li key={c.id}>
+                          <Link href={`/collections/${c.slug}`} className={cn('flex items-center justify-between py-4 text-lg font-medium text-ink', mobileLinkCls(pathname === `/collections/${c.slug}`))} aria-current={pathname === `/collections/${c.slug}` ? 'page' : undefined}>
+                            {c.name}
+                          </Link>
+                        </li>
+                      ))}
+                    </motion.ul>
+                  )}
+                </AnimatePresence>
+                <div className="mt-8 border-t border-line pt-5">
+                  <p className="text-eyebrow uppercase text-accent-700">Explore FYNE</p>
+                  <div className="mt-3 grid grid-cols-2 gap-x-5 gap-y-1 text-base font-medium text-ink-soft">
+                    <Link href="/" className={cn('py-3', mobileLinkCls(pathname === '/'))} aria-current={pathname === '/' ? 'page' : undefined}>Home</Link>
+                    <Link href="/collections" className={cn('py-3', mobileLinkCls(pathname === '/collections'))}>Shop All</Link>
+                    <Link href="/blog" className={cn('py-3', mobileLinkCls(pathname.startsWith('/blog')))}>Blog</Link>
+                    <Link href="/pages/about" className={cn('py-3', mobileLinkCls(pathname === '/pages/about'))}>Our Story</Link>
+                    <Link href="/contact" className={cn('py-3', mobileLinkCls(pathname === '/contact'))}>Contact</Link>
+                    <Link href="/locations" className={cn('py-3', mobileLinkCls(pathname.startsWith('/locations')))}>Locations</Link>
+                    {isCustomer && <Link href="/account" className={cn('py-3', mobileLinkCls(pathname.startsWith('/account')))} aria-current={pathname.startsWith('/account') ? 'page' : undefined}><UserRound className="mr-1 inline h-4 w-4" />Account</Link>}
+                    <Link href="/cart" className={cn('py-3', mobileLinkCls(pathname === '/cart'))}>Cart{hydrated && count ? ` (${count})` : ''}</Link>
+                    {isCustomer
+                      ? <button type="button" onClick={signOutCustomer} className="mt-2 flex items-center justify-center gap-2 rounded-xl border border-line px-4 py-3 text-sm font-semibold text-ink-soft transition hover:bg-canvas"><LogOut className="h-4 w-4" />Sign out</button>
+                      : <Link href="/login" className="mt-2 flex items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-white"><UserRound className="h-4 w-4" />Login / Register</Link>}
+                  </div>
+                </div>
               </div>
             </motion.nav>
           </motion.div>

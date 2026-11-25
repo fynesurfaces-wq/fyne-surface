@@ -7,17 +7,40 @@ const logger = require('../utils/logger');
 let client = null;
 let connectionError = null;
 
-if (env.redis.url) {
-  client = createClient({ url: env.redis.url, socket: { reconnectStrategy: (retries) => Math.min(retries * 250, 5000) } });
-  client.on('error', (error) => {
+function parseRedisUrl(value) {
+  if (!value) return null;
+  try {
+    const parsed = new URL(value);
+    if (!['redis:', 'rediss:'].includes(parsed.protocol) || !parsed.hostname) return null;
+    return parsed.toString();
+  } catch {
+    return null;
+  }
+}
+
+const redisUrl = parseRedisUrl(env.redis.url);
+if (env.redis.url && !redisUrl) {
+  connectionError = new Error('REDIS_URL must be a redis:// or rediss:// connection URL; a REST API token alone is not valid.');
+  logger.warn('redis_url_invalid', { hint: 'Redis is disabled; use the provider connection URL or clear REDIS_URL.' });
+}
+
+if (redisUrl) {
+  try {
+    client = createClient({ url: redisUrl, socket: { reconnectStrategy: (retries) => Math.min(retries * 250, 5000) } });
+    client.on('error', (error) => {
+      connectionError = error;
+      logger.error('redis_client_error', { message: error.message });
+    });
+    client.on('ready', () => {
+      connectionError = null;
+      logger.info('redis_ready');
+    });
+    client.on('end', () => logger.warn('redis_disconnected'));
+  } catch (error) {
     connectionError = error;
-    logger.error('redis_client_error', { message: error.message });
-  });
-  client.on('ready', () => {
-    connectionError = null;
-    logger.info('redis_ready');
-  });
-  client.on('end', () => logger.warn('redis_disconnected'));
+    client = null;
+    logger.warn('redis_client_init_failed', { message: error.message, hint: 'Redis is disabled; check REDIS_URL.' });
+  }
 }
 
 async function connectRedis() {

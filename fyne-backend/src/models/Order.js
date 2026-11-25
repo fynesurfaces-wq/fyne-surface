@@ -5,7 +5,7 @@ const { addressSchema } = require('./schemas/common');
 
 const { Schema } = mongoose;
 
-const ORDER_STATUS = ['Pending', 'Shipped', 'Delivered', 'Cancelled'];
+const ORDER_STATUS = ['Pending', 'Processing', 'Shipped', 'Delivered', 'Cancelled'];
 const PAYMENT_STATUS = ['Pending', 'Paid', 'Failed', 'Refunded'];
 const PAYMENT_METHODS = ['online', 'cod', 'bank_transfer'];
 

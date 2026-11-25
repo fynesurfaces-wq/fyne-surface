@@ -60,7 +60,7 @@ export function SalesChart({ data }: { data: NonNullable<DashboardData['salesOve
 
 /** Donut of order statuses with the total in the middle. */
 export function OrderStatusPie({ data }: { data: Partial<Record<OrderStatus, number>> }) {
-  const rows = (['Pending', 'Shipped', 'Delivered', 'Cancelled'] as OrderStatus[]).map((s) => ({ name: s, value: data[s] || 0 }));
+  const rows = (['Pending', 'Processing', 'Shipped', 'Delivered', 'Cancelled'] as OrderStatus[]).map((s) => ({ name: s, value: data[s] || 0 }));
   const total = rows.reduce((s, r) => s + r.value, 0);
 
   if (!total) {

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Mail, MapPin, Phone } from 'lucide-react';
-import { getContentPage, getSettings } from '@/lib/api.server';
+import { getContentPage, getLegacySiteContent, getSettings } from '@/lib/api.server';
 import { toPath } from '@/lib/utils';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { ButtonLink } from '@/components/ui/Button';
@@ -9,6 +9,9 @@ import { FaqSection } from '@/components/seo/FaqSection';
 import { contentPageFaqs } from '@/lib/page-faqs';
 import { SeoAnswerSection } from '@/components/seo/SeoAnswerSection';
 import { TextReveal } from '@/components/ui/Motion';
+import { PageBanner } from '@/components/layout/PageBanner';
+import { LegacyCTA } from '@/components/home/LegacyCTA';
+import { OurStory } from '@/components/about/OurStory';
 
 export const revalidate = 600;
 
@@ -24,12 +27,13 @@ type Props = { params: { slug: string } };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const page = await getContentPage(params.slug);
   if (page) return { title: { absolute: page.seo.title }, description: page.seo.description, alternates: { canonical: toPath(page.seo.canonicalUrl) } };
+  if (params.slug === 'about') return { title: 'Our Story | FYNE SURFACES', description: 'Discover FYNE SURFACES: our journey from Direct Decor in 2010, our nationwide dealer and distributor network, and our vision for decorative greenery and surface solutions.', alternates: { canonical: '/pages/about' } };
   if (CORE[params.slug]) return { title: CORE[params.slug], robots: { index: false, follow: true } };
   return { title: 'Page not found', robots: { index: false } };
 }
 
 export default async function ContentPageRoute({ params }: Props) {
-  const [page, settings] = await Promise.all([getContentPage(params.slug), getSettings()]);
+  const [page, settings, legacyContent] = await Promise.all([getContentPage(params.slug), getSettings(), getLegacySiteContent()]);
   if (!page && !CORE[params.slug]) notFound();
   const c = settings?.contact;
   const bodyHtml = params.slug === 'contact'
@@ -54,15 +58,24 @@ export default async function ContentPageRoute({ params }: Props) {
         ? 'FYNE SURFACES offers artificial plants in Mumbai. Check the shipping policy above for current delivery terms.'
         : 'Explore FYNE SURFACES for artificial plants in Mumbai, from decorative trees to vertical garden plants.',
   ];
+  const pageTitle = params.slug === 'about' ? page?.title || 'Our Story' : page?.title || CORE[params.slug] || 'FYNE SURFACES';
 
   return (
-    <article className="container max-w-3xl pb-28 pt-12 lg:pt-20">
-      {page && <JsonLd data={page.jsonLd} />}
-      {params.slug === 'contact' ? (
-        <p className="text-display-lg text-ink">{page?.title || CORE[params.slug]}</p>
-      ) : (
-        <TextReveal as="h1" className="text-display-lg text-ink">{page?.title || CORE[params.slug]} — Artificial Plants in Mumbai</TextReveal>
-      )}
+    <>
+    <PageBanner
+      eyebrow={params.slug === 'contact' ? 'We are here to help' : params.slug === 'about' ? 'Our story' : 'FYNE SURFACES'}
+      title={pageTitle}
+      description={page?.excerpt || page?.seo.description || (params.slug === 'contact' ? 'Speak with our team about products, orders or your artificial greenery project.' : undefined)}
+      image={params.slug === 'contact' ? '/images/banners/warm-modern-vertical-garden-entryway.webp' : params.slug === 'about' ? '/images/banners/airy-botanical-foliage-banner.webp' : '/images/banners/serene-botanical-banner-with-trailing-vines.webp'}
+      imageAlt={params.slug === 'contact' ? 'Green wall in a dining and work space' : 'Artificial greenery in an interior'}
+    />
+    {page && <JsonLd data={page.jsonLd} />}
+    {params.slug === 'about' ? <>
+      <OurStory />
+      <section className="container pb-8"><FaqSection faqs={contentPageFaqs(params.slug, page?.title || CORE[params.slug], page?.excerpt, settings)} id="content-page-faqs" /></section>
+      <LegacyCTA content={legacyContent} />
+    </> : <article className="container max-w-3xl pb-28 pt-12 lg:pt-20">
+      <TextReveal as="h2" className="text-display-md text-ink">{page?.title || CORE[params.slug]} — Artificial Plants in Mumbai</TextReveal>
 
       {bodyHtml ? (
         <div className="prose prose-lg mt-10 max-w-none prose-headings:tracking-tight prose-headings:text-ink prose-p:text-ink-soft prose-a:text-primary" dangerouslySetInnerHTML={{ __html: bodyHtml }} />
@@ -109,5 +122,7 @@ export default async function ContentPageRoute({ params }: Props) {
       <SeoAnswerSection heading={`About ${page?.title || CORE[params.slug]}`} paragraphs={answerParagraphs} className="py-10 sm:py-12" />
       <FaqSection faqs={contentPageFaqs(params.slug, page?.title || CORE[params.slug], page?.excerpt, settings)} id="content-page-faqs" />
     </article>
+    }
+    </>
   );
 }

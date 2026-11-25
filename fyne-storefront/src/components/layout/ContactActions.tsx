@@ -48,7 +48,7 @@ export function ContactActions({ phone, whatsapp }: { phone?: string; whatsapp?:
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.94 }}
             transition={{ duration: 0.35, delay: 0.16 }}
-            className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-accent text-white shadow-lift transition-colors hover:bg-accent-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+            className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-accent text-ink shadow-lift transition-colors hover:bg-accent-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
           >
             <Phone className="h-5 w-5" aria-hidden="true" />
           </motion.a>

@@ -24,7 +24,7 @@ const BACKDROPS = [
   ['#F6EFE6', '#ECDFCE'], // linen
   ['#F1F4F1', '#E1E8E2'], // stone
 ];
-const LEAF_TONES = ['#2E7D32', '#3F8F43', '#1F5522', '#55A35C', '#2B6B2F', '#6DAE5E'];
+const LEAF_TONES = ['#3F863F', '#4D964D', '#2A5D2C', '#69A965', '#347235', '#7EB775'];
 
 export function BotanicalArt({ seed = 'fyne', variant = 'plant' }: { seed?: string; variant?: 'plant' | 'hero' }) {
   const r = rng(hash(seed));

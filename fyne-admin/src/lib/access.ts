@@ -22,6 +22,10 @@ export const P = {
   ORDERS_UPDATE: 'orders:update',
   USERS_MANAGE: 'users:manage',
   MEDIA_UPLOAD: 'media:upload',
+  CONTENT_READ: 'content:read',
+  CONTENT_WRITE: 'content:write',
+  CONTACTS_READ: 'contacts:read',
+  CONTACTS_WRITE: 'contacts:write',
 } as const;
 
 /** Longest-prefix match wins. */
@@ -30,6 +34,9 @@ export const ROUTE_RULES: { prefix: string; permission: string }[] = [
   { prefix: '/dashboard/orders', permission: P.ORDERS_READ },
   { prefix: '/dashboard/collections', permission: P.COLLECTIONS_READ },
   { prefix: '/dashboard/products', permission: P.PRODUCTS_READ },
+  { prefix: '/dashboard/content', permission: P.CONTENT_READ },
+  { prefix: '/dashboard/site-content', permission: P.CONTENT_READ },
+  { prefix: '/dashboard/messages', permission: P.CONTACTS_READ },
   { prefix: '/dashboard', permission: P.DASHBOARD },
 ];
 

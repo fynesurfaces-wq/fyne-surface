@@ -13,12 +13,16 @@ const { asyncHandler, escapeXml, formatINR } = require('../utils/helpers');
 const { productUrl, collectionUrl } = require('../utils/seo/jsonLd');
 const { toPublicProduct } = require('../utils/seo/aeo');
 const { stripHtml, truncate } = require('../utils/html');
+const metroCities = require('../data/metroCities');
 
 const STATIC_PAGES = [
   { path: '/', changefreq: 'daily', priority: '1.0' },
   { path: '/collections', changefreq: 'weekly', priority: '0.8' },
   { path: '/products', changefreq: 'daily', priority: '0.8' },
   { path: '/blog', changefreq: 'weekly', priority: '0.6' },
+  { path: '/locations', changefreq: 'monthly', priority: '0.6' },
+  { path: '/faq', changefreq: 'monthly', priority: '0.5' },
+  { path: '/return-policy', changefreq: 'yearly', priority: '0.3' },
   { path: '/contact', changefreq: 'yearly', priority: '0.4' },
 ];
 
@@ -48,6 +52,7 @@ exports.sitemap = asyncHandler(async (_req, res) => {
   collections.forEach((c) => add({ loc: collectionUrl(c), lastmod: iso(c.updatedAt), changefreq: 'weekly', priority: '0.8', images: c.coverImage ? [{ ...c.coverImage, alt: c.coverImage.alt || c.name }] : [] }));
   products.forEach((p) => add({ loc: productUrl(p), lastmod: iso(p.updatedAt), changefreq: 'weekly', priority: '0.9', images: p.images.map((i) => ({ ...i, alt: i.alt || p.name || p.sku })) }));
   content.forEach((c) => add({ loc: `${env.siteUrl}/${c.type === 'page' ? 'pages' : 'blog'}/${c.slug}`, lastmod: iso(c.updatedAt), changefreq: 'monthly', priority: '0.5' }));
+  metroCities.forEach((city) => add({ loc: `${env.siteUrl}/locations/${city.slug}`, changefreq: 'monthly', priority: '0.5' }));
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">

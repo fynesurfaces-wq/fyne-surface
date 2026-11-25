@@ -29,6 +29,8 @@ const list = (value, fallback = '') =>
     .filter(Boolean);
 
 const stripSlash = (url) => String(url || '').replace(/\/+$/, '');
+const mockShippingFee = process.env.MOCK_SHIPPING_FEE == null ? 100 : Number(process.env.MOCK_SHIPPING_FEE);
+if (!Number.isFinite(mockShippingFee) || mockShippingFee < 0) throw new Error('MOCK_SHIPPING_FEE must be a non-negative number');
 
 module.exports = Object.freeze({
   nodeEnv,
@@ -40,12 +42,22 @@ module.exports = Object.freeze({
   email: {
     apiKey: process.env.RESEND_API_KEY || '',
     from: process.env.EMAIL_FROM || '',
+    contactTo: process.env.CONTACT_TO_EMAIL || '',
+    orderTo: process.env.ORDER_NOTIFICATION_EMAIL || '',
+    smtp: {
+      host: process.env.SMTP_HOST || '',
+      port: Number(process.env.SMTP_PORT) || 587,
+      secure: process.env.SMTP_SECURE === 'true',
+      user: process.env.SMTP_USER || '',
+      pass: process.env.SMTP_PASS || '',
+    },
   },
   jwt: {
     accessSecret: process.env.JWT_ACCESS_SECRET,
     refreshSecret: process.env.JWT_REFRESH_SECRET,
     accessExpires: process.env.JWT_ACCESS_EXPIRES || '15m',
     refreshExpiresDays: Number(process.env.JWT_REFRESH_EXPIRES_DAYS) || 7,
+    customerRefreshExpiresDays: Number(process.env.CUSTOMER_REFRESH_EXPIRES_DAYS) || 7,
     issuer: 'fyne-api',
     audience: 'fyne-admin',
   },
@@ -73,6 +85,7 @@ module.exports = Object.freeze({
     webhookSecret: process.env.PAYMENT_WEBHOOK_SECRET || 'dev-only-webhook-secret',
   },
   lowStockThreshold: Number(process.env.LOW_STOCK_THRESHOLD) || 5,
+  mockShippingFee,
   brand: {
     name: 'FYNE SURFACES',
     tagline: 'Premium Vertical Garden',

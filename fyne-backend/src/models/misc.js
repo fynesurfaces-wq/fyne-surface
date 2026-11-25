@@ -7,8 +7,8 @@ const { Schema } = mongoose;
 
 // ── Counter ─────────────────────────────────────────────
 const counterSchema = new Schema({ _id: String, seq: { type: Number, default: 0 } }, { versionKey: false });
-counterSchema.statics.next = async function next(name, start = 1000) {
-  const doc = await this.findOneAndUpdate({ _id: name }, { $inc: { seq: 1 } }, { new: true, upsert: true });
+counterSchema.statics.next = async function next(name, start = 1000, { session } = {}) {
+  const doc = await this.findOneAndUpdate({ _id: name }, { $inc: { seq: 1 } }, { new: true, upsert: true, session });
   return start + doc.seq;
 };
 const Counter = mongoose.model('Counter', counterSchema);

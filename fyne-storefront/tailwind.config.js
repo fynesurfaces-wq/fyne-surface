@@ -11,29 +11,29 @@ module.exports = {
       colors: {
         // FYNE SURFACES brand
         primary: {
-          DEFAULT: '#2E7D32',
-          50: '#F1F8F1',
-          100: '#DCEFDD',
-          200: '#B6DDB9',
-          300: '#86C38B',
-          400: '#55A35C',
-          500: '#2E7D32',
-          600: '#26692A',
-          700: '#1F5522',
-          800: '#17401A',
-          900: '#0F2B11',
-          950: '#081A0A',
+          DEFAULT: '#3F863F',
+          50: '#F2F8F1',
+          100: '#DFEDDE',
+          200: '#BDDBBA',
+          300: '#93C58F',
+          400: '#69A965',
+          500: '#3F863F',
+          600: '#347235',
+          700: '#2A5D2C',
+          800: '#214923',
+          900: '#173719',
+          950: '#0D2610',
         },
         accent: {
-          DEFAULT: '#F57C00',
-          50: '#FFF6EB',
-          100: '#FFE7C7',
-          200: '#FFCB8A',
-          300: '#FFAA4D',
-          400: '#FB9020',
-          500: '#F57C00',
-          600: '#D46A00',
-          700: '#A85400',
+          DEFAULT: '#FDBB59',
+          50: '#FFF8EA',
+          100: '#FDEBCB',
+          200: '#FAD99C',
+          300: '#F7C46D',
+          400: '#FDBB59',
+          500: '#EAA642',
+          600: '#C78624',
+          700: '#8F5C12',
         },
         canvas: '#F7F8F4', // soft botanical neutral sections
         ink: {
@@ -47,6 +47,7 @@ module.exports = {
       },
       fontFamily: {
         sans: ['"Inter Variable"', 'Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        serif: ['"Lora Variable"', 'Lora', 'Georgia', 'serif'],
       },
       fontSize: {
         // Fluid display scale for editorial headings

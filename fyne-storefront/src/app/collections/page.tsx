@@ -2,12 +2,12 @@ import type { Metadata } from 'next';
 import { getCollections, getProducts } from '@/lib/api.server';
 import { CollectionTiles } from '@/components/home/CollectionTiles';
 import { ProductGrid } from '@/components/product/ProductGrid';
-import { Reveal } from '@/components/ui/Motion';
 import { JsonLd } from '@/components/seo/JsonLd';
 import { SITE_URL } from '@/lib/utils';
 import { FaqSection } from '@/components/seo/FaqSection';
 import { collectionIndexFaqs } from '@/lib/page-faqs';
 import { SeoAnswerSection } from '@/components/seo/SeoAnswerSection';
+import { PageBanner } from '@/components/layout/PageBanner';
 
 export const revalidate = 300;
 
@@ -40,12 +40,8 @@ export default async function CollectionsIndex() {
           mainEntity: { '@type': 'ItemList', itemListElement: collections.map((c, i) => ({ '@type': 'ListItem', position: i + 1, url: c.url, name: c.name })) },
         }}
       />
+      <PageBanner eyebrow="Shop" title="Artificial Plant Collections in Mumbai" description="Artificial plants organised by scale — from statement trees to bush packs for vertical gardens." image="/images/banners/lush-tropical-greenery-wall.webp" imageAlt="Lush tropical green wall with layered botanical foliage" priority />
       <section className="container pb-20 pt-12 lg:pb-28 lg:pt-20">
-        <Reveal className="mb-12 max-w-3xl lg:mb-16">
-          <p className="text-eyebrow uppercase text-accent">Shop</p>
-          <h1 className="mt-4 text-display-lg text-ink">Artificial Plant Collections in Mumbai</h1>
-          <p className="mt-5 text-lg leading-relaxed text-ink-muted">Artificial plants organised by scale — from statement trees to bush packs for vertical gardens.</p>
-        </Reveal>
         <CollectionTiles collections={collections} />
       </section>
 

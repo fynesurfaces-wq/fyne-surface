@@ -7,7 +7,7 @@ export function ProductGrid({ products, headingLevel = 'h2' }: { products: Produ
     <Stagger className="grid grid-cols-2 gap-x-4 gap-y-12 sm:gap-x-6 lg:grid-cols-3 lg:gap-x-8 lg:gap-y-16 xl:grid-cols-4">
       {products.map((p, i) => (
         <StaggerItem key={p.id}>
-          <ProductCard product={p} priority={i < 4} headingLevel={headingLevel} />
+          <ProductCard product={p} priority={i < 2} headingLevel={headingLevel} />
         </StaggerItem>
       ))}
     </Stagger>

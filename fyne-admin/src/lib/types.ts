@@ -114,7 +114,7 @@ export interface Product {
   };
 }
 
-export type OrderStatus = 'Pending' | 'Shipped' | 'Delivered' | 'Cancelled';
+export type OrderStatus = 'Pending' | 'Processing' | 'Shipped' | 'Delivered' | 'Cancelled';
 export type PaymentStatus = 'Pending' | 'Paid' | 'Failed' | 'Refunded';
 
 export interface Address {

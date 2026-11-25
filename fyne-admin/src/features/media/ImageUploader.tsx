@@ -44,7 +44,7 @@ async function uploadFiles(files: File[], folder: string): Promise<{ images: Ima
 interface Props {
   value: Image[];
   onChange: (images: Image[]) => void;
-  folder?: 'products' | 'collections';
+  folder?: 'products' | 'collections' | 'content';
   max?: number;
   altFallback?: string;
 }

@@ -9,6 +9,7 @@ import { estimateShipping, useStoreSettings } from '@/lib/useStoreSettings';
 import { ButtonLink } from '@/components/ui/Button';
 import { PlantImage } from '@/components/ui/PlantImage';
 import { QtyStepper } from '@/components/cart/QtyStepper';
+import { PageBanner } from '@/components/layout/PageBanner';
 
 export default function CartPage() {
   const { items, hydrated, updateQty, removeItem } = useCart();
@@ -17,25 +18,30 @@ export default function CartPage() {
   const settings = useStoreSettings();
   const shipping = estimateShipping(subtotal, settings);
 
-  if (!hydrated) return <section className="container min-h-[60vh] py-20" aria-busy="true"><h1 className="text-display-md text-ink">Your artificial plants cart in Mumbai</h1></section>;
+  if (!hydrated) return <><PageBanner eyebrow="Your bag" title="Shopping cart" description="Your saved items will appear here." /><section className="container min-h-[35vh] py-20" aria-busy="true" /></>;
 
   if (!items.length) {
     return (
+      <>
+      <PageBanner eyebrow="Your bag" title="Your cart is empty" description="Discover lifelike greenery for homes, offices and projects." />
       <section className="container flex min-h-[60vh] flex-col items-center justify-center py-24 text-center">
         <span className="flex h-20 w-20 items-center justify-center rounded-full bg-primary-50 text-primary"><ShoppingBag className="h-9 w-9" /></span>
-        <h1 className="mt-8 text-display-md text-ink">Your artificial plants cart in Mumbai is empty</h1>
+        <h2 className="mt-8 text-display-md text-ink">Your artificial plants cart in Mumbai is empty</h2>
         <p className="mt-3 max-w-md text-lg text-ink-muted">Discover lifelike trees, plants and bush packs that stay green all year.</p>
         <ButtonLink href="/collections" size="lg" className="mt-10">Explore collections</ButtonLink>
       </section>
+      </>
     );
   }
 
   return (
+    <>
+    <PageBanner eyebrow="Your bag" title="Shopping cart" description={`${count} ${count === 1 ? 'item' : 'items'} saved in your cart.`} />
     <section className="container pb-28 pt-12 lg:pt-16">
       <Link href="/collections" className="inline-flex items-center gap-2 text-sm font-medium text-ink-muted hover:text-ink">
         <ArrowLeft className="h-4 w-4" /> Continue shopping
       </Link>
-      <h1 className="mt-6 text-display-md text-ink">Your artificial plants cart in Mumbai <span className="text-ink-faint">({count})</span></h1>
+      <h2 className="mt-6 text-display-md text-ink">Your artificial plants cart in Mumbai <span className="text-ink-faint">({count})</span></h2>
 
       <div className="mt-12 grid gap-12 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-8">
@@ -53,7 +59,7 @@ export default function CartPage() {
                       <PlantImage src={item.image} alt={item.name} seed={item.slug} sizes="104px" />
                     </Link>
                     <div className="flex min-w-0 flex-col justify-center">
-                      {item.collection && <p className="text-xs uppercase tracking-[0.14em] text-accent">{item.collection}</p>}
+                      {item.collection && <p className="text-xs uppercase tracking-[0.14em] text-accent-700">{item.collection}</p>}
                       <Link href={`/products/${item.slug}`} className="mt-1 text-lg font-semibold text-ink hover:text-primary">{item.name}</Link>
                       <p className="mt-1 text-[13px] text-ink-muted">SKU {item.sku} · {formatINR(item.price)}</p>
                       <button onClick={() => removeItem(item.productId)} className="mt-3 inline-flex w-fit items-center gap-1.5 text-[13px] font-medium text-ink-muted hover:text-red-600">
@@ -85,5 +91,6 @@ export default function CartPage() {
         </aside>
       </div>
     </section>
+    </>
   );
 }

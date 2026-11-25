@@ -22,7 +22,7 @@ export function Badge({ tone = 'gray', dot, className, children }: { tone?: Tone
   );
 }
 
-const ORDER_TONE: Record<OrderStatus, Tone> = { Pending: 'orange', Shipped: 'blue', Delivered: 'green', Cancelled: 'gray' };
+const ORDER_TONE: Record<OrderStatus, Tone> = { Pending: 'orange', Processing: 'purple', Shipped: 'blue', Delivered: 'green', Cancelled: 'gray' };
 const PAYMENT_TONE: Record<PaymentStatus, Tone> = { Pending: 'orange', Paid: 'green', Failed: 'red', Refunded: 'gray' };
 const ROLE_TONE: Record<Role, Tone> = { superadmin: 'purple', admin: 'green', editor: 'blue' };
 
@@ -33,6 +33,7 @@ export const ActiveBadge = ({ active }: { active: boolean }) => <Badge tone={act
 
 export const ORDER_STATUS_COLORS: Record<OrderStatus, string> = {
   Pending: '#F57C00',
+  Processing: '#7C3AED',
   Shipped: '#2563EB',
   Delivered: '#2E7D32',
   Cancelled: '#9CA3AF',

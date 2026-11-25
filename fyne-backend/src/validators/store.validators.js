@@ -84,6 +84,42 @@ exports.orderList = [
   query('to').optional().isISO8601(),
 ];
 
+/** COD-only customer order placement. Prices and payment method are never accepted from the client. */
+exports.placeOrder = [
+  body('items').isArray({ min: 1, max: 50 }).withMessage('Cart is empty or contains too many items'),
+  body('items.*.product').isMongoId().withMessage('Invalid product id'),
+  body('items.*.qty').isInt({ min: 1, max: 100 }).toInt().withMessage('Quantity must be between 1 and 100'),
+  body('shippingAddress').isObject().withMessage('Shipping address is required'),
+  body('shippingAddress.fullName').isString().trim().isLength({ min: 2, max: 100 }),
+  body('shippingAddress.phone').isString().trim().matches(/^[0-9+\-\s()]{7,20}$/),
+  body('shippingAddress.line1').isString().trim().isLength({ min: 3, max: 200 }),
+  body('shippingAddress.line2').optional().isString().trim().isLength({ max: 200 }),
+  body('shippingAddress.city').isString().trim().isLength({ min: 2, max: 80 }),
+  body('shippingAddress.state').isString().trim().isLength({ min: 2, max: 80 }),
+  body('shippingAddress.postalCode').isString().trim().matches(/^[A-Za-z0-9 -]{3,12}$/),
+  body('shippingAddress.country').optional().isISO31661Alpha2().toUpperCase(),
+  body('notes').optional().isString().trim().isLength({ max: 500 }),
+  body('discountCode').optional({ values: 'falsy' }).isString().trim().isLength({ max: 30 }),
+];
+
+exports.cartQuote = [
+  body('items').isArray({ min: 1, max: 50 }).withMessage('Cart is empty or contains too many items'),
+  body('items.*.product').isMongoId().withMessage('Invalid product id'),
+  body('items.*.qty').isInt({ min: 1, max: 100 }).toInt().withMessage('Quantity must be between 1 and 100'),
+  body('discountCode').optional({ values: 'falsy' }).isString().trim().isLength({ max: 30 }),
+];
+
+exports.customerOrderList = [
+  query('page').optional().isInt({ min: 1 }).toInt(),
+  query('limit').optional().isInt({ min: 1, max: 50 }).toInt(),
+];
+
+exports.productSearch = [
+  query('q').isString().trim().isLength({ min: 2, max: 100 }).withMessage('Enter at least 2 search characters'),
+  query('page').optional().isInt({ min: 1 }).toInt(),
+  query('limit').optional().isInt({ min: 1, max: 50 }).toInt(),
+];
+
 exports.orderStatus = [
   mongoIdParam(),
   body('orderStatus').isIn(ORDER_STATUS),

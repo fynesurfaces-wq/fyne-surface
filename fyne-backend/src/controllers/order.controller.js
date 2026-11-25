@@ -5,7 +5,7 @@ const ApiError = require('../utils/ApiError');
 const { asyncHandler, escapeRegex } = require('../utils/helpers');
 const { parsePagination, parseSort, combine, paginate } = require('../utils/query');
 const { releaseInventory, commitInventory, TRANSITIONS } = require('../services/order.service');
-const { Customer } = require('../models');
+const { Customer, Discount } = require('../models');
 const email = require('../services/email.service');
 
 /** GET /api/v1/admin/orders?orderStatus&paymentStatus&from&to&q&page&limit&sort */
@@ -49,7 +49,7 @@ exports.get = asyncHandler(async (req, res) => {
 
 /**
  * PATCH /api/v1/admin/orders/:id/status  { orderStatus, note?, tracking? }
- * Enforces the state machine Pending → Shipped → Delivered (or → Cancelled).
+ * Enforces the state machine Pending → Processing → Shipped → Delivered (or → Cancelled).
  */
 exports.updateStatus = asyncHandler(async (req, res) => {
   const { orderStatus: next, note, tracking } = req.body;
@@ -65,6 +65,7 @@ exports.updateStatus = asyncHandler(async (req, res) => {
     throw new ApiError(409, 'Online orders can only be shipped after payment is confirmed', 'UNPAID_ORDER');
   }
 
+  const previousStatus = order.orderStatus;
   const now = new Date();
   order.orderStatus = next;
   if (tracking) order.tracking = { ...order.tracking?.toObject?.(), ...tracking };
@@ -80,6 +81,7 @@ exports.updateStatus = asyncHandler(async (req, res) => {
       order.history.push({ type: 'payment', status: 'Paid', note: 'COD collected', by: req.user._id, at: now });
       await Customer.updateOne({ _id: order.user }, { $inc: { totalSpent: order.totalAmount } });
     }
+    if (order.discount?.code) await Discount.updateOne({ code: order.discount.code }, { $inc: { usedCount: 1 } });
   }
   if (next === 'Cancelled') {
     order.cancelledAt = now;
@@ -87,7 +89,7 @@ exports.updateStatus = asyncHandler(async (req, res) => {
   }
   order.history.push({ type: 'order', status: next, note, by: req.user._id, at: now });
   await order.save();
-  if (next === 'Shipped') void email.sendOrderShipped(order);
+  void email.sendOrderStatusUpdate(order, previousStatus);
 
   res.json({
     success: true,

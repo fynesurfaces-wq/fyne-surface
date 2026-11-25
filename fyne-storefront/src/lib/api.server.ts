@@ -1,5 +1,5 @@
 import 'server-only';
-import type { CollectionDetail, CollectionSummary, ContentPage, Pagination, ProductDetail, ProductSummary, StoreSettings } from './types';
+import type { BlogEntry, CollectionDetail, CollectionSummary, ContentPage, LegacySiteContent, Pagination, ProductDetail, ProductSummary, StoreSettings } from './types';
 
 /**
  * Server-side data layer (Server Components only).
@@ -8,7 +8,8 @@ import type { CollectionDetail, CollectionSummary, ContentPage, Pagination, Prod
  * revalidates them in the background (ISR). Search engines and AI crawlers
  * always receive fully rendered HTML with every price, spec and JSON-LD block.
  */
-const API = `${process.env.API_ORIGIN || 'http://localhost:5000'}/api/v1/store`;
+const API_ROOT = `${process.env.API_ORIGIN || 'http://localhost:5000'}/api/v1`;
+const API = `${API_ROOT}/store`;
 
 export const REVALIDATE = 300; // seconds — product/collection data refresh window
 
@@ -72,8 +73,34 @@ export const getProducts = (params: ProductQuery = {}) =>
     { data: [] as ProductSummary[], pagination: { page: 1, limit: 0, total: 0, totalPages: 0, hasNextPage: false, hasPrevPage: false } as Pagination, jsonLd: undefined }
   );
 
+/** Public MongoDB text search endpoint; don't cache user-entered queries in the ISR data cache. */
+export const searchProducts = async (q: string, limit = 60) => {
+  const params = new URLSearchParams({ q: q.slice(0, 100), limit: String(limit) });
+  try {
+    const response = await fetch(`${API_ROOT}/products/search?${params}`, { cache: 'no-store', headers: { Accept: 'application/json' } });
+    if (!response.ok) return { data: [] as ProductSummary[], pagination: null as { total: number } | null };
+    const body = await response.json() as { data: ProductSummary[]; pagination: { total: number } };
+    return body;
+  } catch (err) {
+    console.error('[storefront search]', (err as Error).message);
+    return { data: [] as ProductSummary[], pagination: null as { total: number } | null };
+  }
+};
+
 export const getProduct = (slug: string) =>
   safe(storeFetch<{ data: ProductDetail }>(`/products/${encodeURIComponent(slug)}`, { tags: [`product:${slug}`] }).then((r) => r.data), null);
 
 export const getContentPage = (slug: string) =>
   safe(storeFetch<{ data: ContentPage }>(`/content/pages/${encodeURIComponent(slug)}`, { revalidate: 600 }).then((r) => r.data), null);
+
+export const getBlogPosts = (params: { page?: number; limit?: number } = {}) =>
+  safe(
+    storeFetch<{ data: BlogEntry[]; pagination: Pagination }>(`/content/blog${qs(params)}`, { revalidate: 60, tags: ['blog'] }),
+    { data: [] as BlogEntry[], pagination: { page: 1, limit: 0, total: 0, totalPages: 0, hasNextPage: false, hasPrevPage: false } as Pagination }
+  );
+
+export const getBlogPost = (slug: string) =>
+  safe(storeFetch<{ data: BlogEntry }>(`/content/blog/${encodeURIComponent(slug)}`, { revalidate: 60, tags: [`blog:${slug}`] }).then((r) => r.data), null);
+
+export const getLegacySiteContent = () =>
+  safe(storeFetch<{ data: LegacySiteContent }>('/site-content/legacy', { revalidate: 60, tags: ['site-content'] }).then((r) => r.data), null);

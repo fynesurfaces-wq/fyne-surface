@@ -6,7 +6,10 @@ import { Newsletter } from './Newsletter';
 import { SOCIAL_LABELS, SocialIcon } from './SocialIcons';
 
 export function Footer({ settings, collections }: { settings: StoreSettings | null; collections: CollectionSummary[] }) {
-  const socials = Object.entries(settings?.social || {}).filter(([k, v]) => v && SOCIAL_LABELS[k]) as [string, string][];
+  const socials = [
+    ...Object.entries(settings?.social || {}).filter(([key, value]) => value && SOCIAL_LABELS[key] && key !== 'instagram'),
+    ['instagram', 'https://www.instagram.com/fynesurfaces'],
+  ] as [string, string][];
   const year = new Date().getFullYear();
 
   return (
@@ -51,18 +54,22 @@ export function Footer({ settings, collections }: { settings: StoreSettings | nu
           <h3 className="text-sm font-semibold text-white">Shop</h3>
           <ul className="mt-5 space-y-3 text-sm">
             {collections.map((c) => (
-              <li key={c.id}><Link href={`/collections/${c.slug}`} className="transition hover:text-white">{c.name}</Link></li>
+              <li key={c.id}><Link href={`/collections/${c.slug}`} className="transition hover:text-orange-300">{c.name}</Link></li>
             ))}
-            <li><Link href="/collections" className="transition hover:text-white">All collections</Link></li>
           </ul>
         </nav>
 
         <nav aria-label="Company" className="lg:col-span-2">
           <h3 className="text-sm font-semibold text-white">Company</h3>
           <ul className="mt-5 space-y-3 text-sm">
-            <li><Link href="/pages/about" className="transition hover:text-white">About</Link></li>
-            <li><Link href="/pages/contact" className="transition hover:text-white">Contact</Link></li>
-            <li><Link href="/pages/shipping-policy" className="transition hover:text-white">Shipping Policy</Link></li>
+            <li><Link href="/pages/about" className="transition hover:text-orange-300">About</Link></li>
+            <li><Link href="/contact" className="transition hover:text-orange-300">Contact</Link></li>
+            <li><Link href="/blog" className="transition hover:text-orange-300">Blog</Link></li>
+            <li><Link href="/locations" className="transition hover:text-orange-300">Locations</Link></li>
+            <li><Link href="/pages/shipping-policy" className="transition hover:text-orange-300">Shipping Policy</Link></li>
+            <li><Link href="/return-policy" className="transition hover:text-orange-300">Return Policy</Link></li>
+            <li><Link href="/privacy-policy" className="transition hover:text-orange-300">Privacy Policy</Link></li>
+            <li><Link href="/terms-and-conditions" className="transition hover:text-orange-300">Terms & Conditions</Link></li>
           </ul>
         </nav>
 
@@ -80,7 +87,7 @@ export function Footer({ settings, collections }: { settings: StoreSettings | nu
               <li className="flex items-start gap-3"><MapPin className="mt-0.5 h-4 w-4 shrink-0 text-accent-300" /><span className="whitespace-pre-line">{settings.contact.address}</span></li>
             )}
             {!settings?.contact?.email && !settings?.contact?.phone && (
-              <li><Link href="/pages/contact" className="hover:text-white">Contact our team →</Link></li>
+              <li><Link href="/contact" className="hover:text-white">Contact our team →</Link></li>
             )}
           </ul>
         </address>
@@ -89,7 +96,16 @@ export function Footer({ settings, collections }: { settings: StoreSettings | nu
       <div className="border-t border-white/10">
         <div className="container flex flex-col gap-3 py-6 text-xs text-white/50 sm:flex-row sm:items-center sm:justify-between">
           <p>© {year} {settings?.storeName || 'FYNE SURFACES'}. All rights reserved.</p>
-          <p>SEO Company in Mumbai</p>
+          <p>
+            <a
+              href="https://mydigitalcrown.in/search-engine-optimisation"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex min-h-11 items-center underline decoration-white/30 underline-offset-4 transition-colors hover:text-white hover:decoration-white focus-visible:rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent-300"
+            >
+              SEO Company in Mumbai
+            </a>
+          </p>
           <p>Prices in INR {settings?.tax?.pricesIncludeTax === false ? '(excl. GST)' : '(incl. GST)'}</p>
         </div>
       </div>

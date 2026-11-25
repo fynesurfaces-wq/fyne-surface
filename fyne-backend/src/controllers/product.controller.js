@@ -221,18 +221,30 @@ exports.storeGet = asyncHandler(async (req, res) => {
   const product = await Product.findOne({ slug: req.params.slug, isActive: true }).populate('collection', 'name slug isActive').lean();
   if (!product) throw new ApiError(404, 'Product not found');
 
-  const related = await Product.find({ collection: product.collection?._id, isActive: true, _id: { $ne: product._id } })
-    .sort({ isFeatured: -1, createdAt: -1 })
-    .limit(4)
-    .select('name slug sku price images stock')
-    .lean();
+  const related = await Product.aggregate([
+    { $match: { isActive: true, _id: { $ne: product._id } } },
+    { $addFields: {
+      _sharedTagScore: { $size: { $setIntersection: [{ $ifNull: ['$tags', []] }, product.tags || []] } },
+      _availableScore: { $cond: [{ $gt: ['$stock', 0] }, 1, 0] },
+      _recommendationShuffle: { $rand: {} },
+    } },
+    // Prefer products with tags in common and available stock; shuffle equally ranked candidates per request.
+    { $sort: { collection: 1, _sharedTagScore: -1, _availableScore: -1, _recommendationShuffle: 1 } },
+    // Keep the best matching product from every active collection.
+    { $group: { _id: '$collection', product: { $first: '$$ROOT' } } },
+    { $replaceRoot: { newRoot: '$product' } },
+    { $lookup: { from: 'collections', localField: 'collection', foreignField: '_id', as: 'collectionDoc' } },
+    { $match: { 'collectionDoc.isActive': true } },
+    { $sort: { 'collectionDoc.name': 1 } },
+    { $project: { name: 1, slug: 1, sku: 1, price: 1, images: { $slice: ['$images', 1] }, stock: 1, collectionName: { $ifNull: [{ $arrayElemAt: ['$collectionDoc.name', 0] }, 'Other collection'] } } },
+  ]);
 
-  res.set('Cache-Control', 'public, max-age=60, stale-while-revalidate=300');
+  res.set('Cache-Control', 'no-store, no-cache, must-revalidate');
   res.json({
     success: true,
     data: {
       ...toPublicProduct(product, { settings }),
-      related: related.map((r) => ({ name: r.name || r.sku, slug: r.slug, sku: r.sku, url: productUrl(r), price: r.price, image: r.images?.[0]?.url || null, inStock: r.stock > 0 })),
+      related: related.map((r) => ({ name: r.name || r.sku, slug: r.slug, sku: r.sku, collectionName: r.collectionName, url: productUrl(r), price: r.price, image: r.images?.[0]?.url || null, inStock: r.stock > 0 })),
     },
   });
 });

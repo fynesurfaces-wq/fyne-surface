@@ -8,7 +8,9 @@ const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   images: {
-    formats: ['image/avif', 'image/webp'],
+    // WebP keeps transfer sizes low without the noticeably slower AVIF encoding
+    // and decode cost on modest storefront servers and phones.
+    formats: ['image/webp'],
     remotePatterns: [
       { protocol: 'https', hostname: 'ik.imagekit.io' }, // product photos (admin uploads)
       { protocol: 'https', hostname: 'res.cloudinary.com' }, // legacy product photos

@@ -39,6 +39,7 @@ export function PlantImage({
       fill
       sizes={sizes}
       priority={priority}
+      quality={80}
       onError={() => setFailed(true)}
       className={cn('object-cover [filter:saturate(1.08)_contrast(1.025)]', className)}
     />

@@ -8,6 +8,8 @@ const PREFIX = 'fyne:store-cache';
 function responseCache(namespace, ttlSeconds = 3600) {
   return async (req, res, next) => {
     if (req.method !== 'GET' || !redis?.isReady) return next();
+    // Detail pages include product-specific recommendations; don't serve their cached recommendation set.
+    if (namespace === 'products' && req.path !== '/') return next();
     // New-arrival merchandising changes frequently and must reflect admin edits immediately.
     if (namespace === 'products' && req.query.newArrival === 'true') return next();
 

@@ -59,6 +59,107 @@ export function collectionFaqs(name: string, productCount: number): Faq[] {
   ];
 }
 
+export function locationIndexFaqs(): Faq[] {
+  return [
+    { question: 'What can I find on the FYNE locations page?', answer: 'Browse city guides for artificial plants and vertical garden products, then open a guide for location-specific shopping information.' },
+    { question: 'How many city guides are available?', answer: `The directory currently includes ${brand} guides for 50 Indian cities.` },
+    { question: 'Does a city guide show local product prices?', answer: 'Prices are listed on product cards and product pages and are displayed in Indian rupees.' },
+    { question: 'How can I browse products by type?', answer: 'Visit the collections page to browse products grouped by their catalog collection.' },
+    { question: 'Can I compare product dimensions?', answer: 'Yes. Review the dimensions and specifications listed on each product page.' },
+    { question: 'How can I check stock?', answer: 'Product pages show current availability. Stock is checked again when an order is placed.' },
+    { question: 'How do I check delivery availability for my address?', answer: 'Enter your delivery address during checkout to submit an order for that location.' },
+    { question: 'What payment method is available online?', answer: 'Checkout currently offers Cash on Delivery.' },
+    { question: 'Are the plants real or artificial?', answer: 'FYNE SURFACES sells artificial decorative plants and related greenery products.' },
+    { question: 'Do artificial plants need sunlight or water?', answer: 'Artificial plants do not need watering or sunlight. Check each listing for its product-specific details.' },
+    { question: 'Can I ask about a larger project?', answer: 'Yes. Use the contact page to share the space, approximate measurements and the products you are considering.' },
+    { question: 'How do I get help with an order?', answer: 'Sign in to track an order or contact the team with your order number.' },
+  ];
+}
+
+export function locationFaqs(city: string, state: string): Faq[] {
+  return [
+    { question: `Where can I browse artificial plants for ${city}?`, answer: `Use the FYNE SURFACES online catalogue to compare artificial plants and vertical garden products while shopping from ${city}, ${state}.` },
+    { question: `What artificial greenery can I find for ${city} spaces?`, answer: 'Browse the live collections for artificial trees, plants, bush packs and green wall products. The catalogue shows what is currently listed.' },
+    { question: `How do I choose a plant for my ${city} home or office?`, answer: 'Measure the space, compare the product dimensions and review each listing’s description and specifications before ordering.' },
+    { question: `Can I see product sizes before ordering in ${city}?`, answer: 'Product pages display the dimensions and other specifications available in the catalogue.' },
+    { question: `Where are artificial plant prices shown for ${city}?`, answer: 'Prices are shown on product cards and product detail pages in Indian rupees.' },
+    { question: `How do I know a product is available for ${city}?`, answer: 'Check the product page for current stock status. The server checks stock again when you place an order.' },
+    { question: `How do I check delivery for my ${city} address?`, answer: 'Enter your complete address during checkout. The order flow checks product availability and shows the final server-calculated total.' },
+    { question: 'Can I pay by Cash on Delivery?', answer: 'Yes. The current checkout method is Cash on Delivery, with the order total payable on delivery.' },
+    { question: 'Can I save my delivery address?', answer: 'Sign in and select the option to save the address to your customer profile during checkout.' },
+    { question: `Can I order artificial plants for a ${city} business or project?`, answer: 'Use the contact form to describe your space, approximate measurements and the products you are considering.' },
+    { question: 'Do artificial plants need regular watering?', answer: 'No. Artificial plants do not need watering or sunlight. Follow the product listing for specific care or use details.' },
+    { question: 'How can I track an order to my address?', answer: 'Sign in, open Your orders and select an order to view its status and delivery timeline.' },
+  ];
+}
+
+export function journalFaqs(articleTitle?: string): Faq[] {
+  const title = articleTitle ? `“${articleTitle}”` : 'the FYNE Journal';
+  return [
+    { question: `What is ${title} about?`, answer: 'The FYNE Journal shares ideas and practical information about artificial plants, green walls and interior greenery.' },
+    { question: 'Are the products discussed in the journal real plants?', answer: 'FYNE SURFACES focuses on artificial decorative plants and related greenery products.' },
+    { question: 'Where can I find the products mentioned in an article?', answer: 'Browse the collections or use the product search to find currently listed products.' },
+    { question: 'How can I check a product’s dimensions?', answer: 'Open its product page and review the specifications provided in the catalogue.' },
+    { question: 'How do I check price and stock?', answer: 'Current prices and availability are shown on product pages and are checked again at checkout.' },
+    { question: 'Can I use artificial plants in an office?', answer: 'Review each listing’s description and specifications to decide whether it suits your space.' },
+    { question: 'Do artificial plants need water or sunlight?', answer: 'Artificial plants do not need watering or sunlight.' },
+    { question: 'Can I order items mentioned in a guide?', answer: 'If a product is in stock, add it to your cart and complete checkout with Cash on Delivery.' },
+    { question: 'How are delivery charges calculated?', answer: 'The server calculates shipping and shows the amount in the checkout summary before you place an order.' },
+    { question: 'Can FYNE help with larger green wall projects?', answer: 'Contact the team with your project details to discuss the products and quantities listed in the catalogue.' },
+    { question: 'How do I track an order?', answer: 'Sign in and visit Your orders to view the order status and delivery timeline.' },
+    { question: 'How do I contact FYNE SURFACES?', answer: 'Use the contact page form or the contact details published on the website.' },
+  ];
+}
+
+export function searchFaqs(query: string): Faq[] {
+  const subject = query ? ` for “${query}”` : '';
+  return [
+    { question: `How does product search${subject} work?`, answer: 'Search checks product names, SKUs and descriptions in the current catalogue.' },
+    { question: 'Can I search by SKU?', answer: 'Yes. Enter the product SKU in the search box to find a matching listing.' },
+    { question: 'Can I search for a collection name?', answer: 'Search focuses on product details. Browse the collections page to open a specific collection.' },
+    { question: 'Why might search return no products?', answer: 'The phrase may not match a current product name, SKU or description. Try a shorter term or browse collections.' },
+    { question: 'Are search results in stock?', answer: 'Availability is shown on each product card and checked again at checkout.' },
+    { question: 'Where can I see product prices?', answer: 'The product cards and product detail pages show the current listed price.' },
+    { question: 'How can I compare product sizes?', answer: 'Open the product page and review its dimensions and specifications.' },
+    { question: 'Can I filter search results?', answer: 'Use the collection pages for price, collection and other available product filters.' },
+    { question: 'Are these products artificial?', answer: 'FYNE SURFACES lists artificial plants and decorative greenery products.' },
+    { question: 'How do I place an order?', answer: 'Open an in-stock product, add it to your cart and continue to checkout.' },
+    { question: 'Which payment method is available?', answer: 'The current checkout method is Cash on Delivery.' },
+    { question: 'Where can I get product advice?', answer: 'Contact the FYNE SURFACES team with the product name or SKU and your project details.' },
+  ];
+}
+
+export function policyFaqs(topic: 'privacy' | 'terms'): Faq[] {
+  if (topic === 'privacy') return [
+    { question: 'What personal information does FYNE collect?', answer: 'Information may include your account details, contact information, delivery address, order details and messages you submit.' },
+    { question: 'Why is my information used?', answer: 'It is used to manage accounts, process orders, arrange fulfilment, answer enquiries and secure the website.' },
+    { question: 'Does FYNE store my account password in my profile?', answer: 'Passwords are handled by the account system and are not included in the customer profile response.' },
+    { question: 'Is payment card information collected at checkout?', answer: 'The current checkout uses Cash on Delivery and does not collect online card payments.' },
+    { question: 'Does FYNE sell customer contact details?', answer: 'The published policy states customer contact details are not sold.' },
+    { question: 'Who may receive my information?', answer: 'Service providers may receive information when needed to operate the store, send email or fulfil orders.' },
+    { question: 'How long is my information kept?', answer: 'Information is kept as long as needed to provide the service, maintain records and resolve issues.' },
+    { question: 'How can I update my profile?', answer: 'Sign in and use the account page to update the profile information available there.' },
+    { question: 'Can I ask for my information to be corrected?', answer: 'Contact FYNE SURFACES through the contact page to request a correction or ask a privacy question.' },
+    { question: 'Can I opt out of marketing?', answer: 'Optional marketing is separate from essential order and account service messages.' },
+    { question: 'How does FYNE protect information?', answer: 'The site uses access controls and security measures intended to protect account, order and enquiry information.' },
+    { question: 'How will policy changes be shared?', answer: 'The current privacy policy will be published on this page.' },
+  ];
+  return [
+    { question: 'What are these terms for?', answer: 'They explain the conditions for using the FYNE SURFACES website and placing store orders.' },
+    { question: 'What payment method does checkout accept?', answer: 'The current storefront checkout accepts Cash on Delivery.' },
+    { question: 'When is an order confirmed?', answer: 'Orders are subject to product availability and fulfilment confirmation.' },
+    { question: 'Can prices and availability change?', answer: 'Product prices, details and stock may change; the store checks price and stock when the order is placed.' },
+    { question: 'Where can I see delivery charges?', answer: 'The checkout summary shows the server-calculated shipping charge before the order is placed.' },
+    { question: 'How can I change or cancel an order?', answer: 'Contact FYNE SURFACES promptly with the order number to ask whether a change or cancellation is possible.' },
+    { question: 'Where can I read the return instructions?', answer: 'The Return Policy page explains how to contact the team before sending an item back.' },
+    { question: 'How do I track my order?', answer: 'Sign in and open Your orders to follow the status timeline.' },
+    { question: 'What should I do if product photos look different on my screen?', answer: 'Display settings can affect colour appearance. Review the written description and specifications too.' },
+    { question: 'May I copy product images or website text?', answer: 'Do not reuse site content commercially without permission from its owner.' },
+    { question: 'What if I need help with a product?', answer: 'Contact the team with the product name or SKU and your question.' },
+    { question: 'Where are changes to these terms published?', answer: 'The current terms will be published on this page.' },
+  ];
+}
+
 export function productFaqs(product: ProductSummary): Faq[] {
   const name = product.name || `SKU ${product.sku}`;
   const specs = product.specifications;
@@ -123,7 +224,7 @@ export function contentPageFaqs(slug: string, title: string, excerpt?: string, s
       { question: 'What should I do if my delivery is delayed?', answer: 'Contact FYNE SURFACES with your order details so the team can help.' },
       { question: 'Can I ask about a damaged delivery?', answer: 'Contact FYNE SURFACES with your order details and information about the issue.' },
       { question: 'Do shipping terms change by product?', answer: policyRef },
-      { question: 'How do I contact the store about shipping?', answer: 'Use the phone number or address listed on the contact page.' },
+      { question: 'Which payment method is available for orders?', answer: 'The current checkout method is Cash on Delivery. The checkout summary shows the final order total before placement.' },
     ];
   }
 

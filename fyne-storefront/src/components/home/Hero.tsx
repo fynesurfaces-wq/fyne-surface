@@ -1,100 +1,70 @@
 'use client';
 
 import Image from 'next/image';
-import { motion, useMotionValueEvent, useScroll, useTransform, type MotionValue } from 'framer-motion';
-import { useRef, useState } from 'react';
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
+import { useEffect, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { ButtonLink } from '@/components/ui/Button';
-import { BotanicalArt } from '@/components/ui/BotanicalArt';
 
-const EASE = [0.22, 1, 0.36, 1] as const;
 type HeroImage = { src: string; alt: string };
+const BUSINESS_TERMS = ['Supplier', 'Manufacturer', 'Dealer', 'Distributor', 'Trader', 'Stockist'];
 
-function BackgroundSlide({ image, index, count, progress }: { image: HeroImage; index: number; count: number; progress: MotionValue<number> }) {
-  const start = Math.max(0, index / count - 0.02);
-  const fadeInEnd = Math.min(1, index / count + 0.02);
-  const fadeOutStart = Math.max(fadeInEnd, (index + 1) / count - 0.02);
-  const end = Math.min(1, (index + 1) / count + 0.02);
-  const opacity = useTransform(
-    progress,
-    [start, fadeInEnd, fadeOutStart, end],
-    [index === 0 ? 1 : 0, 1, 1, index === count - 1 ? 1 : 0],
-  );
-  const scale = useTransform(progress, [start, end], [1.08, 1]);
+/** Static home hero with one fixed background image. */
+export function Hero({ image }: { image: HeroImage }) {
+  const [termIndex, setTermIndex] = useState(0);
+  const prefersReducedMotion = useReducedMotion();
 
-  return (
-    <motion.div className="absolute inset-0 overflow-hidden" style={{ opacity, scale }} aria-hidden="true">
-      <Image src={image.src} alt={image.alt} fill priority={index === 0} sizes="100vw" className="object-cover [filter:brightness(1.08)_saturate(1.18)]" />
-    </motion.div>
-  );
-}
-
-/** Pinned hero whose five lifestyle backgrounds crossfade as the visitor scrolls. */
-export function Hero({ images }: { images: HeroImage[] }) {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start start', 'end end'] });
-
-  useMotionValueEvent(scrollYProgress, 'change', (progress) => {
-    const nextIndex = Math.min(images.length - 1, Math.floor(progress * images.length));
-    setActiveIndex((current) => (current === nextIndex ? current : nextIndex));
-  });
+  useEffect(() => {
+    if (prefersReducedMotion) return;
+    const timer = window.setInterval(() => setTermIndex((index) => (index + 1) % BUSINESS_TERMS.length), 3200);
+    return () => window.clearInterval(timer);
+  }, [prefersReducedMotion]);
 
   return (
-    <div ref={sectionRef} className="relative h-[360svh] bg-primary-950 md:h-[420svh]" aria-label="FYNE SURFACES visual introduction">
-      <div className="sticky top-0 isolate flex min-h-[min(100svh,900px)] items-end overflow-hidden bg-primary-950">
-        <div className="absolute inset-0 -z-10 bg-primary-950">
-          {images.length ? images.map((image, index) => (
-            <BackgroundSlide key={image.src} image={image} index={index} count={images.length} progress={scrollYProgress} />
-          )) : (
-            <div className="absolute inset-0 grid grid-cols-2 opacity-90 sm:grid-cols-3">
-              <div className="relative"><BotanicalArt seed="hero-a" variant="hero" /></div>
-              <div className="relative hidden sm:block"><BotanicalArt seed="hero-palm" variant="hero" /></div>
-              <div className="relative"><BotanicalArt seed="hero-c" variant="hero" /></div>
-            </div>
-          )}
-          <div className="absolute inset-0 bg-gradient-to-t from-primary-950/65 via-primary-950/15 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-r from-primary-950/40 via-primary-950/10 to-transparent" />
-        </div>
+    <section aria-label="FYNE SURFACES visual introduction" className="relative isolate flex min-h-[min(100svh,900px)] items-end overflow-hidden bg-primary-950">
+      <div className="absolute inset-0 -z-10">
+        <Image src={image.src} alt={image.alt} fill priority sizes="100vw" quality={80} className="object-cover [filter:brightness(1.08)_saturate(1.18)]" />
+        <div className="absolute inset-0 bg-gradient-to-t from-primary-950/65 via-primary-950/15 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-primary-950/40 via-primary-950/10 to-transparent" />
+      </div>
 
-        <div className="container w-full pb-16 pt-28 sm:pb-20 sm:pt-36 lg:pb-24 lg:pt-40">
-          <div className="max-w-3xl break-words">
-            <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, delay: 0.3, ease: EASE }} className="text-eyebrow uppercase text-accent-300">
-              Premium Vertical Garden
-            </motion.p>
-            <motion.h1
-              id="hero-title"
-              initial={{ opacity: 0, y: 32 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1.1, delay: 0.45, ease: EASE }}
-              className="mt-5 max-w-full text-[clamp(2rem,6vw,4rem)] leading-[1.08] tracking-[-0.03em] text-orange-400"
-            >
-              Artificial Plants
-              <span className="block text-white">Dealer &amp; Manufacturer</span>
-              <span className="block text-primary-200">in Mumbai</span>
-            </motion.h1>
-            <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.65, ease: EASE }} className="mt-6 max-w-xl text-base leading-relaxed text-white/80 sm:text-lg">
-              Lifelike artificial trees, plants and vertical-garden décor — designed to stay beautiful all year, with no watering, sunlight or pruning.
-            </motion.p>
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.8, ease: EASE }} className="mt-10 flex flex-wrap items-center gap-4">
-              <ButtonLink href="/collections" size="xl" variant="light" className="group">
-                Shop Collections <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-              </ButtonLink>
-              <ButtonLink href="/pages/contact" size="xl" variant="ghost" className="text-white hover:bg-white/10">
-                Plan a vertical garden
-              </ButtonLink>
-            </motion.div>
-          </div>
-        </div>
-
-        <div className="absolute bottom-6 right-5 hidden items-center gap-4 text-xs uppercase tracking-[0.2em] text-white/70 sm:flex sm:right-8" aria-hidden="true">
-          <span>{String(activeIndex + 1).padStart(2, '0')} / {String(images.length).padStart(2, '0')}</span>
-          <span className="relative h-10 w-px overflow-hidden bg-white/20">
-            <motion.span className="absolute inset-x-0 top-0 h-1/2 bg-white" animate={{ y: ['-100%', '200%'] }} transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }} />
-          </span>
-          <span>Scroll</span>
+      <div className="container w-full pb-16 pt-28 sm:pb-20 sm:pt-36 lg:pb-24 lg:pt-40">
+        <div className="relative isolate max-w-3xl break-words before:absolute before:-inset-x-8 before:-inset-y-6 before:-z-10 before:rounded-full before:bg-primary-950/40 before:blur-3xl">
+          <motion.p initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, delay: 0.3, ease: [0.22, 1, 0.36, 1] }} className="text-eyebrow uppercase text-accent-300 drop-shadow-sm">
+            Premium Vertical Garden
+          </motion.p>
+          <motion.h1
+            id="hero-title"
+            aria-label="Artificial Plants Wholesaler and Supplier in Mumbai"
+            initial={{ opacity: 0, y: 32 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.1, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-5 max-w-full text-[clamp(2rem,6vw,4rem)] leading-[1.08] tracking-[-0.03em] text-accent-300 drop-shadow-[0_3px_12px_rgba(0,0,0,0.55)]"
+          >
+            Artificial Plants
+            <span className="block text-white" aria-hidden="true">Wholesaler &amp; <span className="inline-grid align-bottom">
+              <span className="invisible col-start-1 row-start-1">Manufacturer</span>
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.span key={BUSINESS_TERMS[termIndex]} className="col-start-1 row-start-1 inline-block" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -12 }} transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}>
+                  {BUSINESS_TERMS[termIndex]}
+                </motion.span>
+              </AnimatePresence>
+            </span></span>
+            <span className="block text-primary-200">in Mumbai</span>
+          </motion.h1>
+          <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.65, ease: [0.22, 1, 0.36, 1] }} className="mt-6 max-w-xl text-base leading-relaxed text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.65)] sm:text-lg">
+            Lifelike artificial trees, plants and vertical-garden décor — designed to stay beautiful all year, with no watering, sunlight or pruning.
+          </motion.p>
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.8, ease: [0.22, 1, 0.36, 1] }} className="mt-10 flex flex-wrap items-center gap-4">
+            <ButtonLink href="/collections" size="xl" variant="light" className="group">
+              Shop Collections <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </ButtonLink>
+            <ButtonLink href="/contact" size="xl" variant="ghost" className="text-white hover:bg-white/10">
+              Plan a vertical garden
+            </ButtonLink>
+          </motion.div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

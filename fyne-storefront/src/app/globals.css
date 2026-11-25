@@ -11,10 +11,13 @@
     overflow-x: clip;
   }
   body {
-    @apply bg-white text-ink;
+    @apply bg-white text-ink font-sans;
     font-feature-settings: 'ss01', 'cv11'; /* Inter: refined single-storey a & tidy numerals */
     min-width: 320px;
     overflow-x: clip;
+  }
+  h1, h2, h3 {
+    font-family: 'Lora Variable', Lora, Georgia, serif;
   }
   img, video, svg {
     max-width: 100%;

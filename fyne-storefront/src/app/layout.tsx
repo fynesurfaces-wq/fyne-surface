@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import '@fontsource-variable/inter';
+import '@fontsource-variable/lora';
 import './globals.css';
 import { getCollections, getSettings } from '@/lib/api.server';
 import { SITE_URL } from '@/lib/utils';
@@ -11,6 +12,7 @@ import { JsonLd } from '@/components/seo/JsonLd';
 import { PageViewTracker } from '@/components/layout/PageViewTracker';
 import { ContactActions } from '@/components/layout/ContactActions';
 import { CartHydrator } from '@/store/CartHydrator';
+import { CustomerAuthProvider } from '@/components/auth/CustomerAuthProvider';
 
 export const revalidate = 300;
 
@@ -34,7 +36,7 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export const viewport: Viewport = { themeColor: '#2E7D32', width: 'device-width', initialScale: 1 };
+export const viewport: Viewport = { themeColor: '#3F863F', width: 'device-width', initialScale: 1 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const [settings, collections] = await Promise.all([getSettings(), getCollections()]);
@@ -55,11 +57,13 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           }}
         />
         <MotionProvider>
-          <Navbar collections={collections} />
-          <main id="main" className="flex-1">{children}</main>
-          <Footer settings={settings} collections={collections} />
-          <CartDrawer />
-          <ContactActions phone={settings?.contact?.phone} whatsapp={settings?.contact?.whatsapp} />
+          <CustomerAuthProvider>
+            <Navbar collections={collections} />
+            <main id="main" className="flex-1">{children}</main>
+            <Footer settings={settings} collections={collections} />
+            <CartDrawer />
+            <ContactActions phone={settings?.contact?.phone} whatsapp={settings?.contact?.whatsapp} />
+          </CustomerAuthProvider>
         </MotionProvider>
         <CartHydrator />
         <PageViewTracker />

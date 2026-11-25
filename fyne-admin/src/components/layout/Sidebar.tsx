@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { ExternalLink, FolderTree, LayoutDashboard, Package, ShieldCheck, ShoppingBag, X } from 'lucide-react';
+import { ExternalLink, FileText, FolderTree, LayoutDashboard, Mail, Package, Settings, ShieldCheck, ShoppingBag, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/providers/AuthProvider';
 import { P } from '@/lib/access';
@@ -24,7 +24,10 @@ const NAV: { title?: string; items: NavItem[] }[] = [
       { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard, permission: P.DASHBOARD },
       { href: '/dashboard/products', label: 'Products', icon: Package, permission: P.PRODUCTS_READ, badge: 'lowStock', badgeTone: 'orange' },
       { href: '/dashboard/collections', label: 'Collections', icon: FolderTree, permission: P.COLLECTIONS_READ },
+      { href: '/dashboard/content', label: 'Blog Management', icon: FileText, permission: P.CONTENT_READ },
+      { href: '/dashboard/site-content', label: 'Site Content', icon: Settings, permission: P.CONTENT_READ },
       { href: '/dashboard/orders', label: 'Orders', icon: ShoppingBag, permission: P.ORDERS_READ, badge: 'ordersToFulfill', badgeTone: 'green' },
+      { href: '/dashboard/messages', label: 'Contact Messages', icon: Mail, permission: P.CONTACTS_READ },
     ],
   },
   {

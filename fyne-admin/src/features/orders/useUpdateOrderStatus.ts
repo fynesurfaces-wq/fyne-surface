@@ -7,7 +7,8 @@ import type { OrderStatus } from '@/lib/types';
 
 /** Mirrors the backend state machine (services/order.service.js → TRANSITIONS). */
 export const ORDER_TRANSITIONS: Record<OrderStatus, OrderStatus[]> = {
-  Pending: ['Shipped', 'Cancelled'],
+  Pending: ['Processing', 'Cancelled'],
+  Processing: ['Shipped', 'Cancelled'],
   Shipped: ['Delivered', 'Cancelled'],
   Delivered: [],
   Cancelled: [],

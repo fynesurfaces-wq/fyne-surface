@@ -1,15 +1,16 @@
 import { ButtonLink } from '@/components/ui/Button';
+import { PageBanner } from '@/components/layout/PageBanner';
 
 export default function NotFound() {
   return (
-    <section className="container flex min-h-[70vh] flex-col items-center justify-center py-24 text-center">
-      <p className="text-eyebrow uppercase text-accent">404</p>
-      <h1 className="mt-4 text-display-lg text-ink">Find your way back to artificial plants in Mumbai</h1>
-      <p className="mt-4 max-w-md text-lg text-ink-muted">The page you’re looking for doesn’t exist or has moved. Browse our artificial plant collections instead.</p>
+    <>
+    <PageBanner eyebrow="404" title="We couldn’t find that page" description="The page may have moved or no longer exists. Browse our artificial plant collections to find something for your space." image="/images/banners/airy-botanical-foliage-banner.webp" imageAlt="Airy botanical foliage" />
+    <section className="container flex min-h-[45vh] flex-col items-center justify-center py-16 text-center">
       <div className="mt-10 flex gap-3">
         <ButtonLink href="/collections" size="lg">Shop collections</ButtonLink>
         <ButtonLink href="/" size="lg" variant="outline">Go home</ButtonLink>
       </div>
     </section>
+    </>
   );
 }

@@ -79,6 +79,9 @@ exports.leadUpdate = [
 exports.leadNote = [mongoIdParam(), body('text').isString().trim().isLength({ min: 1, max: 2000 })];
 exports.leadList = [...listQuery, query('status').optional().isIn(['new', 'contacted', 'qualified', 'proposal_sent', 'won', 'lost']), query('source').optional().isString()];
 
+exports.contactMessageList = [...listQuery, query('status').optional().isIn(['new', 'read', 'replied'])];
+exports.contactMessageUpdate = [mongoIdParam(), body('status').isIn(['new', 'read', 'replied'])];
+
 const integrationRules = (isUpdate) => [
   ...upd(isUpdate),
   field('key', isUpdate).isString().trim().toLowerCase().matches(/^[a-z0-9-]{2,40}$/),

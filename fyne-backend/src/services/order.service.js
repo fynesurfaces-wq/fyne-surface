@@ -100,7 +100,8 @@ async function applyPaymentEvent(event, provider) {
 
 /** Allowed manual order-status transitions in the admin. */
 const TRANSITIONS = {
-  Pending: ['Shipped', 'Cancelled'],
+  Pending: ['Processing', 'Cancelled'],
+  Processing: ['Shipped', 'Cancelled'],
   Shipped: ['Delivered', 'Cancelled'],
   Delivered: [],
   Cancelled: [],

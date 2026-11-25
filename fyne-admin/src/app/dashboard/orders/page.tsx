@@ -14,7 +14,7 @@ import { PageHeader } from '@/components/ui/misc';
 import { OrderDrawer } from '@/features/orders/OrderDrawer';
 import { OrderStatusSelect } from '@/features/orders/OrderStatusSelect';
 
-const ORDER_STATUSES: OrderStatus[] = ['Pending', 'Shipped', 'Delivered', 'Cancelled'];
+const ORDER_STATUSES: OrderStatus[] = ['Pending', 'Processing', 'Shipped', 'Delivered', 'Cancelled'];
 const PAYMENT_STATUSES: PaymentStatus[] = ['Pending', 'Paid', 'Failed', 'Refunded'];
 
 function OrdersView() {

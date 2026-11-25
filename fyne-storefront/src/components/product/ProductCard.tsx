@@ -1,12 +1,14 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, ArrowRight } from 'lucide-react';
 import { cn, formatINR, ftToCm, heightInFeet } from '@/lib/utils';
-import type { ProductSummary } from '@/lib/types';
+import type { ProductDetail, ProductSummary } from '@/lib/types';
 import { PlantImage } from '@/components/ui/PlantImage';
 import { AddToCartButton } from './AddToCartButton';
+import { api } from '@/lib/api.client';
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -26,17 +28,31 @@ function keyFact(p: ProductSummary) {
  *  - Semantic <article> with an <h3> name for crawlers
  */
 export function ProductCard({ product: p, priority, headingLevel = 'h3' }: { product: ProductSummary; priority?: boolean; headingLevel?: 'h2' | 'h3' }) {
+  const [related, setRelated] = useState<ProductDetail['related']>([]);
+  const [relatedFetched, setRelatedFetched] = useState(false);
+  const [relatedLoading, setRelatedLoading] = useState(false);
+  const [relatedOpen, setRelatedOpen] = useState(false);
   const href = `/products/${p.slug}`;
   const [img1, img2] = p.images;
   const Heading = headingLevel;
   const discount = p.price.compareAt && p.price.compareAt > p.price.amount ? Math.round((1 - p.price.amount / p.price.compareAt) * 100) : 0;
   const productLabel = p.name?.trim();
+  const loadRelated = async () => {
+    if (relatedFetched) return;
+    setRelatedFetched(true);
+    setRelatedLoading(true);
+    try {
+      const response = await api.get<{ data: ProductDetail }>(`/store/products/${encodeURIComponent(p.slug)}`);
+      setRelated(response.data.data.related || []);
+    } catch { /* Related items are an enhancement; the product card remains usable without them. */ }
+    finally { setRelatedLoading(false); }
+  };
 
   return (
-    <motion.article className="group relative flex flex-col" initial="rest" whileHover="hover" animate="rest">
+    <motion.article className="group relative flex flex-col" initial="rest" whileHover="hover" animate="rest" onHoverStart={loadRelated}>
       <div className="relative aspect-[4/5] overflow-hidden rounded-[1.5rem] border border-white/70 bg-gradient-to-br from-sand via-sand to-primary-50/60 shadow-image transition-[transform,box-shadow] duration-700 ease-premium group-hover:-translate-y-1 group-hover:shadow-lift">
         <Link href={href} className="absolute inset-0 block rounded-[1.5rem] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary" aria-label={`${productLabel ? `${productLabel} — ` : ''}${p.price.formatted}`}>
-          <motion.div className="absolute inset-0" variants={{ rest: { scale: 1 }, hover: { scale: 1.06 } }} transition={{ duration: 1.1, ease: EASE }}>
+          <motion.div className="absolute inset-0" variants={{ rest: { scale: 1 }, hover: { scale: 1.06 } }} transition={{ duration: 1.8, ease: EASE }}>
             <PlantImage
               src={img1?.url}
               alt={img1?.alt || (productLabel ? `${productLabel} artificial plant by FYNE SURFACES` : `Product image, SKU ${p.sku}`)}
@@ -45,7 +61,7 @@ export function ProductCard({ product: p, priority, headingLevel = 'h3' }: { pro
               sizes="(min-width: 1280px) 25vw, (min-width: 768px) 33vw, 50vw"
             />
             {img2 && (
-              <motion.div className="absolute inset-0" variants={{ rest: { opacity: 0 }, hover: { opacity: 1 } }} transition={{ duration: 0.6 }}>
+              <motion.div className="absolute inset-0" variants={{ rest: { opacity: 0 }, hover: { opacity: 1 } }} transition={{ duration: 0.9 }}>
                 <PlantImage src={img2.url} alt={img2.alt || (productLabel ? `${productLabel} — alternate view` : `Product image, SKU ${p.sku}`)} seed={`${p.slug}-2`} sizes="(min-width: 1280px) 25vw, 50vw" />
               </motion.div>
             )}
@@ -55,10 +71,24 @@ export function ProductCard({ product: p, priority, headingLevel = 'h3' }: { pro
         {/* Badges */}
         <div className="pointer-events-none absolute left-3 top-3 flex flex-col items-start gap-1.5">
           {!p.availability.inStock && <span className="rounded-full bg-white/95 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-ink">Sold out</span>}
-          {discount > 0 && <span className="rounded-full bg-accent px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-white">−{discount}%</span>}
+          {discount > 0 && <span className="rounded-full bg-accent px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-ink">−{discount}%</span>}
           {p.isFeatured && !discount && <span className="rounded-full bg-white/95 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-primary">Featured</span>}
           {p.isNewArrival && <span className="rounded-full bg-primary px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-white">New arrival</span>}
         </div>
+
+        <motion.aside aria-label="One suggested product from each collection" variants={{ rest: { x: '105%', opacity: 0 }, hover: { x: 0, opacity: 1 } }} transition={{ duration: 0.55, ease: EASE }} className="absolute inset-y-2 right-2 z-10 hidden w-32 flex-col overflow-hidden rounded-2xl border border-white/70 bg-white/95 p-2 shadow-lift backdrop-blur [@media(hover:hover)]:flex">
+          <p className="px-1 pb-1 text-[9px] font-bold uppercase leading-tight tracking-wide text-ink-muted">One from each collection</p>
+          <div className="flex min-h-0 flex-1 flex-col gap-2 overflow-y-auto">
+            {related.map((item) => <Link key={item.slug} href={`/products/${item.slug}`} title={`${item.collectionName}: ${item.name} · ${item.sku}`} className="group/related block shrink-0 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
+              <span className="mb-1 block truncate px-0.5 text-[8px] font-bold uppercase tracking-wide text-primary">{item.collectionName}</span>
+              <div className="relative aspect-square overflow-hidden rounded-lg bg-sand"><PlantImage src={item.image} alt={item.name} seed={item.slug} sizes="120px" /></div>
+              <span className="mt-1 line-clamp-2 block text-[9px] font-semibold leading-tight text-ink group-hover/related:text-primary">{item.name}</span>
+            </Link>)}
+            {relatedLoading && <span className="px-1 text-[9px] leading-tight text-ink-muted">Loading suggestions…</span>}
+            {relatedFetched && !relatedLoading && related.length === 0 && <span className="px-1 text-[9px] leading-tight text-ink-muted">No collection suggestions yet.</span>}
+          </div>
+          {related.length > 0 && <span className="mt-1 flex items-center justify-center gap-1 text-[9px] font-semibold text-primary">View <ArrowRight className="h-3 w-3" /></span>}
+        </motion.aside>
 
         {/* Hover actions (pointer devices) — siblings of the link, not nested inside it */}
         <motion.div
@@ -87,6 +117,32 @@ export function ProductCard({ product: p, priority, headingLevel = 'h3' }: { pro
           </div>
         </div>
         {keyFact(p) && <p className="mt-2 text-[13px] text-ink-muted">{keyFact(p)}</p>}
+
+        {/* Touch screens have no hover, so expose suggestions with a button and horizontal scroller. */}
+        <div className="mt-3 [@media(hover:hover)]:hidden">
+          <button
+            type="button"
+            aria-expanded={relatedOpen}
+            aria-controls={`related-products-${p.slug}`}
+            onClick={() => {
+              setRelatedOpen((open) => !open);
+              void loadRelated();
+            }}
+            className="inline-flex min-h-10 items-center gap-2 rounded-full border border-primary/20 bg-primary-50 px-4 text-xs font-semibold text-primary-800 transition-colors hover:bg-primary-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
+          >
+            {relatedOpen ? 'Hide suggestions' : 'More collections'}
+            <ArrowRight className={cn('h-3.5 w-3.5 transition-transform', relatedOpen && 'rotate-90')} />
+          </button>
+          {relatedOpen && <div id={`related-products-${p.slug}`} className="-mx-1 mt-3 flex snap-x snap-mandatory gap-3 overflow-x-auto px-1 pb-2 [scrollbar-width:thin]">
+            {relatedLoading && <p className="shrink-0 py-3 text-xs text-ink-muted">Loading suggestions…</p>}
+            {!relatedLoading && related.map((item) => <Link key={item.slug} href={`/products/${item.slug}`} title={`${item.collectionName}: ${item.name} · ${item.sku}`} className="w-28 shrink-0 snap-start rounded-xl border border-line bg-white p-2 shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary sm:w-32">
+              <span className="mb-1 block truncate text-[9px] font-bold uppercase tracking-wide text-primary">{item.collectionName}</span>
+              <div className="relative aspect-square overflow-hidden rounded-lg bg-sand"><PlantImage src={item.image} alt={item.name} seed={item.slug} sizes="128px" /></div>
+              <span className="mt-1.5 line-clamp-2 block text-[10px] font-semibold leading-tight text-ink">{item.name}</span>
+            </Link>)}
+            {!relatedLoading && relatedFetched && related.length === 0 && <p className="shrink-0 py-3 text-xs text-ink-muted">No collection suggestions yet.</p>}
+          </div>}
+        </div>
 
         {/* Touch devices: visible actions */}
         <div className={cn('mt-4 [@media(hover:hover)]:hidden')}>

@@ -15,11 +15,18 @@ const analytics = require('../controllers/analytics.controller');
 const settings = require('../controllers/settings.controller');
 const content = require('../controllers/storeContent.controller');
 const { responseCache } = require('../middleware/responseCache');
+const { requireCustomer } = require('../middleware/customerAuth');
+const { checkoutLimiter } = require('../middleware/rateLimiters');
+const siteContent = require('../controllers/siteContent.controller');
+const locations = require('../controllers/location.controller');
 
 const slug = validate([param('slug').isSlug().isLength({ max: 160 })]);
 const contentType = param('type').isIn(['pages', 'blog']);
 
 router.get('/settings', settings.publicSettings);
+router.get('/site-content/legacy', siteContent.publicLegacy);
+router.get('/locations', locations.list);
+router.get('/locations/:city', validate([param('city').matches(/^[a-z0-9-]{2,80}$/)]), locations.get);
 
 router.use('/products', responseCache('products', 3600));
 router.use('/collections', responseCache('collections', 3600));
@@ -34,7 +41,13 @@ router.get('/content/:type', validate([contentType]), content.list);
 router.get('/content/:type/:slug', validate([contentType, param('slug').isSlug()]), content.get);
 
 router.post('/discounts/validate', publicWriteLimiter, validate(sv.validateDiscount), checkout.validateDiscount);
-router.post('/checkout', publicWriteLimiter, validate(sv.checkout), checkout.checkout);
+// Legacy URL remains available, but now uses the same COD-only transactional path as /orders.
+router.post('/checkout', checkoutLimiter, requireCustomer, (req, _res, next) => {
+  req.body.shippingAddress = req.body.shippingAddress || {};
+  req.body.shippingAddress.fullName ||= req.customer.name;
+  req.body.shippingAddress.phone ||= req.customer.phone;
+  next();
+}, validate(sv.placeOrder), checkout.placeOrder);
 router.post('/leads', publicWriteLimiter, validate(sv.lead), leads.createPublic);
 router.post('/analytics/track', trackingLimiter, validate(sv.track), analytics.track);
 
