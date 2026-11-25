@@ -120,12 +120,18 @@ export type PaymentStatus = 'Pending' | 'Paid' | 'Failed' | 'Refunded';
 export interface Address {
   fullName?: string;
   phone?: string;
-  line1: string;
+  phoneNumber?: string;
+  line1?: string;
   line2?: string;
+  addressLine1?: string;
+  addressLine2?: string;
+  landmark?: string;
   city: string;
   state: string;
-  postalCode: string;
+  postalCode?: string;
+  pincode?: string;
   country?: string;
+  addressType?: 'Home' | 'Work';
 }
 
 export interface OrderItem {

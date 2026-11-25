@@ -1,8 +1,6 @@
 'use strict';
 
 const mongoose = require('mongoose');
-const { addressSchema } = require('./schemas/common');
-
 const { Schema } = mongoose;
 
 const ORDER_STATUS = ['Pending', 'Processing', 'Shipped', 'Delivered', 'Cancelled'];
@@ -19,6 +17,27 @@ const orderItemSchema = new Schema(
     price: { type: Number, required: true, min: 0 }, // unit price at time of purchase
     qty: { type: Number, required: true, min: 1 },
     lineTotal: { type: Number, required: true, min: 0 },
+  },
+  { _id: false }
+);
+
+const shippingAddressSchema = new Schema(
+  {
+    fullName: { type: String, required() { return this.isNew; }, trim: true, minlength: 2, maxlength: 100 },
+    phoneNumber: { type: String, required() { return this.isNew || !this.phone; }, match: /^\d{10}$/ },
+    addressLine1: { type: String, required() { return this.isNew || !this.line1; }, trim: true, minlength: 3, maxlength: 200 },
+    addressLine2: { type: String, trim: true, maxlength: 200 },
+    landmark: { type: String, trim: true, maxlength: 120 },
+    city: { type: String, required: true, trim: true, minlength: 2, maxlength: 80 },
+    state: { type: String, required: true, trim: true, minlength: 2, maxlength: 80 },
+    pincode: { type: String, required() { return this.isNew || !this.postalCode; }, match: /^\d{6}$/ },
+    addressType: { type: String, enum: ['Home', 'Work'], default: 'Home', required: true },
+    // Legacy aliases keep historical orders readable and editable after the address schema update.
+    phone: { type: String, trim: true, maxlength: 20 },
+    line1: { type: String, trim: true, maxlength: 200 },
+    line2: { type: String, trim: true, maxlength: 200 },
+    postalCode: { type: String, trim: true, maxlength: 12 },
+    country: { type: String, trim: true, uppercase: true, maxlength: 2 },
   },
   { _id: false }
 );
@@ -44,7 +63,7 @@ const orderSchema = new Schema(
       type: [orderItemSchema],
       validate: [(v) => Array.isArray(v) && v.length > 0, 'Order must contain at least one item'],
     },
-    shippingAddress: { type: addressSchema, required: true },
+    shippingAddress: { type: shippingAddressSchema, required: true },
     subtotal: { type: Number, required: true, min: 0 },
     discount: {
       code: String,
@@ -61,7 +80,7 @@ const orderSchema = new Schema(
 
     orderStatus: { type: String, enum: ORDER_STATUS, default: 'Pending', index: true },
     paymentStatus: { type: String, enum: PAYMENT_STATUS, default: 'Pending', index: true },
-    paymentMethod: { type: String, enum: PAYMENT_METHODS, default: 'online' },
+    paymentMethod: { type: String, enum: PAYMENT_METHODS, default: 'cod' },
     paymentProvider: String, // mock | razorpay | stripe
     paymentIntentId: { type: String, index: true, sparse: true },
     gatewayTransactionId: { type: String, index: true, sparse: true },

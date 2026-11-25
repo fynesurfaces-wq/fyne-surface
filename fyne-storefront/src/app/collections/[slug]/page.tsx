@@ -50,6 +50,8 @@ export default async function CollectionPage({ params, searchParams }: Props) {
   const c = res.data;
   const products = applyFilters(c.products, filters);
   const counts = facetCounts(c.products, filters);
+  const sportsGrassIdentity = `${c.slug} ${c.name}`.toLowerCase();
+  const isSportsGrass = sportsGrassIdentity.includes('sport') && sportsGrassIdentity.includes('grass');
 
   return (
     <>
@@ -83,9 +85,15 @@ export default async function CollectionPage({ params, searchParams }: Props) {
       </section>
 
       <SeoAnswerSection
-        heading={`About the ${c.name} collection`}
-        paragraphs={[
-          `Browse artificial plants in Mumbai in the ${c.name} collection. ${c.seo.description}`,
+        heading={isSportsGrass ? 'Explore Our Sports Grass Collection' : `About the ${c.name} collection`}
+        paragraphs={isSportsGrass ? [
+          <>Create the perfect playing surface with <strong>FYNE Sports Grass</strong>, designed to bring comfort, durability, and performance to every game. Whether you’re setting up a football ground, cricket pitch, sports arena, school playground, or recreational area, our artificial sports grass provides a clean, consistent, and comfortable surface for year-round play.</>,
+          <>Made for active use, <strong>artificial sports grass</strong> offers excellent durability, low maintenance, and an attractive natural grass-like appearance. It helps create a neat and well-maintained sports area without the regular watering, mowing, or upkeep required by natural grass.</>,
+          <>Ideal for <strong>football grounds, cricket practice areas, outdoor sports facilities, and multi-purpose playgrounds</strong>, FYNE Sports Grass is a practical solution for residential, commercial, and professional sports spaces.</>,
+          <>Discover quality <strong>synthetic sports turf, artificial football grass, and cricket ground grass</strong> designed to make every playing experience more enjoyable.</>,
+          <>Browse our Sports Grass collection to explore product photos, dimensions, specifications, pricing, and availability. Compare product details and use the available filters to find the right artificial grass solution for your sports and recreational needs.</>,
+        ] : [
+          `Browse the ${c.name} collection. ${c.seo.description}`,
           `This collection currently includes ${res.pagination.total} ${res.pagination.total === 1 ? 'product' : 'products'}. Compare product photos, listed dimensions, specifications, prices and availability on each product page. Use the collection filters to narrow products by the attributes shown.`,
         ]}
       />

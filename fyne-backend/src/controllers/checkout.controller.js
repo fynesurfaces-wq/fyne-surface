@@ -91,7 +91,6 @@ exports.placeOrder = asyncHandler(async (req, res) => {
       });
       await order.save({ session });
       const customerUpdate = { $inc: { ordersCount: 1 }, $set: { lastOrderAt: new Date() } };
-      if (!req.customer.addresses?.length) customerUpdate.$push = { addresses: address };
       await Customer.updateOne({ _id: req.customer._id }, customerUpdate, { session });
     });
   } catch (error) {
@@ -104,7 +103,7 @@ exports.placeOrder = asyncHandler(async (req, res) => {
   }
   try { await invalidateStoreCache('products', 'collections'); } catch { /* order is committed; cache invalidation must not misreport checkout failure */ }
   void email.sendCodOrderConfirmation(order);
-  res.status(201).json({ success: true, data: { order: { id: order._id, orderNumber: order.orderNumber, orderStatus: order.orderStatus, paymentStatus: order.paymentStatus, paymentMethod: order.paymentMethod, items: order.orderItems, subtotal: order.subtotal, discount: order.discount, shippingFee: order.shippingFee, tax: order.tax, totalAmount: order.totalAmount, currency: order.currency }, payment: null } });
+  res.status(201).json({ success: true, data: { orderId: String(order._id), order: { id: order._id, orderNumber: order.orderNumber, orderStatus: order.orderStatus, paymentStatus: order.paymentStatus, paymentMethod: order.paymentMethod, items: order.orderItems, subtotal: order.subtotal, discount: order.discount, shippingFee: order.shippingFee, tax: order.tax, totalAmount: order.totalAmount, currency: order.currency }, payment: null } });
 });
 
 /** Authenticated cart quote; all line prices and shipping are read/calculated on the server. */
@@ -156,13 +155,24 @@ exports.checkout = asyncHandler(async (req, res) => {
 
   const totals = computeTotals({ subtotal, discountAmount: discount.amount, freeShipping, settings });
   const payments = getPaymentService();
+  const orderAddress = {
+    fullName: c.name,
+    phoneNumber: String(shippingAddress.phoneNumber || shippingAddress.phone || c.phone || '').replace(/\D/g, '').slice(-10),
+    addressLine1: shippingAddress.addressLine1 || shippingAddress.line1,
+    addressLine2: shippingAddress.addressLine2 || shippingAddress.line2,
+    landmark: shippingAddress.landmark,
+    city: shippingAddress.city,
+    state: shippingAddress.state,
+    pincode: shippingAddress.pincode || shippingAddress.postalCode,
+    addressType: shippingAddress.addressType || 'Home',
+  };
 
   const order = new Order({
     orderNumber: await Counter.next('order'),
     user: customer._id,
     email: customer.email,
     orderItems: lines.map(({ collection, ...l }) => l),
-    shippingAddress: { fullName: c.name, phone: c.phone, ...shippingAddress },
+    shippingAddress: orderAddress,
     subtotal,
     discount,
     shippingFee: totals.shippingFee,
@@ -193,7 +203,6 @@ exports.checkout = asyncHandler(async (req, res) => {
     {
       $inc: { ordersCount: 1 },
       $set: { lastOrderAt: new Date(), ...(c.acceptsMarketing && { acceptsMarketing: true }) },
-      ...(!customer.addresses?.length && { $push: { addresses: order.shippingAddress } }),
     }
   );
 

@@ -27,10 +27,12 @@ const addressSchema = new Schema(
     phone: { type: String, trim: true, maxlength: 20 },
     line1: { type: String, required: true, trim: true, maxlength: 200 },
     line2: { type: String, trim: true, maxlength: 200 },
+    landmark: { type: String, trim: true, maxlength: 120 },
     city: { type: String, required: true, trim: true, maxlength: 80 },
     state: { type: String, required: true, trim: true, maxlength: 80 },
     postalCode: { type: String, required: true, trim: true, maxlength: 12 },
     country: { type: String, trim: true, uppercase: true, default: 'IN', maxlength: 2 },
+    addressType: { type: String, enum: ['Home', 'Work'], default: 'Home' },
   },
   { _id: false }
 );

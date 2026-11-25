@@ -1,6 +1,8 @@
+import type { ReactNode } from 'react';
+
 /** Short, visible page summary that gives people and answer engines clear context. */
-export function SeoAnswerSection({ heading, paragraphs, className = '' }: { heading: string; paragraphs: string[]; className?: string }) {
-  const content = paragraphs.map((paragraph) => paragraph.trim()).filter(Boolean);
+export function SeoAnswerSection({ heading, paragraphs, className = '' }: { heading: string; paragraphs: ReactNode[]; className?: string }) {
+  const content = paragraphs.filter((paragraph) => paragraph != null && paragraph !== false && paragraph !== '');
   if (!content.length) return null;
 
   return (

@@ -90,10 +90,12 @@ export function OrderDrawer({ orderId, onClose }: { orderId: string | null; onCl
             </InfoCard>
             <InfoCard icon={<MapPin className="h-4 w-4" />} title="Shipping address">
               <p>{order.shippingAddress.fullName}</p>
-              <p>{order.shippingAddress.line1}</p>
-              {order.shippingAddress.line2 && <p>{order.shippingAddress.line2}</p>}
-              <p>{order.shippingAddress.city}, {order.shippingAddress.state} {order.shippingAddress.postalCode}</p>
-              {order.shippingAddress.phone && <p>{order.shippingAddress.phone}</p>}
+              {order.shippingAddress.addressType && <p>{order.shippingAddress.addressType}</p>}
+              <p>{order.shippingAddress.addressLine1 || order.shippingAddress.line1}</p>
+              {(order.shippingAddress.addressLine2 || order.shippingAddress.line2) && <p>{order.shippingAddress.addressLine2 || order.shippingAddress.line2}</p>}
+              {order.shippingAddress.landmark && <p>Near {order.shippingAddress.landmark}</p>}
+              <p>{order.shippingAddress.city}, {order.shippingAddress.state} {order.shippingAddress.pincode || order.shippingAddress.postalCode}</p>
+              {(order.shippingAddress.phoneNumber || order.shippingAddress.phone) && <p>{order.shippingAddress.phoneNumber || order.shippingAddress.phone}</p>}
             </InfoCard>
             <InfoCard icon={<CreditCard className="h-4 w-4" />} title="Payment">
               <p>{METHOD_LABEL[order.paymentMethod]}</p>

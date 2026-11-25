@@ -166,12 +166,14 @@ exports.orders = asyncHandler(async (req, res) => {
 });
 
 exports.updateProfile = asyncHandler(async (req, res) => {
-  const { name, phone, address } = req.body;
+  const { name, phone, address, replaceAddress, removeAddress } = req.body;
   if (name !== undefined) req.customer.name = name.trim();
   if (phone !== undefined) req.customer.phone = phone.trim();
+  const sameAddress = (saved, target) => saved.line1.trim().toLowerCase() === target.line1.trim().toLowerCase() && saved.postalCode === target.postalCode;
+  if (removeAddress) req.customer.addresses = req.customer.addresses.filter((saved) => !sameAddress(saved, removeAddress));
   if (address) {
-    const index = req.customer.addresses.findIndex((saved) => saved.line1.toLowerCase() === address.line1.toLowerCase() && saved.postalCode === address.postalCode);
-    if (index >= 0) req.customer.addresses.splice(index, 1);
+    const match = replaceAddress || address;
+    req.customer.addresses = req.customer.addresses.filter((saved) => !sameAddress(saved, match));
     req.customer.addresses.unshift(address);
     req.customer.addresses = req.customer.addresses.slice(0, 10);
   }

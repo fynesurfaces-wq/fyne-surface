@@ -19,8 +19,8 @@ export function ContactActions({ phone, whatsapp }: { phone?: string; whatsapp?:
   if (!callNumber && !whatsappNumber) return null;
 
   return (
-    <nav aria-label="Contact FYNE SURFACES" className="fixed inset-x-0 bottom-[max(1rem,env(safe-area-inset-bottom))] z-40 flex justify-end px-4 sm:bottom-6 sm:px-6">
-      <div className="flex max-w-full flex-col items-end gap-3">
+    <nav aria-label="Contact FYNE SURFACES" className="pointer-events-none fixed inset-x-0 bottom-[max(1rem,env(safe-area-inset-bottom))] z-40 flex justify-end px-4 sm:bottom-6 sm:px-6">
+      <div className="pointer-events-auto flex max-w-full flex-col items-end gap-3">
         {whatsappNumber && (
           <motion.a
             href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Hi, I would like to know more about your artificial plants.')}`}

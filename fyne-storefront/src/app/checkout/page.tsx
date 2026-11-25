@@ -9,38 +9,43 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { ArrowLeft, ArrowRight, Banknote, Check, Loader2, Lock, MapPin, PackageCheck, Truck } from 'lucide-react';
 import { api, apiError } from '@/lib/api.client';
 import { cn, formatINR } from '@/lib/utils';
-import { useCart, type CartItem } from '@/store/cart';
+import { useCart } from '@/store/cart';
 import { Button, ButtonLink } from '@/components/ui/Button';
 import { PlantImage } from '@/components/ui/PlantImage';
 import { PageBanner } from '@/components/layout/PageBanner';
 
 const schema = z.object({
-  name: z.string().trim().min(2, 'Enter your full name').max(100),
+  fullName: z.string().trim().min(2, 'Enter your full name').max(100),
   email: z.string().trim().toLowerCase().email('Enter a valid email'),
-  phone: z.string().trim().regex(/^[0-9+\-\s()]{7,20}$/, 'Enter a valid phone number'),
-  line1: z.string().trim().min(3, 'Enter your address').max(200),
-  line2: z.string().trim().max(200).optional(),
+  phoneNumber: z.string().trim().regex(/^\d{10}$/, 'Enter a 10-digit phone number'),
+  addressLine1: z.string().trim().min(3, 'Enter your address').max(200),
+  addressLine2: z.string().trim().max(200).optional(),
+  landmark: z.string().trim().max(120).optional(),
   city: z.string().trim().min(2, 'Enter your city').max(80),
   state: z.string().trim().min(2, 'Enter your state').max(80),
-  postalCode: z.string().trim().min(3).max(12).regex(/^[A-Za-z0-9 -]+$/, 'Enter a valid postal code'),
+  pincode: z.string().trim().regex(/^\d{6}$/, 'Enter a 6-digit pincode'),
+  addressType: z.enum(['Home', 'Work']),
   notes: z.string().trim().max(500).optional(),
   saveAddress: z.boolean(),
-});
+}).strict();
 type Values = z.infer<typeof schema>;
 type Quote = { items: { product: string; name: string; sku: string; image?: string; price: number; qty: number; lineTotal: number }[]; subtotal: number; discount?: { code?: string; amount: number }; shippingFee: number; tax: { amount: number; rate: number; included: boolean }; totalAmount: number; currency: string };
-type Address = { fullName?: string; phone?: string; line1: string; line2?: string; city: string; state: string; postalCode: string; country?: string };
+type Address = { fullName?: string; phone?: string; line1: string; line2?: string; landmark?: string; city: string; state: string; postalCode: string; country?: string; addressType?: 'Home' | 'Work' };
+type ShippingAddress = { fullName: string; phoneNumber: string; addressLine1: string; addressLine2?: string; landmark?: string; city: string; state: string; pincode: string; addressType: 'Home' | 'Work' };
 const fieldsByStep: Record<number, (keyof Values)[]> = {
-  1: ['name', 'email', 'phone', 'line1', 'line2', 'city', 'state', 'postalCode'],
+  1: ['fullName', 'email', 'phoneNumber', 'addressLine1', 'addressLine2', 'landmark', 'city', 'state', 'pincode', 'addressType'],
   2: [],
   3: [],
 };
 
-export default function CheckoutPage() {
+export default function CheckoutForm() {
   const router = useRouter();
   const { items, hydrated, clear } = useCart();
   const [step, setStep] = useState(1);
   const [quote, setQuote] = useState<Quote | null>(null);
   const [quoteLoading, setQuoteLoading] = useState(true);
+  const [savedAddresses, setSavedAddresses] = useState<Address[]>([]);
+  const [selectedSavedAddress, setSelectedSavedAddress] = useState('');
   const [discountInput, setDiscountInput] = useState('');
   const [discountCode, setDiscountCode] = useState('');
   const [discountBusy, setDiscountBusy] = useState(false);
@@ -48,7 +53,7 @@ export default function CheckoutPage() {
   const [placing, setPlacing] = useState(false);
   const { register, handleSubmit, setValue, trigger, watch, formState: { errors } } = useForm<Values>({
     resolver: zodResolver(schema),
-    defaultValues: { name: '', email: '', phone: '', line1: '', line2: '', city: '', state: '', postalCode: '', notes: '', saveAddress: false },
+    defaultValues: { fullName: '', email: '', phoneNumber: '', addressLine1: '', addressLine2: '', landmark: '', city: '', state: '', pincode: '', addressType: 'Home', notes: '', saveAddress: false },
   });
   const form = watch();
   const cartPayload = useMemo(() => items.map((item) => ({ product: item.productId, qty: item.qty })), [items]);
@@ -57,11 +62,16 @@ export default function CheckoutPage() {
     api.get<{ data: { customer: { name: string; email: string; phone?: string; addresses?: Address[] } } }>('/auth/customer/profile')
       .then(({ data }) => {
         const customer = data.data.customer;
-        setValue('name', customer.name || ''); setValue('email', customer.email || ''); setValue('phone', customer.phone || '');
+        const profilePhone = String(customer.phone || '').replace(/\D/g, '').slice(-10);
+        setValue('fullName', customer.name || ''); setValue('email', customer.email || ''); setValue('phoneNumber', profilePhone);
+        setSavedAddresses(customer.addresses || []);
         const saved = customer.addresses?.[0];
         if (saved) {
-          setValue('line1', saved.line1); setValue('line2', saved.line2 || ''); setValue('city', saved.city);
-          setValue('state', saved.state); setValue('postalCode', saved.postalCode);
+          setSelectedSavedAddress('0');
+          setValue('fullName', saved.fullName || customer.name || '');
+          setValue('phoneNumber', String(saved.phone || customer.phone || '').replace(/\D/g, '').slice(-10));
+          setValue('addressLine1', saved.line1); setValue('addressLine2', saved.line2 || ''); setValue('landmark', saved.landmark || ''); setValue('city', saved.city);
+          setValue('state', saved.state); setValue('pincode', saved.postalCode); setValue('addressType', saved.addressType || 'Home');
         }
       })
       .catch(() => router.replace(`/login?redirect=${encodeURIComponent('/checkout')}`));
@@ -95,15 +105,24 @@ export default function CheckoutPage() {
     if (await trigger(fieldsByStep[step])) setStep((current) => Math.min(3, current + 1));
   }
 
+  function chooseSavedAddress(value: string) {
+    setSelectedSavedAddress(value);
+    const saved = savedAddresses[Number(value)];
+    if (!saved || value === '') return;
+    setValue('fullName', saved.fullName || ''); setValue('phoneNumber', String(saved.phone || '').replace(/\D/g, '').slice(-10));
+    setValue('addressLine1', saved.line1); setValue('addressLine2', saved.line2 || ''); setValue('landmark', saved.landmark || '');
+    setValue('city', saved.city); setValue('state', saved.state); setValue('pincode', saved.postalCode); setValue('addressType', saved.addressType || 'Home');
+  }
+
   async function placeOrder(values: Values) {
     if (!quote || quoteLoading) return;
     setPlacing(true); setError('');
-    const shippingAddress: Address = { fullName: values.name, phone: values.phone, line1: values.line1, line2: values.line2 || undefined, city: values.city, state: values.state, postalCode: values.postalCode, country: 'IN' };
+    const shippingAddress: ShippingAddress = { fullName: values.fullName, phoneNumber: values.phoneNumber, addressLine1: values.addressLine1, addressLine2: values.addressLine2 || undefined, landmark: values.landmark || undefined, city: values.city, state: values.state, pincode: values.pincode, addressType: values.addressType };
     try {
-      if (values.saveAddress) await api.patch('/auth/customer/profile', { address: shippingAddress });
-      const { data } = await api.post<{ data: { order: { id: string } } }>('/orders', { items: cartPayload, shippingAddress, notes: values.notes || undefined, discountCode: discountCode || undefined });
+      if (values.saveAddress) await api.patch('/auth/customer/profile', { address: { fullName: shippingAddress.fullName, phone: shippingAddress.phoneNumber, line1: shippingAddress.addressLine1, line2: shippingAddress.addressLine2, landmark: shippingAddress.landmark, city: shippingAddress.city, state: shippingAddress.state, postalCode: shippingAddress.pincode, country: 'IN', addressType: shippingAddress.addressType } });
+      const { data } = await api.post<{ data: { orderId: string; order: { id: string } } }>('/orders', { items: cartPayload, shippingAddress, notes: values.notes || undefined, discountCode: discountCode || undefined });
       clear();
-      router.replace(`/order-success/${data.data.order.id}`);
+      router.replace(`/order-success/${data.data.orderId}`);
       router.refresh();
     } catch (err) {
       const issue = apiError(err);
@@ -131,10 +150,12 @@ export default function CheckoutPage() {
       <form onSubmit={handleSubmit(placeOrder)} className="mt-7 grid gap-8 lg:grid-cols-[1fr_360px]">
         <div className="rounded-3xl border border-line bg-white p-5 shadow-soft sm:p-8">
           {step === 1 && <div className="space-y-5">
-            <div className="grid gap-4 sm:grid-cols-2">{input('name', 'Full name', { autoComplete: 'name' })}{input('email', 'Email', { type: 'email', autoComplete: 'email', readOnly: true })}{input('phone', 'Phone number', { type: 'tel', autoComplete: 'tel' })}</div>
-            <div className="border-t border-line pt-5"><h3 className="flex items-center gap-2 font-semibold text-ink"><MapPin className="h-4 w-4 text-primary" /> Delivery address</h3><div className="mt-4 grid gap-4 sm:grid-cols-2">{input('line1', 'Address line 1', { autoComplete: 'address-line1', className: 'sm:col-span-2' })}{input('line2', 'Address line 2 (optional)', { autoComplete: 'address-line2' })}{input('city', 'City', { autoComplete: 'address-level2' })}{input('state', 'State / region', { autoComplete: 'address-level1' })}{input('postalCode', 'Postal code', { autoComplete: 'postal-code' })}</div>
+            <div className="flex flex-wrap items-end gap-3">{savedAddresses.length > 0 && <label className="block min-w-[220px] flex-1 text-sm font-medium text-ink-soft">Choose a saved address<select value={selectedSavedAddress} onChange={(event) => chooseSavedAddress(event.target.value)} className="field mt-2"><option value="">Use another address</option>{savedAddresses.map((address, index) => <option key={`${address.line1}-${address.postalCode}-${index}`} value={String(index)}>{address.addressType || 'Address'} · {address.line1}, {address.city}</option>)}</select></label>}<Link href="/account" className="pb-3 text-sm font-semibold text-primary hover:underline">Manage addresses</Link></div>
+            <div className="grid gap-4 sm:grid-cols-2">{input('fullName', 'Full name', { autoComplete: 'name' })}{input('email', 'Email', { type: 'email', autoComplete: 'email', readOnly: true })}{input('phoneNumber', 'Phone number (10 digits)', { type: 'tel', autoComplete: 'tel', inputMode: 'numeric', maxLength: 10 })}</div>
+            <div className="border-t border-line pt-5"><h3 className="flex items-center gap-2 font-semibold text-ink"><MapPin className="h-4 w-4 text-primary" /> Delivery address</h3><div className="mt-4 grid gap-4 sm:grid-cols-2">{input('addressLine1', 'Address line 1', { autoComplete: 'address-line1' })}{input('addressLine2', 'Address line 2 (optional)', { autoComplete: 'address-line2' })}{input('landmark', 'Landmark (optional)', { autoComplete: 'off' })}{input('city', 'City', { autoComplete: 'address-level2' })}{input('state', 'State', { autoComplete: 'address-level1' })}{input('pincode', 'Pincode (6 digits)', { autoComplete: 'postal-code', inputMode: 'numeric', maxLength: 6 })}</div>
+              <fieldset className="mt-5"><legend className="text-sm font-medium text-ink-soft">Address type</legend><div className="mt-2 flex gap-3">{(['Home', 'Work'] as const).map((type) => <label key={type} className={cn('inline-flex cursor-pointer items-center gap-2 rounded-xl border px-4 py-3 text-sm', form.addressType === type ? 'border-primary bg-primary-50 text-primary-900' : 'border-line text-ink-soft')}><input type="radio" value={type} {...register('addressType')} className="accent-primary" />{type}</label>)}</div>{errors.addressType && <span className="mt-1 block text-xs text-red-600">{errors.addressType.message}</span>}</fieldset>
               <label className="mt-5 flex items-start gap-3 text-sm text-ink-soft"><input type="checkbox" {...register('saveAddress')} className="mt-1 h-4 w-4 accent-primary" /><span>Save this address to my account for next time.</span></label>
-              <label className="mt-5 block text-sm font-medium text-ink-soft">Delivery notes (optional)<textarea rows={3} {...register('notes')} className="field mt-2 h-auto py-3" placeholder="Landmark or delivery instructions" /></label>
+              <label className="mt-5 block text-sm font-medium text-ink-soft">Delivery notes (optional)<textarea rows={3} {...register('notes')} className="field mt-2 h-auto py-3" placeholder="Gate code or delivery instructions" /></label>
             </div>
           </div>}
           {step === 2 && <div className="space-y-4">
@@ -142,7 +163,7 @@ export default function CheckoutPage() {
             <div className="rounded-xl bg-canvas p-4 text-sm text-ink-soft">Payment method: <strong className="text-ink">Cash on Delivery</strong>. Pay the order total to the delivery agent when your order arrives.</div>
           </div>}
           {step === 3 && <div className="space-y-5">
-            <div className="rounded-2xl bg-canvas p-5"><p className="font-semibold text-ink">Delivering to</p><p className="mt-2 text-sm leading-6 text-ink-soft">{form.name}<br />{form.line1}{form.line2 ? `, ${form.line2}` : ''}<br />{form.city}, {form.state} {form.postalCode}<br />{form.phone}</p><button type="button" onClick={() => setStep(1)} className="mt-3 text-sm font-semibold text-primary hover:underline">Edit address</button></div>
+            <div className="rounded-2xl bg-canvas p-5"><p className="font-semibold text-ink">Delivering to · {form.addressType}</p><p className="mt-2 text-sm leading-6 text-ink-soft">{form.fullName}<br />{form.addressLine1}{form.addressLine2 ? `, ${form.addressLine2}` : ''}{form.landmark ? `, near ${form.landmark}` : ''}<br />{form.city}, {form.state} {form.pincode}<br />{form.phoneNumber}</p><button type="button" onClick={() => setStep(1)} className="mt-3 text-sm font-semibold text-primary hover:underline">Edit address</button></div>
             <div className="flex items-center gap-3 rounded-2xl border border-line p-4"><Banknote className="h-5 w-5 text-primary" /><span className="text-sm font-medium text-ink">Cash on Delivery</span><span className="ml-auto text-xs text-ink-muted">No online payment</span></div>
             <p className="text-sm text-ink-muted">Product prices and stock are verified again by the server when you place your order.</p>
             <div className="border-t border-line pt-5"><label htmlFor="discount-code" className="block text-sm font-medium text-ink-soft">Discount code</label>{discountCode ? <div className="mt-2 flex items-center justify-between rounded-xl bg-primary-50 px-4 py-3 text-sm"><span className="font-semibold text-primary-900">{discountCode} applied</span><button type="button" className="font-semibold text-primary underline" onClick={() => { setDiscountCode(''); setDiscountInput(''); }}>Remove</button></div> : <div className="mt-2 flex gap-2"><input id="discount-code" value={discountInput} onChange={(event) => setDiscountInput(event.target.value.toUpperCase())} maxLength={30} className="field h-11 uppercase" placeholder="Enter code" /><Button type="button" variant="outline" loading={discountBusy} onClick={applyDiscount}>Apply</Button></div>}</div>

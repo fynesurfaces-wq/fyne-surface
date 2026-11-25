@@ -60,8 +60,8 @@ export function FilterBar({ active, counts, total }: { active: ActiveFilters; co
 
   return (
     <div ref={barRef} className="sticky top-[72px] z-30 -mx-5 border-b border-line bg-white/90 px-5 backdrop-blur-md sm:-mx-6 sm:px-6 lg:top-20 lg:mx-0 lg:px-0">
-      <div className="flex items-center gap-3 py-4">
-        <div className="flex flex-1 items-center gap-2.5 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden lg:overflow-visible">
+      <div className="flex flex-wrap items-center gap-3 py-4 sm:flex-nowrap">
+        <div className="flex basis-full flex-wrap items-center gap-2.5 sm:min-w-0 sm:basis-auto sm:flex-1 sm:flex-nowrap sm:overflow-x-auto sm:[scrollbar-width:none] sm:[&::-webkit-scrollbar]:hidden lg:overflow-visible">
           {counts.hasHeights && (
             <Dropdown label={`Height${active.height.length ? ` · ${active.height.length}` : ''}`} isOpen={open === 'height'} onToggle={() => setOpen(open === 'height' ? null : 'height')} className={pill(open === 'height', active.height.length > 0)}>
               <div className="mb-3 flex items-center justify-between">
@@ -119,7 +119,7 @@ export function FilterBar({ active, counts, total }: { active: ActiveFilters; co
           {total} {total === 1 ? 'product' : 'products'}
         </span>
 
-        <Dropdown align="right" label={`Sort: ${SORTS.find((s) => s.key === active.sort)?.label}`} isOpen={open === 'sort'} onToggle={() => setOpen(open === 'sort' ? null : 'sort')} className={pill(open === 'sort', false)}>
+        <Dropdown align="right" label={`Sort: ${SORTS.find((s) => s.key === active.sort)?.label}`} isOpen={open === 'sort'} onToggle={() => setOpen(open === 'sort' ? null : 'sort')} className={cn(pill(open === 'sort', false), 'ml-auto sm:ml-0')}>
           {SORTS.map((s) => (
             <Option key={s.key} radio checked={active.sort === s.key} onClick={() => { push((p) => (s.key === 'featured' ? p.delete('sort') : p.set('sort', s.key))); setOpen(null); }}>
               {s.label}

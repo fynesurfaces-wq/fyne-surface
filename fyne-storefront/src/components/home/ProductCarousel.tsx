@@ -9,6 +9,7 @@ import { ProductCard } from '@/components/product/ProductCard';
 /** Scroll-snap carousel (native scrolling = accessible + crawlable) with arrow controls. */
 export function ProductCarousel({ products }: { products: ProductSummary[] }) {
   const ref = useRef<HTMLUListElement>(null);
+  const isPointerOver = useRef(false);
   const [edges, setEdges] = useState({ start: true, end: false });
 
   const update = () => {
@@ -20,6 +21,7 @@ export function ProductCarousel({ products }: { products: ProductSummary[] }) {
 
   useEffect(() => {
     const timer = window.setInterval(() => {
+      if (isPointerOver.current) return;
       const el = ref.current;
       const firstCard = el?.querySelector<HTMLElement>('li');
       if (!el || !firstCard) return;
@@ -29,7 +31,7 @@ export function ProductCarousel({ products }: { products: ProductSummary[] }) {
       const maxScroll = el.scrollWidth - el.clientWidth;
       if (el.scrollLeft >= maxScroll - 8) el.scrollTo({ left: 0, behavior: 'smooth' });
       else el.scrollBy({ left: step, behavior: 'smooth' });
-    }, 5000);
+    }, 10000);
 
     return () => window.clearInterval(timer);
   }, [products]);
@@ -54,6 +56,8 @@ export function ProductCarousel({ products }: { products: ProductSummary[] }) {
       <ul
         ref={ref}
         onScroll={update}
+        onMouseEnter={() => { isPointerOver.current = true; }}
+        onMouseLeave={() => { isPointerOver.current = false; }}
         aria-label="Featured products"
         aria-roledescription="carousel"
         className="-mx-5 flex snap-x snap-mandatory gap-0 overflow-x-hidden scroll-smooth px-0 pb-4 [scrollbar-width:none] sm:-mx-6 sm:gap-5 sm:overflow-x-auto sm:px-6 lg:mx-0 lg:gap-7 lg:px-0 [&::-webkit-scrollbar]:hidden"

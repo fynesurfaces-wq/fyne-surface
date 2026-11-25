@@ -69,6 +69,7 @@ module.exports = Object.freeze({
       'https://fyne-surface.vercel.app',
       'https://fyne-surface-qivi.vercel.app',
       'https://fyne-surface.onrender.com',
+      'https://fynesurfaces.com',
       ...list(process.env.CORS_ORIGINS),
     ]),
   ],

@@ -43,9 +43,17 @@ router.get('/content/:type/:slug', validate([contentType, param('slug').isSlug()
 router.post('/discounts/validate', publicWriteLimiter, validate(sv.validateDiscount), checkout.validateDiscount);
 // Legacy URL remains available, but now uses the same COD-only transactional path as /orders.
 router.post('/checkout', checkoutLimiter, requireCustomer, (req, _res, next) => {
-  req.body.shippingAddress = req.body.shippingAddress || {};
-  req.body.shippingAddress.fullName ||= req.customer.name;
-  req.body.shippingAddress.phone ||= req.customer.phone;
+  const address = req.body.shippingAddress || {};
+  const phone = String(address.phoneNumber || address.phone || req.customer.phone || '').replace(/\D/g, '').slice(-10);
+  req.body.shippingAddress = {
+    ...address,
+    fullName: address.fullName || req.customer.name,
+    phoneNumber: address.phoneNumber || phone,
+    addressLine1: address.addressLine1 || address.line1,
+    addressLine2: address.addressLine2 || address.line2,
+    pincode: address.pincode || address.postalCode,
+    addressType: address.addressType || 'Home',
+  };
   next();
 }, validate(sv.placeOrder), checkout.placeOrder);
 router.post('/leads', publicWriteLimiter, validate(sv.lead), leads.createPublic);
