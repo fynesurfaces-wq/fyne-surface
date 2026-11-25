@@ -28,6 +28,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: { default: title, template: `%s | ${name}` },
     description,
     applicationName: name,
+    verification: { google: 'ZgOji4ClrKfRc9LWgjipPav8P1-7_6ffFQY2WqE1Z4s' },
     // No site-wide canonical here — each page sets its own (a layout canonical would leak to every route).
     openGraph: { type: 'website', siteName: name, locale: 'en_IN', title, description },
     twitter: { card: 'summary_large_image', title, description },
