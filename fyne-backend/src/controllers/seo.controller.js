@@ -38,6 +38,9 @@ const isImageKitUrl = (value) => {
     return false;
   }
 };
+const absoluteImageUrl = (value) => {
+  try { return new URL(value, `${env.siteUrl}/`).toString(); } catch { return ''; }
+};
 
 /** GET /sitemap.xml — includes Google image-sitemap extension for product photos. */
 exports.sitemap = asyncHandler(async (_req, res) => {
@@ -50,9 +53,10 @@ exports.sitemap = asyncHandler(async (_req, res) => {
   const urls = [];
   const add = ({ loc, lastmod, changefreq, priority, images = [] }) => {
     const imgs = images
-      .filter((i) => i?.url && !isImageKitUrl(i.url))
+      .map((i) => ({ ...i, absoluteUrl: i?.url ? absoluteImageUrl(i.url) : '' }))
+      .filter((i) => i.absoluteUrl && !isImageKitUrl(i.absoluteUrl))
       .slice(0, 10)
-      .map((i) => `\n    <image:image><image:loc>${escapeXml(i.url)}</image:loc>${i.alt ? `<image:title>${escapeXml(i.alt)}</image:title>` : ''}</image:image>`)
+      .map((i) => `\n    <image:image><image:loc>${escapeXml(i.absoluteUrl)}</image:loc>${i.alt ? `<image:title>${escapeXml(i.alt)}</image:title>` : ''}</image:image>`)
       .join('');
     urls.push(
       `  <url>\n    <loc>${escapeXml(loc)}</loc>${lastmod ? `\n    <lastmod>${lastmod}</lastmod>` : ''}${changefreq ? `\n    <changefreq>${changefreq}</changefreq>` : ''}${priority ? `\n    <priority>${priority}</priority>` : ''}${imgs}\n  </url>`
