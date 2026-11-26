@@ -151,6 +151,7 @@ exports.logout = asyncHandler(async (req, res) => {
 });
 
 exports.profile = asyncHandler(async (req, res) => {
+  if (!req.customer) return res.json({ success: true, data: { customer: null } });
   res.json({ success: true, data: { customer: { ...safeCustomer(req.customer), addresses: req.customer.addresses || [] } } });
 });
 

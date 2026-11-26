@@ -21,9 +21,9 @@ export function CustomerAuthProvider({ children }: { children: React.ReactNode }
   const refreshCustomer = useCallback(async () => {
     setStatus('loading');
     try {
-      const response = await api.get<{ data: { customer: CustomerSession } }>('/auth/customer/profile');
+      const response = await api.get<{ data: { customer: CustomerSession | null } }>('/auth/customer/profile');
       setCustomer(response.data.data.customer);
-      setStatus('authenticated');
+      setStatus(response.data.data.customer ? 'authenticated' : 'unauthenticated');
       return response.data.data.customer;
     } catch {
       setCustomer(null);

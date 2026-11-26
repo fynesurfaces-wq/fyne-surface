@@ -137,7 +137,6 @@ export function Navbar({ collections }: { collections: CollectionSummary[] }) {
             <Link href="/locations" className={linkCls(pathname.startsWith('/locations'))} aria-current={pathname.startsWith('/locations') ? 'page' : undefined}>Locations</Link>
             <Link href="/contact" className={linkCls(pathname === '/contact')} aria-current={pathname === '/contact' ? 'page' : undefined}>Contact</Link>
             {/* <Link href="/faq" className={linkCls(pathname === '/faq')} aria-current={pathname === '/faq' ? 'page' : undefined}>FAQ</Link> */}
-            {isCustomer && <Link href="/account" className={cn(linkCls(pathname.startsWith('/account')), 'inline-flex items-center gap-1.5')} aria-current={pathname.startsWith('/account') ? 'page' : undefined}><UserRound className="h-4 w-4" />Account</Link>}
           </nav>
 
           <div className="ml-auto flex items-center gap-1 sm:gap-2">
@@ -181,7 +180,7 @@ export function Navbar({ collections }: { collections: CollectionSummary[] }) {
                   ref={searchRef}
                   value={q}
                   onChange={(e) => setQ(e.target.value)}
-                  placeholder="Search palms, orchids, bushes…"
+                  placeholder="Search products, collections, types…"
                   className="h-11 flex-1 bg-transparent text-lg text-ink placeholder:text-ink-faint focus:outline-none"
                 />
                 <button type="submit" className="hidden rounded-full bg-ink px-5 py-2 text-sm font-medium text-white sm:block">Search</button>
@@ -292,9 +291,9 @@ export function Navbar({ collections }: { collections: CollectionSummary[] }) {
                     <Link href="/pages/about" className={cn('py-3', mobileLinkCls(pathname === '/pages/about'))}>Our Story</Link>
                     <Link href="/contact" className={cn('py-3', mobileLinkCls(pathname === '/contact'))}>Contact</Link>
                     <Link href="/locations" className={cn('py-3', mobileLinkCls(pathname.startsWith('/locations')))}>Locations</Link>
-                    {/* {isCustomer && <Link href="/account" className={cn('py-3', mobileLinkCls(pathname.startsWith('/account')))} aria-current={pathname.startsWith('/account') ? 'page' : undefined}><UserRound className="mr-1 inline h-4 w-4" />Account</Link>}
+                    {/* {isCustomer && <Link href="/account" className={cn('py-3', mobileLinkCls(pathname.startsWith('/account')))} aria-current={pathname.startsWith('/account') ? 'page' : undefined}><UserRound className="mr-1 inline h-4 w-4" /></Link>} */}
                     <Link href="/cart" className={cn('py-3', mobileLinkCls(pathname === '/cart'))}>Cart{hydrated && count ? ` (${count})` : ''}</Link>
-                    */}
+                   
                     {isCustomer
                       ? <button type="button" onClick={signOutCustomer} className="mt-2 flex items-center justify-center gap-2 rounded-xl border border-line px-4 py-3 text-sm font-semibold text-ink-soft transition hover:bg-canvas"><LogOut className="h-4 w-4" />Sign out</button>
                       : <Link href="/login" className="mt-2 flex items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-white"><UserRound className="h-4 w-4" />Login / Register</Link>}

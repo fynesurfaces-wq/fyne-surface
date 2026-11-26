@@ -4,7 +4,7 @@ const router = require('express').Router();
 const ctrl = require('../controllers/customerAuth.controller');
 const validate = require('../middleware/validate');
 const { authLimiter, loginLimiter } = require('../middleware/rateLimiters');
-const { requireCustomer } = require('../middleware/customerAuth');
+const { requireCustomer, optionalCustomer } = require('../middleware/customerAuth');
 const v = require('../validators/customer.validators');
 
 router.post('/register', authLimiter, validate(v.register), ctrl.register);
@@ -15,7 +15,7 @@ router.post('/forgot-password', authLimiter, validate(v.forgotPassword), ctrl.fo
 router.post('/reset-password', authLimiter, validate(v.resetPassword), ctrl.resetPassword);
 router.post('/change-password', authLimiter, requireCustomer, validate(v.changePassword), ctrl.changePassword);
 router.post('/logout', authLimiter, ctrl.logout);
-router.get('/profile', requireCustomer, ctrl.profile);
+router.get('/profile', optionalCustomer, ctrl.profile);
 router.patch('/profile', requireCustomer, validate(v.updateProfile), ctrl.updateProfile);
 router.get('/orders', requireCustomer, ctrl.orders);
 

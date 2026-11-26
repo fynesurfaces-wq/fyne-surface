@@ -114,10 +114,10 @@ export function journalFaqs(articleTitle?: string): Faq[] {
 export function searchFaqs(query: string): Faq[] {
   const subject = query ? ` for “${query}”` : '';
   return [
-    { question: `How does product search${subject} work?`, answer: 'Search checks product names, SKUs and descriptions in the current catalogue.' },
+    { question: `How does catalogue search${subject} work?`, answer: 'Search checks product names, SKUs, descriptions, product types and collection names in the current catalogue.' },
     { question: 'Can I search by SKU?', answer: 'Yes. Enter the product SKU in the search box to find a matching listing.' },
-    { question: 'Can I search for a collection name?', answer: 'Search focuses on product details. Browse the collections page to open a specific collection.' },
-    { question: 'Why might search return no products?', answer: 'The phrase may not match a current product name, SKU or description. Try a shorter term or browse collections.' },
+    { question: 'Can I search for a collection name?', answer: 'Yes. Matching collections appear above matching products. Select a collection to browse its products.' },
+    { question: 'Why might search return no results?', answer: 'The phrase may not match a current product, type or collection. Try a shorter term or browse collections.' },
     { question: 'Are search results in stock?', answer: 'Availability is shown on each product card and checked again at checkout.' },
     { question: 'Where can I see product prices?', answer: 'The product cards and product detail pages show the current listed price.' },
     { question: 'How can I compare product sizes?', answer: 'Open the product page and review its dimensions and specifications.' },

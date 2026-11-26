@@ -118,7 +118,7 @@ exports.customerOrderList = [
 exports.productSearch = [
   query('q').isString().trim().isLength({ min: 2, max: 100 }).withMessage('Enter at least 2 search characters'),
   query('page').optional().isInt({ min: 1 }).toInt(),
-  query('limit').optional().isInt({ min: 1, max: 50 }).toInt(),
+  query('limit').optional().isInt({ min: 1, max: 60 }).toInt(),
 ];
 
 exports.orderStatus = [

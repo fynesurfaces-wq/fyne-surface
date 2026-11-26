@@ -74,7 +74,7 @@ export const getProducts = (params: ProductQuery = {}) =>
   );
 
 /** Public MongoDB text search endpoint; don't cache user-entered queries in the ISR data cache. */
-export const searchProducts = async (q: string, limit = 60) => {
+export const searchProducts = async (q: string, limit = 50) => {
   const params = new URLSearchParams({ q: q.slice(0, 100), limit: String(limit) });
   try {
     const response = await fetch(`${API_ROOT}/products/search?${params}`, { cache: 'no-store', headers: { Accept: 'application/json' } });

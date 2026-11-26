@@ -36,7 +36,12 @@ export function ProductCard({ product: p, priority, headingLevel = 'h3' }: { pro
   const [img1, img2] = p.images;
   const Heading = headingLevel;
   const discount = p.price.compareAt && p.price.compareAt > p.price.amount ? Math.round((1 - p.price.amount / p.price.compareAt) * 100) : 0;
-  const productLabel = p.name?.trim();
+  const suppliedName = p.name?.trim();
+  const shortDescription = p.shortDescription?.trim() || '';
+  const shortDescriptionName = /\s+by\s+/i.test(shortDescription) ? shortDescription.split(/\s+by\s+/i)[0].trim() : '';
+  const productLabel = suppliedName && suppliedName.toLowerCase() !== p.sku.toLowerCase()
+    ? suppliedName
+    : shortDescriptionName || p.tags.find((tag) => tag.trim()) || 'Artificial plant';
   const loadRelated = async () => {
     if (relatedFetched) return;
     setRelatedFetched(true);
@@ -109,7 +114,7 @@ export function ProductCard({ product: p, priority, headingLevel = 'h3' }: { pro
             {productLabel && <Heading className="text-[15px] font-semibold leading-snug tracking-[-0.01em] text-ink transition-colors duration-300 group-hover:text-primary">
               <Link href={href} className="hover:text-primary">{productLabel}</Link>
             </Heading>}
-            <p className="mt-1 text-[12px] uppercase tracking-[0.12em] text-ink-faint">SKU {p.sku}</p>
+            <Link href={href} className="mt-1 inline-block text-[12px] uppercase tracking-[0.12em] text-ink-faint transition-colors hover:text-primary">SKU {p.sku}</Link>
           </div>
           <div className="max-w-full text-left sm:shrink-0 sm:text-right">
             <p className="whitespace-nowrap text-[15px] font-semibold tabular-nums text-ink">{formatINR(p.price.amount)}</p>

@@ -39,7 +39,10 @@ function buildSummary(p, collection, attributes, settings) {
  */
 function toPublicProduct(p, { collection, settings, includeJsonLd = true } = {}) {
   const coll = collection || (p.collection && p.collection.name ? p.collection : null);
-  const displayName = String(p.name || '').trim() || p.sku || 'Product';
+  const shortDescription = String(p.shortDescription || '').trim();
+  const descriptionName = /\s+by\s+/i.test(shortDescription) ? shortDescription.split(/\s+by\s+/i)[0].trim() : '';
+  const tagName = (p.tags || []).find((tag) => String(tag || '').trim());
+  const displayName = String(p.name || '').trim() || descriptionName || tagName || p.sku || 'Product';
   const publicProduct = { ...p, name: displayName };
   const attributes = buildAttributes(p.specifications || {});
   const url = productUrl(p);

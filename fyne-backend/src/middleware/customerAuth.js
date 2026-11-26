@@ -29,4 +29,9 @@ const protectCustomer = asyncHandler(async (req, _res, next) => {
   next();
 });
 
-module.exports = { protectCustomer, requireCustomer: protectCustomer };
+const optionalCustomer = (req, res, next) => {
+  if (!req.cookies?.fyn_customer && !req.cookies?.fyn_customer_refresh) return next();
+  return protectCustomer(req, res, next);
+};
+
+module.exports = { protectCustomer, requireCustomer: protectCustomer, optionalCustomer };
