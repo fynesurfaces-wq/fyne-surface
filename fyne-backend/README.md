@@ -34,7 +34,7 @@ inactive with zero stock, and the prices come from the supplied FYNE 2024
 catalog; review them in the admin before publishing.
 
 The Bushes importer reads `src/seed/bushes-catalog.json` and the SKU-named
-photos in `src/seed/assets/bushes/`. It targets the existing `bushes-collection-0325`
+photos in `src/seed/assets/bushes/`. It targets the existing `bushes`
 collection, uploads images to ImageKit, and upserts by SKU. Products are active
 for the storefront; new inventory starts at zero until stock is entered.
 

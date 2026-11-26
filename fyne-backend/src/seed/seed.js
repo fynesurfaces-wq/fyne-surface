@@ -31,8 +31,8 @@ const COLLECTIONS = [
     seo: { metaTitle: 'Artificial Plants Under 1.2m | FYNE SURFACES', metaDescription: 'Lifelike compact artificial plants and orchids under 1.2 metres for homes and offices. Maintenance-free greenery by FYNE SURFACES.', keywords: ['small artificial plants', 'artificial orchid', 'indoor artificial plants'] },
   },
   {
-    name: 'Bushes Collection 0325',
-    slug: 'bushes-collection-0325',
+    name: 'Bushes',
+    slug: 'bushes',
     sortOrder: 3,
     description: '<p>Artificial bush packs for building vertical gardens, green walls, planters and landscaping borders.</p>',
     seo: { metaTitle: 'Artificial Bushes for Vertical Gardens | FYNE SURFACES', metaDescription: 'Artificial bush packs (6 pcs) for vertical gardens, green walls and planters. Premium vertical-garden greenery from FYNE SURFACES.', keywords: ['artificial bushes', 'vertical garden plants', 'green wall bushes'] },
@@ -62,12 +62,12 @@ const PRODUCTS = [
     stock: 5, tags: ['orchid', 'flowering', 'white', 'tabletop'],
   },
   {
-    collection: 'bushes-collection-0325', name: 'Bush Pack - Design A', sku: 'FS-3026', price: 1550, slug: 'bush-pack-fs-3026',
+    collection: 'bushes', name: 'Bush Pack - Design A', sku: 'FS-3026', price: 1550, slug: 'bush-pack-fs-3026',
     specifications: { packSize: 6 },
     stock: 50, tags: ['bush', 'vertical garden', 'green wall'],
   },
   {
-    collection: 'bushes-collection-0325', name: 'Bush Pack - Design B', sku: 'FS-3024', price: 1550, slug: 'bush-pack-fs-3024',
+    collection: 'bushes', name: 'Bush Pack - Design B', sku: 'FS-3024', price: 1550, slug: 'bush-pack-fs-3024',
     specifications: { packSize: 6 },
     stock: 50, tags: ['bush', 'vertical garden', 'green wall'],
   },
@@ -141,7 +141,11 @@ async function seed() {
   const collMap = {};
   for (const c of COLLECTIONS) {
     // eslint-disable-next-line no-await-in-loop
-    const doc = await Collection.findOneAndUpdate({ slug: c.slug }, { $set: { ...c, isActive: true } }, { upsert: true, new: true, setDefaultsOnInsert: true });
+    const legacySlug = c.slug === 'bushes' ? 'bushes-collection-0325' : null;
+    const existing = await Collection.findOne({ slug: c.slug }) || (legacySlug && await Collection.findOne({ slug: legacySlug }));
+    const doc = existing
+      ? await Collection.findByIdAndUpdate(existing._id, { $set: { ...c, isActive: true } }, { new: true, runValidators: true })
+      : await Collection.findOneAndUpdate({ slug: c.slug }, { $set: { ...c, isActive: true } }, { upsert: true, new: true, setDefaultsOnInsert: true });
     collMap[c.slug] = doc;
   }
   console.log(`📁 ${COLLECTIONS.length} collections upserted`);

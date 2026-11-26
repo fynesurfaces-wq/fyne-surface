@@ -12,6 +12,8 @@ const { destroy } = require('../services/upload.service');
 const { invalidateStoreCache } = require('../middleware/responseCache');
 
 const FIELDS = ['name', 'slug', 'description', 'coverImage', 'seo', 'isActive', 'sortOrder'];
+const LEGACY_BUSHES_SLUG = 'bushes-collection-0325';
+const canonicalCollectionSlug = (slug) => slug === LEGACY_BUSHES_SLUG ? 'bushes' : slug;
 
 async function attachCounts(collections) {
   const ids = collections.map((c) => c._id);
@@ -88,8 +90,8 @@ exports.storeList = asyncHandler(async (_req, res) => {
     data: withCounts.map((c) => ({
       id: String(c._id),
       name: c.name,
-      slug: c.slug,
-      url: collectionUrl(c),
+      slug: canonicalCollectionSlug(c.slug),
+      url: collectionUrl({ ...c, slug: canonicalCollectionSlug(c.slug) }),
       description: stripHtml(c.description),
       coverImage: c.coverImage || null,
       productCount: c.activeProductCount,
@@ -100,8 +102,11 @@ exports.storeList = asyncHandler(async (_req, res) => {
 /** GET /api/v1/store/collections/:slug?page&limit&sort — collection + its products + CollectionPage JSON-LD */
 exports.storeGet = asyncHandler(async (req, res) => {
   const settings = await Setting.getStore();
-  const collection = await Collection.findOne({ slug: req.params.slug, isActive: true }).lean();
+  const requestedSlug = canonicalCollectionSlug(req.params.slug);
+  const collection = await Collection.findOne({ slug: requestedSlug, isActive: true }).lean()
+    || (requestedSlug === 'bushes' && await Collection.findOne({ slug: LEGACY_BUSHES_SLUG, isActive: true }).lean());
   if (!collection) throw new ApiError(404, 'Collection not found');
+  collection.slug = canonicalCollectionSlug(collection.slug);
 
   const pg = parsePagination(req.query, { defaultLimit: 24, maxLimit: 60 });
   const sort = parseSort(req.query.sort, ['price', 'name', 'createdAt'], '-isFeatured,-createdAt');

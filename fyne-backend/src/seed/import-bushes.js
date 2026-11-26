@@ -17,7 +17,7 @@ const { slugify, uniqueSlug } = require('../utils/slug');
 const { uploadBuffer, destroy, isConfigured } = require('../services/upload.service');
 
 const APPLY = process.argv.includes('--apply');
-const COLLECTION_SLUG = 'bushes-collection-0325';
+const COLLECTION_SLUG = 'bushes';
 const CATALOG = require('./bushes-catalog.json');
 const ASSET_DIR = path.join(__dirname, 'assets', 'bushes');
 

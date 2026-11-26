@@ -27,6 +27,17 @@ const STATIC_PAGES = [
 ];
 
 const iso = (d) => (d ? new Date(d).toISOString() : undefined);
+const imageKitHost = (() => {
+  try { return new URL(env.imagekit.urlEndpoint).hostname.toLowerCase(); } catch { return ''; }
+})();
+const isImageKitUrl = (value) => {
+  try {
+    const host = new URL(value).hostname.toLowerCase();
+    return host === 'ik.imagekit.io' || (imageKitHost && host === imageKitHost);
+  } catch {
+    return false;
+  }
+};
 
 /** GET /sitemap.xml — includes Google image-sitemap extension for product photos. */
 exports.sitemap = asyncHandler(async (_req, res) => {
@@ -39,7 +50,7 @@ exports.sitemap = asyncHandler(async (_req, res) => {
   const urls = [];
   const add = ({ loc, lastmod, changefreq, priority, images = [] }) => {
     const imgs = images
-      .filter((i) => i?.url)
+      .filter((i) => i?.url && !isImageKitUrl(i.url))
       .slice(0, 10)
       .map((i) => `\n    <image:image><image:loc>${escapeXml(i.url)}</image:loc>${i.alt ? `<image:title>${escapeXml(i.alt)}</image:title>` : ''}</image:image>`)
       .join('');
