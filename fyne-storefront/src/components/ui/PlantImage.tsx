@@ -40,7 +40,10 @@ export function PlantImage({
       sizes={sizes}
       priority={priority}
       quality={80}
-      unoptimized={src.startsWith('/') && !src.startsWith('//')}
+      unoptimized={
+        (src.startsWith('/') && !src.startsWith('//')) ||
+        /^https:\/\/ik\.imagekit\.io\//i.test(src)
+      }
       onError={() => setFailed(true)}
       className={cn('object-cover [filter:saturate(1.08)_contrast(1.025)]', className)}
     />
