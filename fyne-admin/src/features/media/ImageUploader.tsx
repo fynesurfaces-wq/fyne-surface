@@ -28,7 +28,7 @@ async function uploadFiles(files: File[], folder: string): Promise<{ images: Ima
       headers: { 'Content-Type': 'multipart/form-data' },
       timeout: 120_000,
     });
-    return { images: data.data.map((d) => ({ url: d.url, publicId: d.publicId })), simulated: false };
+    return { images: data.data.map((d) => ({ url: d.url, publicId: d.publicId, unoptimized: true })), simulated: false };
   } catch (err) {
     if (getApiError(err).code !== 'UPLOADS_DISABLED') throw err;
     await new Promise((r) => setTimeout(r, 700)); // feel like an upload

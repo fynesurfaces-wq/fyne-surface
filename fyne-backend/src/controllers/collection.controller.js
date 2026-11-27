@@ -122,8 +122,10 @@ exports.storeGet = asyncHandler(async (req, res) => {
       descriptionHtml: collection.description || '',
       coverImage: collection.coverImage || null,
       seo: {
-        title: collection.seo?.metaTitle || `${collection.name} | Artificial Plants | ${settings.storeName}`.slice(0, 70),
-        description: collection.seo?.metaDescription || truncate(stripHtml(collection.description), 160),
+        title: String(collection.seo?.metaTitle || '').trim() || `${collection.name} | Artificial Plants | ${settings.storeName}`.slice(0, 70),
+        description: String(collection.seo?.metaDescription || '').trim()
+          || truncate(stripHtml(collection.description), 160)
+          || `Explore ${collection.name.toLowerCase()} at ${settings.storeName}. Compare product photos, specifications, prices and availability, and check delivery options at checkout.`,
         canonicalUrl: collectionUrl(collection),
       },
       products: items.map((p) => toPublicProduct(p, { collection, settings, includeJsonLd: false })),

@@ -16,7 +16,7 @@ import { ImageUploader } from '@/features/media/ImageUploader';
 const schema = z.object({
   name: z.string().trim().min(2, 'Name must be at least 2 characters').max(120),
   description: z.string().max(10000),
-  coverImage: z.array(z.object({ url: z.string().url(), alt: z.string().optional(), publicId: z.string().optional() })).max(1),
+  coverImage: z.array(z.object({ url: z.string().url(), alt: z.string().optional(), publicId: z.string().optional(), unoptimized: z.boolean().optional() })).max(1),
   isActive: z.boolean(),
   sortOrder: z.number({ invalid_type_error: 'Enter a number' }).int(),
   metaTitle: z.string().max(70, 'Max 70 characters'),

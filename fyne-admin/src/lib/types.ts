@@ -44,6 +44,7 @@ export interface Image {
   url: string;
   alt?: string;
   publicId?: string;
+  unoptimized?: boolean;
 }
 
 export interface Seo {
@@ -80,6 +81,7 @@ export interface Specifications {
   uvResistant?: boolean;
   fireRetardant?: boolean;
   indoorOutdoor?: 'indoor' | 'outdoor' | 'both';
+  additionalNotes?: string;
   additional?: Record<string, string>;
 }
 

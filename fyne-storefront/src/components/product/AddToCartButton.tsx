@@ -14,6 +14,7 @@ export function toCartItem(p: Pick<ProductSummary, 'id' | 'slug' | 'name' | 'sku
     sku: p.sku,
     price: p.price.amount,
     image: p.images[0]?.url ?? null,
+    imageUnoptimized: p.images[0]?.unoptimized,
     collection: p.collection?.name,
   };
 }

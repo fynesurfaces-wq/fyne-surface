@@ -21,6 +21,7 @@ const imageRules = (path, onlyIf) => {
     b(`${path}.url`).isURL({ protocols: ['https'], require_protocol: true }).withMessage('Image URL must be https'),
     b(`${path}.alt`).optional().isString().isLength({ max: 160 }),
     b(`${path}.publicId`).optional().isString().isLength({ max: 200 }),
+    b(`${path}.unoptimized`).optional().isBoolean().toBoolean(),
   ];
 };
 

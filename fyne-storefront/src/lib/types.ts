@@ -4,6 +4,7 @@ export interface StoreImage {
   url: string;
   alt?: string;
   publicId?: string;
+  unoptimized?: boolean;
 }
 
 export interface Attribute {
@@ -29,6 +30,8 @@ export interface Specifications {
   uvResistant?: boolean;
   fireRetardant?: boolean;
   indoorOutdoor?: 'indoor' | 'outdoor' | 'both';
+  additionalNotes?: string;
+  additional?: Record<string, string>;
 }
 
 /** /store/products list item (AEO presenter, no JSON-LD). */
@@ -62,7 +65,7 @@ export interface ProductSummary {
 /** /store/products/:slug */
 export interface ProductDetail extends ProductSummary {
   jsonLd: Record<string, unknown>;
-  related: { name: string; slug: string; sku: string; collectionName: string; url: string; price: number; image: string | null; inStock: boolean }[];
+  related: { name: string; slug: string; sku: string; collectionName: string; url: string; price: number; image: string | null; imageUnoptimized?: boolean; inStock: boolean }[];
 }
 
 export interface CollectionSummary {

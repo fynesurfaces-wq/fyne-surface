@@ -29,7 +29,7 @@ export function CollectionTiles({ collections }: { collections: CollectionSummar
               className={cn('group relative flex h-full min-h-[340px] overflow-hidden rounded-[2rem] border border-white/50 bg-sand shadow-image transition-[transform,box-shadow] duration-700 ease-premium hover:-translate-y-1 hover:shadow-lift focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-4', i === 0 ? 'md:min-h-[680px]' : 'md:min-h-[328px]')}
             >
               <motion.div className="absolute inset-0" variants={{ rest: { scale: 1 }, hover: { scale: 1.07 } }} transition={{ duration: 1.2, ease: EASE }}>
-                <PlantImage src={c.coverImage?.url} alt={c.coverImage?.alt || `${c.name} — FYNE SURFACES artificial plants collection`} seed={c.slug} sizes="(min-width: 768px) 50vw, 100vw" className="saturate-[1.08]" />
+                <PlantImage src={c.coverImage?.url} alt={c.coverImage?.alt || `${c.name} — FYNE SURFACES artificial plants collection`} seed={c.slug} sizes="(min-width: 768px) 50vw, 100vw" className="saturate-[1.08]" unoptimized={c.coverImage?.unoptimized} />
               </motion.div>
               <div className="absolute inset-0 bg-gradient-to-t from-primary-950/65 via-primary-950/5 to-transparent" />
               <div className="relative mt-auto flex w-full items-end justify-between gap-6 p-7 lg:p-9">

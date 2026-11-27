@@ -10,7 +10,7 @@ export function CollectionHero({ title, descriptionHtml, cover, count, breadcrum
     <section className="container pt-6 lg:pt-8">
       <div className="relative isolate overflow-hidden rounded-[2rem] bg-primary-900">
         <div className="absolute inset-0 -z-10 opacity-75">
-          <PlantImage src={cover?.url} alt={cover?.alt || `${title} collection`} seed={seed} priority sizes="100vw" />
+          <PlantImage src={cover?.url} alt={cover?.alt || `${title} collection`} seed={seed} priority sizes="100vw" unoptimized={cover?.unoptimized} />
         </div>
         <div className="absolute inset-0 -z-10 bg-gradient-to-r from-primary-950/85 via-primary-950/48 to-primary-950/5" />
         <div className="absolute inset-0 -z-10 bg-gradient-to-t from-primary-950/30 via-transparent to-white/5" />

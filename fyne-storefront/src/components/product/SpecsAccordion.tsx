@@ -51,7 +51,7 @@ export function SpecsAccordion({ sections, defaultOpen = [] }: { sections: SpecS
                     </div>
                   ))}
                 </dl>
-                {s.note && <p className="-mt-2 pb-5 text-[13px] leading-relaxed text-ink-muted">{s.note}</p>}
+                {s.note && <p className="-mt-2 whitespace-pre-line pb-5 text-[13px] leading-relaxed text-ink-muted">{s.note}</p>}
               </div>
             </div>
           </section>

@@ -56,7 +56,7 @@ export default function CartPage() {
                 <motion.li key={item.productId} layout exit={{ opacity: 0, height: 0 }} transition={{ duration: 0.35 }} className="grid grid-cols-12 items-center gap-4 py-7">
                   <div className="col-span-12 flex gap-5 md:col-span-6">
                     <Link href={`/products/${item.slug}`} className="relative h-32 w-[104px] shrink-0 overflow-hidden rounded-2xl bg-sand">
-                      <PlantImage src={item.image} alt={item.name} seed={item.slug} sizes="104px" />
+                      <PlantImage src={item.image} alt={item.name} seed={item.slug} sizes="104px" unoptimized={item.imageUnoptimized} />
                     </Link>
                     <div className="flex min-w-0 flex-col justify-center">
                       {item.collection && <p className="text-xs uppercase tracking-[0.14em] text-accent-700">{item.collection}</p>}

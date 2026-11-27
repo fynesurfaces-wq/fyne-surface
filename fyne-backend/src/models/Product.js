@@ -28,6 +28,7 @@ const specificationsSchema = new Schema(
     uvResistant: Boolean,
     fireRetardant: Boolean,
     indoorOutdoor: { type: String, enum: ['indoor', 'outdoor', 'both'] },
+    additionalNotes: { type: String, trim: true, maxlength: 2000 },
     additional: { type: Map, of: String },
   },
   { _id: false }

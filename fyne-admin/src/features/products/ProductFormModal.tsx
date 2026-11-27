@@ -1,11 +1,11 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
-import { Controller, useForm, useWatch, type FieldPath } from 'react-hook-form';
+import { Controller, useFieldArray, useForm, useWatch, type FieldPath } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
-import { Bot, ChevronDown, Code2, Globe, Loader2 } from 'lucide-react';
+import { Bot, ChevronDown, Code2, Globe, Loader2, Plus, Trash2 } from 'lucide-react';
 import { get, getApiError, getFieldErrors, patch, post } from '@/lib/api';
 import { qk, useNavigation } from '@/lib/queries';
 import type { Product } from '@/lib/types';
@@ -252,9 +252,11 @@ function ShortDescriptionField({ form }: { form: FormApi }) {
 /** Specs are shown dynamically: plant fields vs pack fields depending on the collection. */
 function SpecificationsTab({ form, collections }: { form: FormApi; collections: { _id: string; name: string }[] }) {
   const { register, control, formState: { errors } } = form;
+  const { fields: customSpecFields, append: appendCustomSpec, remove: removeCustomSpec } = useFieldArray({ control, name: 'spec.additionalSpecs' });
   const e = errors.spec;
   const collectionId = useWatch({ control, name: 'collection' });
   const packSize = useWatch({ control, name: 'spec.packSize' });
+  const additionalNotes = useWatch({ control, name: 'spec.additionalNotes' }) || '';
   const collectionName = collections.find((c) => c._id === collectionId)?.name ?? '';
   const isPack = /bush|creeper|pack|green\s?wall/i.test(collectionName) || !!packSize;
   const [showAll, setShowAll] = useState(false);
@@ -331,6 +333,40 @@ function SpecificationsTab({ form, collections }: { form: FormApi; collections: 
             )} />
           ))}
         </div>
+      </section>
+
+      <section className="rounded-xl border border-border bg-white p-4 sm:p-5">
+        <div className="flex flex-wrap items-start justify-between gap-3">
+          <div>
+            <h4 className="text-sm font-semibold text-ink">Custom specifications</h4>
+            <p className="mt-1 text-xs leading-relaxed text-muted-foreground">Add product-specific details such as colour, dimensions, finish or coverage.</p>
+          </div>
+          <Button type="button" variant="outline" size="sm" onClick={() => appendCustomSpec({ name: '', value: '' })} disabled={customSpecFields.length >= 20}>
+            <Plus className="mr-1.5 h-4 w-4" />Add detail
+          </Button>
+        </div>
+        {customSpecFields.length > 0 ? (
+          <div className="mt-4 space-y-3">
+            {customSpecFields.map((row, index) => (
+              <div key={row.id} className="grid gap-3 rounded-lg border border-border bg-gray-50/60 p-3 sm:grid-cols-[1fr_1.2fr_auto] sm:items-start">
+                <Field label="Specification" htmlFor={`custom-spec-name-${row.id}`} error={e?.additionalSpecs?.[index]?.name?.message}>
+                  <Input id={`custom-spec-name-${row.id}`} placeholder="Colour" maxLength={60} invalid={!!e?.additionalSpecs?.[index]?.name} {...register(`spec.additionalSpecs.${index}.name` as const)} />
+                </Field>
+                <Field label="Value" htmlFor={`custom-spec-value-${row.id}`} error={e?.additionalSpecs?.[index]?.value?.message}>
+                  <Input id={`custom-spec-value-${row.id}`} placeholder="Dark green" maxLength={200} invalid={!!e?.additionalSpecs?.[index]?.value} {...register(`spec.additionalSpecs.${index}.value` as const)} />
+                </Field>
+                <button type="button" onClick={() => removeCustomSpec(index)} className="mt-6 inline-flex h-10 items-center justify-center rounded-lg border border-border px-3 text-muted-foreground transition hover:border-red-200 hover:bg-red-50 hover:text-red-700" aria-label={`Remove custom specification ${index + 1}`} title="Remove detail">
+                  <Trash2 className="h-4 w-4" />
+                </button>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="mt-4 rounded-lg bg-gray-50 px-4 py-3 text-sm text-muted-foreground">No custom specifications added.</p>
+        )}
+        <Field label="Additional specification notes" htmlFor="additional-spec-notes" error={e?.additionalNotes?.message} hint="Use this for longer details or qualifications that do not fit the name/value rows." counter={{ value: additionalNotes.length, max: 2000 }}>
+          <Textarea id="additional-spec-notes" rows={4} maxLength={2000} placeholder="Add any extra product details customers should know…" invalid={!!e?.additionalNotes} {...register('spec.additionalNotes')} />
+        </Field>
       </section>
     </div>
   );

@@ -17,8 +17,8 @@ import { InstagramReels } from '@/components/home/InstagramReels';
 export const revalidate = 0; // Product and collection imagery updates should appear on the next request.
 
 export const metadata: Metadata = {
-  title: 'Artificial Plants Wholesaler in Mumbai | FYNE SURFACES',
-  description: 'Artificial plants wholesaler and supplier in Mumbai. Explore wholesale greenery, green wall panels and vertical garden décor for homes, offices and projects.',
+  title: { absolute: 'Artificial Plants & Green Walls in India | FYNE SURFACES' },
+  description: 'Shop artificial plants, decorative trees, green wall panels and vertical garden products in India. Compare styles, specifications, prices and availability at FYNE SURFACES.',
   alternates: { canonical: '/' },
 };
 
@@ -148,11 +148,11 @@ export default async function HomePage() {
       </section>
 
       <SeoAnswerSection
-        heading="Artificial plants wholesaler and supplier in Mumbai"
+        heading="Artificial plants for homes, offices and projects"
         paragraphs={[
-          'Looking for an artificial plants wholesaler in Mumbai? FYNE SURFACES is an artificial plants wholesale supplier for retailers and project buyers. As an artificial plants supplier in Mumbai, we offer artificial plants wholesale, including lifelike trees, creepers and bush packs, plus artificial plants for home decoration and artificial plants for office decoration. Our artificial greenery supplier team can help with styles and bulk quantities.',
-          'Explore artificial green wall panels and artificial vertical garden options for feature walls and larger installations. FYNE SURFACES is also an artificial green wall supplier for commercial and residential projects. We offer artificial landscaping products; if you are looking for an artificial grass supplier in Mumbai, contact our team to confirm current availability and project options.',
-          'Compare product photographs, listed dimensions, materials and availability before ordering. For a vertical garden or a larger installation, share the space and approximate measurements with our team to discuss suitable plants and quantities.',
+          'Shop lifelike artificial plants for home decoration, offices, hotels, retail spaces and events. Browse decorative trees, indoor plants, hanging creepers, bush packs and green wall panels, then compare each product’s photos, listed size, materials, price and availability.',
+          'Choosing greenery for a small room, balcony, office or feature wall? Start with the space available and the look you want, then check product dimensions and listed indoor or outdoor suitability before ordering. Artificial plants need no watering or sunlight; follow the product listing for material-specific care.',
+          'For a vertical garden, green wall or bulk order, share your city, approximate measurements and preferred products with the FYNE SURFACES team. We can discuss catalogue options and confirm current quantities, delivery coverage, pricing and any project support available.',
         ]}
       />
 

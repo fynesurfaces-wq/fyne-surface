@@ -26,6 +26,10 @@ export function keyFacts(p: ProductSummary): string[] {
   if (s.uvResistant) facts.push('UV resistant.');
   if (s.fireRetardant) facts.push('Fire retardant.');
   if (s.potIncluded === true) facts.push('Supplied with a pot.');
+  for (const [name, value] of Object.entries(s.additional || {})) {
+    if (name.trim() && String(value).trim()) facts.push(`${name.trim()}: ${String(value).trim()}.`);
+  }
+  if (s.additionalNotes?.trim()) facts.push(s.additionalNotes.trim());
   facts.push('No watering, sunlight or pruning required.');
   return facts;
 }
@@ -55,6 +59,16 @@ export function specSections(p: ProductSummary): SpecSection[] {
   if (foliage.length) sections.push({ id: 'leaves', title: 'Leaves & Foliage', rows: foliage });
 
   if (s.trunkMaterial) sections.push({ id: 'trunk', title: 'Trunk & Structure', rows: [{ label: 'Trunk material', value: s.trunkMaterial }] });
+
+  const additional = Object.entries(s.additional || {})
+    .filter(([name, value]) => name.trim() && String(value).trim())
+    .map(([label, value]) => ({ label: label.trim(), value: String(value).trim() }));
+  if (additional.length || s.additionalNotes?.trim()) sections.push({
+    id: 'additional',
+    title: 'Additional Specifications',
+    rows: additional,
+    note: s.additionalNotes?.trim(),
+  });
 
   if (s.packSize) sections.push({ id: 'pack', title: 'Pack Contents', rows: [{ label: 'Pieces per pack', value: `${s.packSize}` }] });
 

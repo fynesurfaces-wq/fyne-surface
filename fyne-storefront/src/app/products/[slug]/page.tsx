@@ -179,6 +179,7 @@ export default async function ProductPage({ params }: Props) {
       </div>
 
       <SeoAnswerSection
+        variant="product"
         heading={productLabel ? `About ${productLabel}` : `Product details for SKU ${p.sku}`}
         paragraphs={[
           `${productLabel ? `Find ${productLabel} at FYNE SURFACES. ` : ''}${p.summary}`,

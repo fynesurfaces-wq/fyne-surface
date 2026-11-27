@@ -22,22 +22,23 @@ function findCity(slug: string) { return METRO_CITIES.find(({ slug: key }) => ke
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const place = findCity(params.city);
   if (!place) return { title: 'Location not found', robots: { index: false } };
-  const title = `Premium Artificial Plants in ${place.city}`;
-  return { title, description: `Explore artificial plants and vertical garden products for ${place.city}, ${place.state}. Compare specifications and check delivery availability for your address.`, alternates: { canonical: `/locations/${place.slug}` }, openGraph: { title, description: `Artificial plants, decorative greenery and vertical garden products for ${place.city}.` } };
+  const title = `Artificial Plants & Green Walls in ${place.city}`;
+  const description = `Shop artificial plants, green wall greenery and decorative foliage in ${place.city}, ${place.state}. Compare product details and check delivery availability at checkout.`;
+  return { title, description, alternates: { canonical: `/locations/${place.slug}` }, openGraph: { title, description } };
 }
 
 export default async function LocationPage({ params }: Props) {
   const place = findCity(params.city);
   if (!place) notFound();
   const [products, settings, collections] = await Promise.all([getProducts({ limit: 8, sort: '-createdAt' }), getSettings(), getCollections()]);
-  const title = `Premium Artificial Plants in ${place.city}`;
-  const summary = `Browse the FYNE SURFACES artificial plant catalogue from ${place.city}, ${place.state}. Compare product photographs, listed dimensions, materials, prices and current stock online. Add available products to your cart, enter your delivery address and review the server-calculated total before placing a Cash on Delivery order.`;
+  const title = `Artificial Plants & Green Walls in ${place.city}`;
+  const summary = `Browse the FYNE SURFACES catalogue of artificial plants, decorative green wall panels and greenery in ${place.city}, ${place.state}. Compare product photographs, listed dimensions, materials, prices and current stock online. Add available products to your cart, enter your delivery address and review the server-calculated total before placing a Cash on Delivery order.`;
   const faqs: Faq[] = locationFaqs(place.city, place.state);
   const nearbyCities = METRO_CITIES.filter((candidate) => candidate.state === place.state && candidate.slug !== place.slug).slice(0, 5);
   const localBusiness = {
     '@context': 'https://schema.org', '@type': 'LocalBusiness', '@id': `${SITE_URL}/locations/${place.slug}#business`,
     name: settings?.storeName || 'FYNE SURFACES', url: `${SITE_URL}/locations/${place.slug}`,
-    description: `Online catalogue of artificial plants and vertical garden products serving ${place.city}, ${place.state}.`,
+    description: `Online catalogue of artificial plants, decorative green wall products and vertical garden greenery serving shoppers in ${place.city}, ${place.state}.`,
     areaServed: { '@type': 'City', name: place.city, containedInPlace: { '@type': 'AdministrativeArea', name: place.state } },
     email: settings?.contact?.email, telephone: settings?.contact?.phone, image: settings?.logo?.url,
     ...(settings?.contact?.address ? { address: { '@type': 'PostalAddress', streetAddress: settings.contact.address, addressLocality: 'Mumbai', addressRegion: 'Maharashtra', addressCountry: 'IN' } } : {}),
@@ -46,7 +47,7 @@ export default async function LocationPage({ params }: Props) {
   return <>
     <JsonLd data={localBusiness} id="location-business-jsonld" />
     <JsonLd data={faqSchema} id="location-faq-jsonld" />
-    <PageBanner eyebrow={`${place.city}, ${place.state}`} title={title} description={`Artificial greenery ideas and product information for homes, workspaces and projects in ${place.city}.`} image="/images/banners/serene-botanical-banner-with-trailing-vines.webp" imageAlt={`Botanical greenery banner for ${place.city}`} priority />
+    <PageBanner eyebrow={`${place.city}, ${place.state}`} title={title} description={`Explore artificial plants, green wall options and decorative greenery for homes, workspaces and projects in ${place.city}.`} image="/images/banners/serene-botanical-banner-with-trailing-vines.webp" imageAlt={`Botanical greenery banner for ${place.city}`} priority />
     <section className="container pb-16">
       <div className="my-10 grid gap-8 rounded-3xl border border-primary-100 bg-gradient-to-br from-primary-50 via-white to-accent-50 p-6 sm:p-8 lg:grid-cols-[1.2fr_0.8fr] lg:p-10">
         <div><p className="text-eyebrow uppercase text-primary">Shopping guide · {place.city}</p><h2 className="mt-3 font-serif text-2xl text-ink">Plan your greenery with the details that matter.</h2><p className="mt-4 text-[15px] leading-7 text-ink-soft">{summary}</p></div>

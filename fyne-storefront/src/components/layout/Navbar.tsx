@@ -215,7 +215,7 @@ export function Navbar({ collections }: { collections: CollectionSummary[] }) {
                     <li key={c.id}>
                       <Link href={`/collections/${c.slug}`} className="group block">
                         <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-sand">
-                          <PlantImage src={c.coverImage?.url} alt={c.coverImage?.alt || c.name} seed={c.slug} sizes="320px" className="transition-transform duration-700 ease-premium group-hover:scale-105" />
+                          <PlantImage src={c.coverImage?.url} alt={c.coverImage?.alt || c.name} seed={c.slug} sizes="320px" className="transition-transform duration-700 ease-premium group-hover:scale-105" unoptimized={c.coverImage?.unoptimized} />
                         </div>
                         <p className="mt-3 flex items-center justify-between font-semibold text-ink">
                           {c.name}

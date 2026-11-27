@@ -26,7 +26,7 @@ export default async function BlogIndexPage() {
               <article key={post._id} className="group min-w-0">
                 <Link href={`/blog/${post.slug}`} className="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
                   <div className="relative aspect-[4/3] overflow-hidden rounded-3xl bg-sand">
-                    <PlantImage src={post.coverImage?.url} alt={post.coverImage?.alt || post.title} seed={post.slug} sizes="(min-width: 1024px) 33vw, 100vw" className="transition-transform duration-700 group-hover:scale-105" />
+                    <PlantImage src={post.coverImage?.url} alt={post.coverImage?.alt || post.title} seed={post.slug} sizes="(min-width: 1024px) 33vw, 100vw" className="transition-transform duration-700 group-hover:scale-105" unoptimized={post.coverImage?.unoptimized} />
                   </div>
                   <div className="mt-5 flex items-center gap-2 text-xs uppercase tracking-[0.14em] text-ink-muted">
                     <CalendarDays className="h-3.5 w-3.5" />

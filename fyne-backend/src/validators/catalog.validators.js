@@ -17,7 +17,20 @@ const specRules = [
   body('specifications.uvResistant').optional().isBoolean().toBoolean(),
   body('specifications.fireRetardant').optional().isBoolean().toBoolean(),
   body('specifications.indoorOutdoor').optional().isIn(['indoor', 'outdoor', 'both']),
-  body('specifications.additional').optional().isObject(),
+  body('specifications.additionalNotes').optional().isString().trim().isLength({ max: 2000 }),
+  body('specifications.additional').optional().isObject().custom((additional) => {
+    const entries = Object.entries(additional);
+    if (entries.length > 20) throw new Error('Add no more than 20 custom specifications');
+    for (const [name, value] of entries) {
+      if (!name.trim() || name.length > 60 || name.startsWith('$') || name.includes('.')) {
+        throw new Error('Custom specification names must be 1–60 characters and cannot contain dots or start with $');
+      }
+      if (typeof value !== 'string' || value.length > 200) {
+        throw new Error('Custom specification values must be text up to 200 characters');
+      }
+    }
+    return true;
+  }),
 ];
 
 const productRules = (isUpdate) => [

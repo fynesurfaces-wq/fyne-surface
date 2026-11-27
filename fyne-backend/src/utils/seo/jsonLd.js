@@ -29,7 +29,7 @@ const priceValidUntil = () => {
 function productDescription(product) {
   const name = String(product.name || '').trim() || product.sku || 'Product';
   return (
-    product.seo?.metaDescription ||
+    String(product.seo?.metaDescription || '').trim() ||
     product.shortDescription ||
     truncate(stripHtml(product.description), 300) ||
     `${name} — premium artificial plant by ${env.brand.name}.`

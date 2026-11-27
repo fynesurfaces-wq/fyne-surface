@@ -250,7 +250,7 @@ exports.storeGet = asyncHandler(async (req, res) => {
     success: true,
     data: {
       ...toPublicProduct(product, { settings }),
-      related: related.map((r) => ({ name: r.name || r.sku, slug: r.slug, sku: r.sku, collectionName: r.collectionName, url: productUrl(r), price: r.price, image: r.images?.[0]?.url || null, inStock: r.stock > 0 })),
+      related: related.map((r) => ({ name: r.name || r.sku, slug: r.slug, sku: r.sku, collectionName: r.collectionName, url: productUrl(r), price: r.price, image: r.images?.[0]?.url || null, imageUnoptimized: Boolean(r.images?.[0]?.unoptimized), inStock: r.stock > 0 })),
     },
   });
 });

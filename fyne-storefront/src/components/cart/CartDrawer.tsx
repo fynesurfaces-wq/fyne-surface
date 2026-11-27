@@ -70,7 +70,7 @@ export function CartDrawer() {
                     {items.map((item) => (
                       <motion.li key={item.productId} layout exit={{ opacity: 0, x: 40 }} transition={{ duration: 0.3 }} className="flex gap-4 py-5">
                         <Link href={`/products/${item.slug}`} className="relative h-24 w-20 shrink-0 overflow-hidden rounded-xl bg-sand">
-                          <PlantImage src={item.image} alt={item.name} seed={item.slug} sizes="80px" />
+                          <PlantImage src={item.image} alt={item.name} seed={item.slug} sizes="80px" unoptimized={item.imageUnoptimized} />
                         </Link>
                         <div className="flex min-w-0 flex-1 flex-col">
                           <div className="flex items-start justify-between gap-3">

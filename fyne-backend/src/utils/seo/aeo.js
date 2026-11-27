@@ -79,14 +79,15 @@ function toPublicProduct(p, { collection, settings, includeJsonLd = true } = {})
       ['inStock', p.stock > 0],
       ...attributes.map((a) => [a.key, a.display]),
     ].filter(([, v]) => v !== undefined && v !== null)),
-    images: (p.images || []).map((i) => ({ url: i.url, alt: i.alt || `${displayName} — artificial plant by ${env.brand.name}` })),
+    images: (p.images || []).map((i) => ({ url: i.url, alt: i.alt || `${displayName} — artificial plant by ${env.brand.name}`, ...(i.unoptimized && { unoptimized: true }) })),
     tags: p.tags || [],
     faqs: (p.faqs || []).map((f) => ({ question: f.question, answer: stripHtml(f.answer) })),
     isFeatured: Boolean(p.isFeatured),
     isNewArrival: Boolean(p.isNewArrival),
     seo: {
-      title: p.seo?.metaTitle || `${displayName} | ${coll ? `${coll.name} | ` : ''}${env.brand.name}`.slice(0, 70),
-      description: p.seo?.metaDescription || truncate(plainDescription || buildSummary(publicProduct, coll, attributes, settings), 160),
+      title: String(p.seo?.metaTitle || '').trim() || `${displayName} | ${coll ? `${coll.name} | ` : ''}${env.brand.name}`.slice(0, 70),
+      description: String(p.seo?.metaDescription || '').trim()
+        || truncate(plainDescription || buildSummary(publicProduct, coll, attributes, settings), 160),
       keywords: p.seo?.keywords || [],
       canonicalUrl: url,
     },

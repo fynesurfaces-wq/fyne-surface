@@ -37,7 +37,7 @@ export const productSchema = z
     isActive: z.boolean(),
     isFeatured: z.boolean(),
     isNewArrival: z.boolean(),
-    images: z.array(z.object({ url: z.string().url(), alt: z.string().max(160).optional(), publicId: z.string().optional() })).max(20),
+    images: z.array(z.object({ url: z.string().url(), alt: z.string().max(160).optional(), publicId: z.string().optional(), unoptimized: z.boolean().optional() })).max(20),
 
     // Specifications
     spec: z.object({
@@ -52,6 +52,24 @@ export const productSchema = z
       uvResistant: z.boolean(),
       fireRetardant: z.boolean(),
       potIncluded: z.boolean(),
+      additionalNotes: z.string().trim().max(2000, 'Additional specification notes must be 2000 characters or fewer'),
+      additionalSpecs: z.array(z.object({
+        name: z.string().trim().max(60, 'Specification name must be 60 characters or fewer'),
+        value: z.string().trim().max(200, 'Specification value must be 200 characters or fewer'),
+      })).max(20, 'Add no more than 20 custom specifications')
+        .superRefine((rows, ctx) => {
+          const names = new Set<string>();
+          rows.forEach((row, index) => {
+            if (Boolean(row.name) !== Boolean(row.value)) {
+              ctx.addIssue({ code: z.ZodIssueCode.custom, path: [index, row.name ? 'value' : 'name'], message: 'Enter both a name and a value, or remove this row' });
+            }
+            const normalizedName = row.name.toLowerCase();
+            if (normalizedName && names.has(normalizedName)) {
+              ctx.addIssue({ code: z.ZodIssueCode.custom, path: [index, 'name'], message: 'Specification names must be unique' });
+            }
+            if (normalizedName) names.add(normalizedName);
+          });
+        }),
     }),
 
     // SEO
@@ -84,7 +102,7 @@ export const emptyProduct = (collection = ''): ProductFormValues => ({
   isFeatured: false,
   isNewArrival: false,
   images: [],
-  spec: { heightValue: '', heightUnit: 'ft', leavesCount: '', leavesMaterial: '', trunkMaterial: '', flowers: '', packSize: '', indoorOutdoor: '', uvResistant: false, fireRetardant: false, potIncluded: false },
+  spec: { heightValue: '', heightUnit: 'ft', leavesCount: '', leavesMaterial: '', trunkMaterial: '', flowers: '', packSize: '', indoorOutdoor: '', uvResistant: false, fireRetardant: false, potIncluded: false, additionalNotes: '', additionalSpecs: [] },
   seo: { metaTitle: '', metaDescription: '', keywords: '' },
 });
 
@@ -120,6 +138,8 @@ export function toFormValues(p: Product): ProductFormValues {
       uvResistant: !!s.uvResistant,
       fireRetardant: !!s.fireRetardant,
       potIncluded: !!s.potIncluded,
+      additionalNotes: s.additionalNotes || '',
+      additionalSpecs: Object.entries(s.additional || {}).map(([name, value]) => ({ name, value: String(value) })),
     },
     seo: { metaTitle: p.seo?.metaTitle || '', metaDescription: p.seo?.metaDescription || '', keywords: (p.seo?.keywords || []).join(', ') },
   };
@@ -144,6 +164,10 @@ export function toPayload(v: ProductFormOutput) {
     ...(s.uvResistant && { uvResistant: true }),
     ...(s.fireRetardant && { fireRetardant: true }),
     ...(s.potIncluded && { potIncluded: true }),
+    ...(s.additionalNotes && { additionalNotes: s.additionalNotes.trim() }),
+    ...(s.additionalSpecs.some((row) => row.name && row.value) && {
+      additional: Object.fromEntries(s.additionalSpecs.filter((row) => row.name && row.value).map((row) => [row.name.trim(), row.value.trim()])),
+    }),
   };
   return {
     name: v.name,
@@ -159,7 +183,7 @@ export function toPayload(v: ProductFormOutput) {
     isActive: v.isActive,
     isFeatured: v.isFeatured,
     isNewArrival: v.isNewArrival,
-    images: v.images.map((i) => ({ url: i.url, ...(i.alt && { alt: i.alt }), ...(i.publicId && { publicId: i.publicId }) })),
+    images: v.images.map((i) => ({ url: i.url, ...(i.alt && { alt: i.alt }), ...(i.publicId && { publicId: i.publicId }), ...(i.unoptimized && { unoptimized: true }) })),
     specifications,
     seo: {
       ...(v.seo.metaTitle.trim() && { metaTitle: v.seo.metaTitle.trim() }),

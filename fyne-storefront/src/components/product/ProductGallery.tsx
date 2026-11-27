@@ -41,7 +41,7 @@ export function ProductGallery({ images, name, slug }: { images: StoreImage[]; n
                   i === index ? 'ring-2 ring-ink ring-offset-2' : 'opacity-70 hover:opacity-100'
                 )}
               >
-                <PlantImage src={img.url} alt={altFor(img, i)} seed={`${slug}-${i}`} sizes="88px" fit="contain" />
+                <PlantImage src={img.url} alt={altFor(img, i)} seed={`${slug}-${i}`} sizes="88px" fit="contain" unoptimized={img.unoptimized} />
               </button>
             </li>
           ))}
@@ -64,7 +64,7 @@ export function ProductGallery({ images, name, slug }: { images: StoreImage[]; n
             exit={{ opacity: 0 }}
             transition={{ duration: 0.7, ease: EASE }}
           >
-            <PlantImage src={current.url} alt={altFor(current, index)} seed={`${slug}-${index}`} priority={index === 0} sizes="(min-width: 1024px) 50vw, 100vw" fit="contain" />
+            <PlantImage src={current.url} alt={altFor(current, index)} seed={`${slug}-${index}`} priority={index === 0} sizes="(min-width: 1024px) 50vw, 100vw" fit="contain" unoptimized={current.unoptimized} />
           </motion.div>
         </AnimatePresence>
         {list.length > 1 && (

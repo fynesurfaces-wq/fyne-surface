@@ -144,6 +144,9 @@ exports.llmsTxt = asyncHandler(async (_req, res) => {
     if (!items.length) continue;
     lines.push(`## ${c.name}`, '');
     if (c.description) lines.push(truncate(stripHtml(c.description), 300), '');
+    if (`${c.name} ${c.slug}`.toLowerCase().includes('sport') && `${c.name} ${c.slug}`.toLowerCase().includes('grass')) {
+      lines.push('Browse sports grass and football turf products listed in this collection. Contact FYNE SURFACES to confirm current CC Grass or BellinTurf availability, wholesale supply options, delivery coverage, and installation support.', '');
+    }
     items.forEach((p) => {
       const pub = toPublicProduct(p, { collection: c, settings, includeJsonLd: false });
       const facts = pub.attributes.map((a) => `${a.name}: ${a.display}`).join('; ');

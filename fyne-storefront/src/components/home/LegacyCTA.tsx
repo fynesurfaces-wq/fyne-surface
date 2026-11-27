@@ -8,7 +8,7 @@ export function LegacyCTA({ content }: { content: LegacySiteContent | null }) {
   return (
     <section className="container py-16 sm:py-20 lg:py-24" aria-label="Legacy and events">
       <div className="relative isolate flex min-h-[360px] items-center justify-center overflow-hidden rounded-[2rem] bg-primary-950">
-        {content.image?.url && <div className="absolute inset-0 -z-10 opacity-35"><PlantImage src={content.image.url} alt={content.image.alt || ''} seed="legacy-event" sizes="100vw" /></div>}
+        {content.image?.url && <div className="absolute inset-0 -z-10 opacity-35"><PlantImage src={content.image.url} alt={content.image.alt || ''} seed="legacy-event" sizes="100vw" unoptimized={content.image.unoptimized} /></div>}
         <div className="flex w-full flex-col items-center justify-center px-7 py-12 text-center sm:px-12 lg:px-16">
           <p className="text-eyebrow uppercase text-accent-300">{content.eyebrow}</p>
           <h2 className="mt-4 max-w-2xl text-center font-serif text-display-md text-white">{content.title}</h2>

@@ -16,6 +16,7 @@ export interface CartItem {
   sku: string;
   price: number;
   image: string | null;
+  imageUnoptimized?: boolean;
   collection?: string;
   qty: number;
 }

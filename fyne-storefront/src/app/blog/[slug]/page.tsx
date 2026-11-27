@@ -37,7 +37,7 @@ export default async function BlogArticlePage({ params }: Props) {
           {post.publishedAt && <span className="inline-flex items-center gap-2"><CalendarDays className="h-4 w-4" />{new Date(post.publishedAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' })}</span>}
           {author && <span>By {author}</span>}
         </div>
-        {post.coverImage?.url && <div className="relative mb-10 aspect-[16/9] overflow-hidden rounded-3xl bg-sand"><PlantImage src={post.coverImage.url} alt={post.coverImage.alt || post.title} seed={post.slug} sizes="(min-width: 768px) 768px, 100vw" /></div>}
+        {post.coverImage?.url && <div className="relative mb-10 aspect-[16/9] overflow-hidden rounded-3xl bg-sand"><PlantImage src={post.coverImage.url} alt={post.coverImage.alt || post.title} seed={post.slug} sizes="(min-width: 768px) 768px, 100vw" unoptimized={post.coverImage.unoptimized} /></div>}
         <aside className="mb-10 rounded-2xl border border-primary-100 bg-primary-50 p-6 sm:p-7" aria-label="Quick summary">
           <p className="text-eyebrow uppercase text-primary">Quick summary</p>
           <p className="mt-3 text-[15px] leading-relaxed text-ink-soft">{post.excerpt || post.seo?.description}</p>

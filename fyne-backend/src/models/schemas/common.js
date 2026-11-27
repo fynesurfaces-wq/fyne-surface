@@ -8,6 +8,7 @@ const imageSchema = new Schema(
     url: { type: String, required: true, trim: true },
     alt: { type: String, trim: true, maxlength: 160 },
     publicId: { type: String, trim: true },
+    unoptimized: { type: Boolean, default: false },
   },
   { _id: false }
 );

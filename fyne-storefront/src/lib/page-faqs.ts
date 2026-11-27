@@ -6,18 +6,18 @@ const brand = 'FYNE SURFACES';
 export function homeFaqs(collections: CollectionSummary[]): Faq[] {
   const collectionNames = collections.length ? collections.map((item) => item.name).join(', ') : 'artificial plants and vertical garden plants';
   return [
-    { question: `What does ${brand} offer?`, answer: 'FYNE SURFACES offers lifelike artificial trees, plants, bush packs, hanging creepers and plants for vertical gardens.' },
-    { question: 'Are the plants artificial?', answer: 'Yes. The store specializes in lifelike artificial plants designed for decoration.' },
-    { question: 'Do artificial plants need watering?', answer: 'No watering is needed. Artificial plants also do not need sunlight or pruning.' },
-    { question: 'Where can artificial plants be used?', answer: 'The catalog presents plants for homes, offices, hotels, retail spaces and other interiors.' },
-    { question: 'Which collections can I browse?', answer: `Current collections include ${collectionNames}.` },
-    { question: 'How do I choose the right size?', answer: 'Compare the listed height and other specifications on each product page with the space where you plan to place it.' },
-    { question: 'Where can I see product prices?', answer: 'Prices are shown on product cards and product detail pages in Indian rupees.' },
-    { question: 'How do I check product availability?', answer: 'Open a product page to see its current availability status before adding it to your cart.' },
-    { question: 'Can I order products online?', answer: 'Yes. Add an available product to your cart and continue to checkout to place an online order.' },
-    { question: 'How is shipping calculated?', answer: 'Available shipping charges are calculated and shown during checkout.' },
-    { question: 'Can I ask for help with a larger project?', answer: 'Yes. Use the contact page to discuss a vertical garden, green wall or business installation with the team.' },
-    { question: 'How can I contact FYNE SURFACES?', answer: 'Visit the contact page for the store address and phone number, or use the contact form if one is available.' },
+    { question: `What artificial plants does ${brand} sell?`, answer: `Browse lifelike decorative trees, plants and greenery products in collections such as ${collectionNames}. The live catalogue shows the products currently available.` },
+    { question: 'Are artificial plants suitable for home decoration?', answer: 'The catalogue includes decorative greenery for living rooms, bedrooms, balconies and other spaces. Compare each product’s size and listed suitability with the place you have in mind.' },
+    { question: 'Can artificial plants be used in offices or shops?', answer: 'Yes, decorative artificial greenery can be used in offices, hotels, retail spaces and other settings. Check the individual listing for dimensions and material details.' },
+    { question: 'Do artificial plants need water or sunlight?', answer: 'Artificial plants do not need watering or sunlight. Follow the product listing for material-specific care and indoor or outdoor suitability.' },
+    { question: 'How do I choose an artificial plant for my room?', answer: 'Measure the available floor, shelf or wall space, decide on the height and style you want, then compare product dimensions and photos.' },
+    { question: 'Are artificial plants available for green walls and vertical gardens?', answer: 'Browse the current green wall, bush pack and vertical garden collections to see the products listed for those projects.' },
+    { question: 'How do I clean artificial plants?', answer: 'Check the product materials and care details. For routine dust, use gentle cleaning suitable for the listed material and avoid harsh chemicals unless the manufacturer says they are safe.' },
+    { question: 'Where can I compare artificial plant prices and sizes?', answer: 'Product cards show listed prices, while each product page provides its available dimensions, specifications, photos and stock status.' },
+    { question: 'Can I buy artificial plants online in India?', answer: 'Browse the online catalogue, add an available item to your cart and enter your address at checkout to review delivery availability and the order total.' },
+    { question: 'Can I enquire about wholesale or bulk artificial plants?', answer: 'Contact FYNE SURFACES with the products and quantities you need to confirm current bulk pricing, minimum quantities and delivery options.' },
+    { question: 'Can FYNE help plan a vertical garden or green wall?', answer: 'Share your city, approximate measurements and preferred products through the contact page to discuss catalogue options and any project support available.' },
+    { question: 'How do I check delivery and place an order?', answer: 'Enter your delivery address during checkout to review available shipping charges and the order total before placing an order.' },
   ];
 }
 
@@ -78,16 +78,16 @@ export function locationIndexFaqs(): Faq[] {
 
 export function locationFaqs(city: string, state: string): Faq[] {
   return [
-    { question: `Where can I browse artificial plants for ${city}?`, answer: `Use the FYNE SURFACES online catalogue to compare artificial plants and vertical garden products while shopping from ${city}, ${state}.` },
-    { question: `What artificial greenery can I find for ${city} spaces?`, answer: 'Browse the live collections for artificial trees, plants, bush packs and green wall products. The catalogue shows what is currently listed.' },
-    { question: `How do I choose a plant for my ${city} home or office?`, answer: 'Measure the space, compare the product dimensions and review each listing’s description and specifications before ordering.' },
+    { question: `Where can I buy artificial plants in ${city}?`, answer: `Use the FYNE SURFACES online catalogue to compare artificial plants and vertical garden products in ${city}, ${state}.` },
+    { question: `What artificial greenery can I find in ${city}?`, answer: 'Browse the live collections for artificial trees, plants, bush packs and green wall products. The catalogue shows what is currently listed.' },
+    { question: `How do I choose artificial plants in ${city} for my home or office?`, answer: 'Measure the space, compare the product dimensions and review each listing’s description and specifications before ordering.' },
     { question: `Can I see product sizes before ordering in ${city}?`, answer: 'Product pages display the dimensions and other specifications available in the catalogue.' },
-    { question: `Where are artificial plant prices shown for ${city}?`, answer: 'Prices are shown on product cards and product detail pages in Indian rupees.' },
-    { question: `How do I know a product is available for ${city}?`, answer: 'Check the product page for current stock status. The server checks stock again when you place an order.' },
-    { question: `How do I check delivery for my ${city} address?`, answer: 'Enter your complete address during checkout. The order flow checks product availability and shows the final server-calculated total.' },
+    { question: `Where can I compare artificial plant prices in ${city}?`, answer: 'Prices are shown on product cards and product detail pages in Indian rupees.' },
+    { question: `How do I check product availability in ${city}?`, answer: 'Check the product page for current stock status. Enter your address at checkout to review delivery availability.' },
+    { question: `How do I check delivery availability in ${city}?`, answer: 'Enter your complete address during checkout. The order flow checks product availability and shows the final server-calculated total.' },
     { question: 'Can I pay by Cash on Delivery?', answer: 'Yes. The current checkout method is Cash on Delivery, with the order total payable on delivery.' },
     { question: 'Can I save my delivery address?', answer: 'Sign in and select the option to save the address to your customer profile during checkout.' },
-    { question: `Can I order artificial plants for a ${city} business or project?`, answer: 'Use the contact form to describe your space, approximate measurements and the products you are considering.' },
+    { question: `Can I order artificial plants for my business in ${city}?`, answer: 'Use the contact form to describe your space, approximate measurements and the products you are considering.' },
     { question: 'Do artificial plants need regular watering?', answer: 'No. Artificial plants do not need watering or sunlight. Follow the product listing for specific care or use details.' },
     { question: 'How can I track an order to my address?', answer: 'Sign in, open Your orders and select an order to view its status and delivery timeline.' },
   ];
