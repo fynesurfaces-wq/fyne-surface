@@ -23,7 +23,7 @@ export function Hero({ image }: { image: HeroImage }) {
   return (
     <section aria-label="FYNE SURFACES visual introduction" className="relative isolate flex min-h-[min(100svh,900px)] items-end overflow-hidden bg-primary-950">
       <div className="absolute inset-0 -z-10">
-        <Image src={image.src} alt={image.alt} fill priority sizes="100vw" quality={80} className="object-cover [filter:brightness(1.08)_saturate(1.18)]" />
+        <Image src={image.src} alt={image.alt} fill priority sizes="100vw" quality={80} unoptimized className="object-cover [filter:brightness(1.08)_saturate(1.18)]" />
         <div className="absolute inset-0 bg-gradient-to-t from-primary-950/65 via-primary-950/15 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-r from-primary-950/40 via-primary-950/10 to-transparent" />
       </div>

@@ -5,7 +5,7 @@ export function Logo({ inverted = false, className }: { inverted?: boolean; clas
   return (
     <span className={cn('inline-flex select-none flex-col items-center leading-none', className)} aria-label="FYNE SURFACES">
       <span className="inline-flex" aria-hidden>
-        <Image src="/images/fyne-logo.png" alt="" width={1367} height={635} priority className="h-auto w-[96px]" />
+        <Image src="/images/fyne-logo.png" alt="" width={1367} height={635} priority unoptimized className="h-auto w-[96px]" />
       </span>
       <span className={cn('mt-1 text-[8px] font-semibold tracking-[0.36em]', inverted ? 'text-white' : 'text-primary-800')} aria-hidden>SURFACES</span>
     </span>

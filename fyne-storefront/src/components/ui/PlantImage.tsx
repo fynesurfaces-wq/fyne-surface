@@ -17,7 +17,7 @@ export function PlantImage({
   className,
   seed,
   fit = 'cover',
-  unoptimized = false,
+  unoptimized = true,
 }: {
   src?: string | null;
   alt: string;

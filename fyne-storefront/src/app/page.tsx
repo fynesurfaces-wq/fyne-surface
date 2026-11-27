@@ -140,6 +140,7 @@ export default async function HomePage() {
               src="/images/home/planning-vertical-garden.webp"
               alt="Outdoor living space with artificial grass, garden plants and a covered seating area"
               fill
+              unoptimized
               sizes="(min-width: 1024px) 50vw, 100vw"
               className="object-cover"
             />

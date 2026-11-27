@@ -65,7 +65,7 @@ export function HomeImageCarousel({ images }: { images: CarouselImage[] }) {
               viewport={{ once: true, amount: 0.18 }}
               transition={{ duration: 0.75, delay: Math.min(index * 0.07, 0.35), ease: [0.22, 1, 0.36, 1] }}
             >
-              <Image src={item.src} alt={item.alt} fill sizes="(max-width: 640px) calc(100vw - 2.5rem), (max-width: 1024px) 42vw, 27vw" quality={80} className="object-cover transition-transform duration-1000 group-hover:scale-[1.06] saturate-[1.06]" />
+              <Image src={item.src} alt={item.alt} fill sizes="(max-width: 640px) calc(100vw - 2.5rem), (max-width: 1024px) 42vw, 27vw" quality={80} unoptimized className="object-cover transition-transform duration-1000 group-hover:scale-[1.06] saturate-[1.06]" />
               <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-primary-950/75 via-primary-950/20 to-transparent px-4 pb-4 pt-12 sm:px-5 sm:pb-5 sm:pt-16">
                 <p className="text-sm font-semibold leading-snug tracking-tight text-white sm:text-base">{item.label}</p>
               </div>
