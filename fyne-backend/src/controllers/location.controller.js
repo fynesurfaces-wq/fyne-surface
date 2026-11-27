@@ -9,7 +9,7 @@ const ApiError = require('../utils/ApiError');
 const dataFor = (location) => ({
   ...location,
   title: `Premium Artificial Plants in ${location.city}`,
-  description: `Explore artificial plants, decorative greenery and vertical garden products for ${location.city}, ${location.state}. Compare product details and check delivery availability for your address at checkout.`,
+  description: `Explore artificial plants, decorative greenery and vertical garden products in ${location.city}, ${location.state}. Compare product details and check delivery availability for your address at checkout.`,
   quickSummary: `FYNE SURFACES offers an online catalogue of artificial plants and vertical garden products for customers in ${location.city}. Product specifications, prices and delivery availability are shown on the relevant product and checkout pages.`,
   url: `${env.siteUrl}/locations/${location.slug}`,
 });

@@ -87,7 +87,7 @@ export function locationFaqs(city: string, state: string): Faq[] {
     { question: `How do I check delivery availability in ${city}?`, answer: 'Enter your complete address during checkout. The order flow checks product availability and shows the final server-calculated total.' },
     { question: 'Can I pay by Cash on Delivery?', answer: 'Yes. The current checkout method is Cash on Delivery, with the order total payable on delivery.' },
     { question: 'Can I save my delivery address?', answer: 'Sign in and select the option to save the address to your customer profile during checkout.' },
-    { question: `Can I order artificial plants for my business in ${city}?`, answer: 'Use the contact form to describe your space, approximate measurements and the products you are considering.' },
+    { question: `Can I order artificial plants in ${city} for my business?`, answer: 'Use the contact form to describe your space, approximate measurements and the products you are considering.' },
     { question: 'Do artificial plants need regular watering?', answer: 'No. Artificial plants do not need watering or sunlight. Follow the product listing for specific care or use details.' },
     { question: 'How can I track an order to my address?', answer: 'Sign in, open Your orders and select an order to view its status and delivery timeline.' },
   ];

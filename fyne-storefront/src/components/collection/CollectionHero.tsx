@@ -17,7 +17,7 @@ export function CollectionHero({ title, descriptionHtml, cover, count, breadcrum
         <div className="px-7 py-14 sm:px-12 lg:px-16 lg:py-24">
           <Breadcrumbs items={breadcrumbs} inverted className="mb-8" />
           <p className="text-eyebrow uppercase text-accent-300">{count} {count === 1 ? 'product' : 'products'}</p>
-          <TextReveal as="h1" className="mt-4 max-w-3xl text-display-lg text-white">{heading} for Mumbai Spaces</TextReveal>
+          <TextReveal as="h1" className="mt-4 max-w-3xl text-display-lg text-white">{heading} in Mumbai</TextReveal>
           {descriptionHtml && (
             <div className="prose prose-lg mt-6 max-w-2xl prose-p:text-white/80 prose-strong:text-white prose-a:text-white" dangerouslySetInnerHTML={{ __html: descriptionHtml }} />
           )}
