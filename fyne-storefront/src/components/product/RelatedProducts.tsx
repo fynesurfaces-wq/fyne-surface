@@ -19,7 +19,7 @@ export function RelatedProducts({ items }: { items: ProductDetail['related'] }) 
           <StaggerItem key={r.slug}>
             <Link href={`/products/${r.slug}`} className="group block">
               <div className="relative aspect-[4/5] overflow-hidden rounded-[1.25rem] bg-sand">
-                <PlantImage src={r.image} alt={`${r.name} artificial plant`} seed={r.slug} sizes="(min-width: 1024px) 25vw, 50vw" className="transition-transform duration-1000 ease-premium group-hover:scale-105" unoptimized={r.imageUnoptimized} />
+                <PlantImage src={r.image} alt={`${r.name} artificial plant`} seed={r.slug} sizes="(min-width: 1024px) 25vw, 50vw" className="transition-transform duration-1000 ease-premium group-hover:scale-105" unoptimized />
                 {!r.inStock && <span className="absolute left-3 top-3 rounded-full bg-white/95 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-ink">Sold out</span>}
               </div>
               <h3 className="mt-4 flex items-center justify-between text-[15px] font-semibold text-ink group-hover:text-primary">

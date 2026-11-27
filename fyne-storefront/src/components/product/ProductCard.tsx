@@ -88,7 +88,7 @@ export function ProductCard({ product: p, priority, headingLevel = 'h3' }: { pro
           <div className="flex min-h-0 flex-1 flex-col gap-2 overflow-y-auto">
             {related.map((item) => <Link key={item.slug} href={`/products/${item.slug}`} title={`${item.collectionName}: ${item.name} · ${item.sku}`} className="group/related block shrink-0 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
               <span className="mb-1 block truncate px-0.5 text-[8px] font-bold uppercase tracking-wide text-primary">{item.collectionName}</span>
-              <div className="relative aspect-square overflow-hidden rounded-lg bg-sand"><PlantImage src={item.image} alt={item.name} seed={item.slug} sizes="120px" unoptimized={item.imageUnoptimized} /></div>
+              <div className="relative aspect-square overflow-hidden rounded-lg bg-sand"><PlantImage src={item.image} alt={item.name} seed={item.slug} sizes="120px" unoptimized /></div>
               <span className="mt-1 line-clamp-2 block text-[9px] font-semibold leading-tight text-ink group-hover/related:text-primary">{item.name}</span>
             </Link>)}
             {relatedLoading && <span className="px-1 text-[9px] leading-tight text-ink-muted">Loading suggestions…</span>}
@@ -144,7 +144,7 @@ export function ProductCard({ product: p, priority, headingLevel = 'h3' }: { pro
             {relatedLoading && <p className="shrink-0 py-3 text-xs text-ink-muted">Loading suggestions…</p>}
             {!relatedLoading && related.map((item) => <Link key={item.slug} href={`/products/${item.slug}`} title={`${item.collectionName}: ${item.name} · ${item.sku}`} className="w-28 shrink-0 snap-start rounded-xl border border-line bg-white p-2 shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary sm:w-32">
               <span className="mb-1 block truncate text-[9px] font-bold uppercase tracking-wide text-primary">{item.collectionName}</span>
-              <div className="relative aspect-square overflow-hidden rounded-lg bg-sand"><PlantImage src={item.image} alt={item.name} seed={item.slug} sizes="128px" unoptimized={item.imageUnoptimized} /></div>
+              <div className="relative aspect-square overflow-hidden rounded-lg bg-sand"><PlantImage src={item.image} alt={item.name} seed={item.slug} sizes="128px" unoptimized /></div>
               <span className="mt-1.5 line-clamp-2 block text-[10px] font-semibold leading-tight text-ink">{item.name}</span>
             </Link>)}
             {!relatedLoading && relatedFetched && related.length === 0 && <p className="shrink-0 py-3 text-xs text-ink-muted">No collection suggestions yet.</p>}
