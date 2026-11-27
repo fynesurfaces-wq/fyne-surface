@@ -13,7 +13,11 @@ const { invalidateStoreCache } = require('../middleware/responseCache');
 
 const FIELDS = ['name', 'slug', 'description', 'coverImage', 'seo', 'isActive', 'sortOrder'];
 const LEGACY_BUSHES_SLUG = 'bushes-collection-0325';
-const canonicalCollectionSlug = (slug) => slug === LEGACY_BUSHES_SLUG ? 'bushes' : slug;
+const LEGACY_SPORTS_GRASS_SLUG = 'post-grass';
+const canonicalCollectionSlug = (slug) => ({
+  [LEGACY_BUSHES_SLUG]: 'bushes',
+  [LEGACY_SPORTS_GRASS_SLUG]: 'sports-grass',
+}[slug] || slug);
 
 async function attachCounts(collections) {
   const ids = collections.map((c) => c._id);
@@ -104,7 +108,8 @@ exports.storeGet = asyncHandler(async (req, res) => {
   const settings = await Setting.getStore();
   const requestedSlug = canonicalCollectionSlug(req.params.slug);
   const collection = await Collection.findOne({ slug: requestedSlug, isActive: true }).lean()
-    || (requestedSlug === 'bushes' && await Collection.findOne({ slug: LEGACY_BUSHES_SLUG, isActive: true }).lean());
+    || (requestedSlug === 'bushes' && await Collection.findOne({ slug: LEGACY_BUSHES_SLUG, isActive: true }).lean())
+    || (requestedSlug === 'sports-grass' && await Collection.findOne({ slug: LEGACY_SPORTS_GRASS_SLUG, isActive: true }).lean());
   if (!collection) throw new ApiError(404, 'Collection not found');
   collection.slug = canonicalCollectionSlug(collection.slug);
 

@@ -15,6 +15,8 @@ const { toPublicProduct } = require('../utils/seo/aeo');
 const { stripHtml, truncate } = require('../utils/html');
 const metroCities = require('../data/metroCities');
 
+const canonicalCollectionSlug = (slug) => slug === 'post-grass' ? 'sports-grass' : slug;
+
 const STATIC_PAGES = [
   { path: '/', changefreq: 'daily', priority: '1.0' },
   { path: '/collections', changefreq: 'weekly', priority: '0.8' },
@@ -64,7 +66,7 @@ exports.sitemap = asyncHandler(async (_req, res) => {
   };
 
   STATIC_PAGES.forEach((p) => add({ loc: `${env.siteUrl}${p.path === '/' ? '' : p.path}` || env.siteUrl, changefreq: p.changefreq, priority: p.priority }));
-  collections.forEach((c) => add({ loc: collectionUrl(c), lastmod: iso(c.updatedAt), changefreq: 'weekly', priority: '0.8', images: c.coverImage ? [{ ...c.coverImage, alt: c.coverImage.alt || c.name }] : [] }));
+  collections.forEach((c) => add({ loc: collectionUrl({ ...c, slug: canonicalCollectionSlug(c.slug) }), lastmod: iso(c.updatedAt), changefreq: 'weekly', priority: '0.8', images: c.coverImage ? [{ ...c.coverImage, alt: c.coverImage.alt || c.name }] : [] }));
   products.forEach((p) => add({ loc: productUrl(p), lastmod: iso(p.updatedAt), changefreq: 'weekly', priority: '0.9', images: p.images.map((i) => ({ ...i, alt: i.alt || p.name || p.sku })) }));
   content.forEach((c) => add({ loc: `${env.siteUrl}/${c.type === 'page' ? 'pages' : 'blog'}/${c.slug}`, lastmod: iso(c.updatedAt), changefreq: 'monthly', priority: '0.5' }));
   metroCities.forEach((city) => add({ loc: `${env.siteUrl}/locations/${city.slug}`, changefreq: 'monthly', priority: '0.5' }));

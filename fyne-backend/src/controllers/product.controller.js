@@ -18,6 +18,7 @@ const FIELDS = [
 ];
 const SORTABLE = ['name', 'sku', 'price', 'stock', 'createdAt', 'updatedAt'];
 const LEGACY_BUSHES_SLUG = 'bushes-collection-0325';
+const LEGACY_SPORTS_GRASS_SLUG = 'post-grass';
 
 const lowStockExpr = {
   $expr: {
@@ -194,9 +195,11 @@ exports.storeList = asyncHandler(async (req, res) => {
   const base = { isActive: true };
   let collection = null;
   if (req.query.collection) {
-    const collectionSlug = String(req.query.collection);
+    const requestedSlug = String(req.query.collection);
+    const collectionSlug = requestedSlug === LEGACY_SPORTS_GRASS_SLUG ? 'sports-grass' : requestedSlug;
     collection = await Collection.findOne({ slug: collectionSlug, isActive: true }).lean()
-      || (collectionSlug === 'bushes' && await Collection.findOne({ slug: LEGACY_BUSHES_SLUG, isActive: true }).lean());
+      || (collectionSlug === 'bushes' && await Collection.findOne({ slug: LEGACY_BUSHES_SLUG, isActive: true }).lean())
+      || (collectionSlug === 'sports-grass' && await Collection.findOne({ slug: LEGACY_SPORTS_GRASS_SLUG, isActive: true }).lean());
     if (!collection) throw new ApiError(404, 'Collection not found');
     base.collection = collection._id;
   }

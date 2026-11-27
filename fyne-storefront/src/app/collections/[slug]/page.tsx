@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { Suspense } from 'react';
 import { SlidersHorizontal } from 'lucide-react';
 import { getCollection } from '@/lib/api.server';
@@ -57,6 +57,7 @@ export default async function CollectionPage({ params, searchParams }: Props) {
   if (!res) notFound();
 
   const c = res.data;
+  if (params.slug !== c.slug) redirect(`/collections/${c.slug}`);
   const products = applyFilters(c.products, filters);
   const counts = facetCounts(c.products, filters);
   const isSportsGrass = isSportsGrassCollection(c);
