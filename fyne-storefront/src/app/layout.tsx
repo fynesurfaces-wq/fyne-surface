@@ -14,7 +14,7 @@ import { ContactActions } from '@/components/layout/ContactActions';
 import { CartHydrator } from '@/store/CartHydrator';
 import { CustomerAuthProvider } from '@/components/auth/CustomerAuthProvider';
 
-export const revalidate = 300;
+export const revalidate = 0;
 
 export async function generateMetadata(): Promise<Metadata> {
   const s = await getSettings();

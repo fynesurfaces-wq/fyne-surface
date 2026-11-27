@@ -37,11 +37,11 @@ export function ProductGallery({ images, name, slug }: { images: StoreImage[]; n
                 aria-label={`Show image ${i + 1}`}
                 onClick={() => setIndex(i)}
                 className={cn(
-                  'relative block h-[96px] w-[78px] overflow-hidden rounded-xl bg-sand transition-all duration-300 lg:h-[108px] lg:w-[88px]',
+                  'relative block h-[96px] w-[78px] overflow-hidden rounded-xl bg-gradient-to-br from-white to-primary-50 transition-all duration-300 lg:h-[108px] lg:w-[88px]',
                   i === index ? 'ring-2 ring-ink ring-offset-2' : 'opacity-70 hover:opacity-100'
                 )}
               >
-                <PlantImage src={img.url} alt={altFor(img, i)} seed={`${slug}-${i}`} sizes="88px" />
+                <PlantImage src={img.url} alt={altFor(img, i)} seed={`${slug}-${i}`} sizes="88px" fit="contain" />
               </button>
             </li>
           ))}
@@ -49,7 +49,7 @@ export function ProductGallery({ images, name, slug }: { images: StoreImage[]; n
       )}
 
       <div
-        className="relative aspect-[4/5] flex-1 overflow-hidden rounded-[1.75rem] bg-sand focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+        className="relative aspect-[4/5] flex-1 overflow-hidden rounded-[1.75rem] bg-gradient-to-br from-white via-[#f7f8f3] to-primary-50/70 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
         tabIndex={list.length > 1 ? 0 : -1}
         onKeyDown={onKey}
         aria-roledescription="carousel"
@@ -64,7 +64,7 @@ export function ProductGallery({ images, name, slug }: { images: StoreImage[]; n
             exit={{ opacity: 0 }}
             transition={{ duration: 0.7, ease: EASE }}
           >
-            <PlantImage src={current.url} alt={altFor(current, index)} seed={`${slug}-${index}`} priority={index === 0} sizes="(min-width: 1024px) 50vw, 100vw" />
+            <PlantImage src={current.url} alt={altFor(current, index)} seed={`${slug}-${index}`} priority={index === 0} sizes="(min-width: 1024px) 50vw, 100vw" fit="contain" />
           </motion.div>
         </AnimatePresence>
         {list.length > 1 && (

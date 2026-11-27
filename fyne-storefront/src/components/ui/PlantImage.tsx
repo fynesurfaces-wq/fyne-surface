@@ -16,6 +16,7 @@ export function PlantImage({
   priority,
   className,
   seed,
+  fit = 'cover',
 }: {
   src?: string | null;
   alt: string;
@@ -23,6 +24,7 @@ export function PlantImage({
   priority?: boolean;
   className?: string;
   seed?: string;
+  fit?: 'cover' | 'contain';
 }) {
   const [failed, setFailed] = useState(false);
   if (!src || failed) {
@@ -45,7 +47,7 @@ export function PlantImage({
         /^https:\/\/ik\.imagekit\.io\//i.test(src)
       }
       onError={() => setFailed(true)}
-      className={cn('object-cover [filter:saturate(1.08)_contrast(1.025)]', className)}
+      className={cn(fit === 'contain' ? 'object-contain p-3' : 'object-cover [filter:saturate(1.08)_contrast(1.025)]', className)}
     />
   );
 }

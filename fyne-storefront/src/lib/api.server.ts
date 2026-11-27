@@ -4,14 +4,13 @@ import type { BlogEntry, CollectionDetail, CollectionSummary, ContentPage, Legac
 /**
  * Server-side data layer (Server Components only).
  *
- * Uses native fetch so Next.js caches responses in its Data Cache and
- * revalidates them in the background (ISR). Search engines and AI crawlers
- * always receive fully rendered HTML with every price, spec and JSON-LD block.
+ * Uses native fetch for server-side catalog data. Product and collection
+ * updates should appear on the next request after an admin save.
  */
 const API_ROOT = `${process.env.API_ORIGIN || 'http://localhost:5000'}/api/v1`;
 const API = `${API_ROOT}/store`;
 
-export const REVALIDATE = 300; // seconds — product/collection data refresh window
+export const REVALIDATE = 0; // Catalog edits from the admin should appear on the next storefront request.
 
 class NotFoundError extends Error {}
 

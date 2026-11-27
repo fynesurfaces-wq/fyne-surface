@@ -14,7 +14,7 @@ import { homeFaqs } from '@/lib/page-faqs';
 import { LegacyCTA } from '@/components/home/LegacyCTA';
 import { InstagramReels } from '@/components/home/InstagramReels';
 
-export const revalidate = 300; // ISR
+export const revalidate = 0; // Product and collection imagery updates should appear on the next request.
 
 export const metadata: Metadata = {
   title: 'Artificial Plants Wholesaler in Mumbai | FYNE SURFACES',

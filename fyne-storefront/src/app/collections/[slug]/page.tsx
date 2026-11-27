@@ -14,9 +14,8 @@ import { FaqSection } from '@/components/seo/FaqSection';
 import { collectionFaqs } from '@/lib/page-faqs';
 import { SeoAnswerSection } from '@/components/seo/SeoAnswerSection';
 
-// Rendered per request (filters live in ?searchParams); API responses are still
-// served from Next's Data Cache and revalidated every 5 minutes.
-export const revalidate = 300;
+// Render per request so admin catalog edits are visible immediately.
+export const revalidate = 0;
 
 type Props = { params: { slug: string }; searchParams: Record<string, string | string[] | undefined> };
 

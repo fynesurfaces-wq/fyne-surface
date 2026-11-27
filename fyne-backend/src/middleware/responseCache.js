@@ -42,7 +42,10 @@ function responseCache(namespace, ttlSeconds = 3600) {
 
 async function invalidateStoreCache(...namespaces) {
   if (!redis?.isReady) return;
-  for (const namespace of new Set(namespaces.flat())) {
+  const expandedNamespaces = namespaces.flat().flatMap((namespace) =>
+    namespace === 'collections' ? ['collections', 'collections-v2', 'collections-v3'] : [namespace]
+  );
+  for (const namespace of new Set(expandedNamespaces)) {
     try {
       const keys = [];
       for await (const key of redis.scanIterator({ MATCH: `${PREFIX}:${namespace}:*`, COUNT: 200 })) keys.push(key);

@@ -84,7 +84,7 @@ exports.remove = asyncHandler(async (req, res) => {
 exports.storeList = asyncHandler(async (_req, res) => {
   const collections = await Collection.find({ isActive: true }).sort({ sortOrder: 1, name: 1 }).lean();
   const withCounts = await attachCounts(collections);
-  res.set('Cache-Control', 'public, max-age=300');
+  res.set('Cache-Control', 'no-store, no-cache, must-revalidate');
   res.json({
     success: true,
     data: withCounts.map((c) => ({

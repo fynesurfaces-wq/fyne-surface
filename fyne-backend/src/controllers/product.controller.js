@@ -128,7 +128,10 @@ exports.update = asyncHandler(async (req, res) => {
 
   product.set({ ...data, updatedBy: req.user._id });
   await product.save();
-  removedPublicIds.forEach((id) => destroy(id));
+  const deletionResults = await Promise.all(removedPublicIds.map((id) => destroy(id)));
+  if (deletionResults.some((deleted) => !deleted)) {
+    console.warn(`[product images] One or more removed images could not be deleted from ImageKit for product ${product._id}`);
+  }
   await product.populate('collection', 'name slug');
   await invalidateStoreCache('products', 'collections');
   res.json({ success: true, data: await withSeoPreview(product) });
@@ -138,7 +141,7 @@ exports.update = asyncHandler(async (req, res) => {
 exports.remove = asyncHandler(async (req, res) => {
   const product = await Product.findByIdAndDelete(req.params.id);
   if (!product) throw new ApiError(404, 'Product not found');
-  product.images.forEach((i) => destroy(i.publicId));
+  await Promise.all(product.images.map((i) => destroy(i.publicId)));
   await invalidateStoreCache('products', 'collections');
   res.json({ success: true, message: 'Product deleted' });
 });

@@ -28,8 +28,8 @@ router.get('/site-content/legacy', siteContent.publicLegacy);
 router.get('/locations', locations.list);
 router.get('/locations/:city', validate([param('city').matches(/^[a-z0-9-]{2,80}$/)]), locations.get);
 
-router.use('/products', responseCache('products', 3600));
-router.use('/collections', responseCache('collections-v2', 3600));
+router.use('/products', responseCache('products', 30));
+router.use('/collections', responseCache('collections-v3', 30));
 
 router.get('/products', validate(sv.storeList), products.storeList);
 router.get('/products/:slug', slug, products.storeGet);

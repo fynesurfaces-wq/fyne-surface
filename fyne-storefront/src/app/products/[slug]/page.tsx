@@ -17,7 +17,7 @@ import { FaqSection, faqSchemaNode } from '@/components/seo/FaqSection';
 import { productFaqs } from '@/lib/page-faqs';
 import { SeoAnswerSection } from '@/components/seo/SeoAnswerSection';
 
-// ── ISR: pre-render every active product at build, refresh every 5 minutes ──
+// Render product details on request so admin catalog edits are visible promptly.
 export const revalidate = REVALIDATE;
 export const dynamicParams = true; // new products render on first request, then get cached
 

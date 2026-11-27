@@ -13,7 +13,7 @@ import { locationFaqs } from '@/lib/page-faqs';
 import { ButtonLink } from '@/components/ui/Button';
 
 type Props = { params: { city: string } };
-export const revalidate = 3600;
+export const revalidate = 0;
 
 export function generateStaticParams() { return METRO_CITIES.map(({ slug }) => ({ city: slug })); }
 

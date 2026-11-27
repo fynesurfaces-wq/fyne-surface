@@ -9,7 +9,7 @@ import { collectionIndexFaqs } from '@/lib/page-faqs';
 import { SeoAnswerSection } from '@/components/seo/SeoAnswerSection';
 import { PageBanner } from '@/components/layout/PageBanner';
 
-export const revalidate = 300;
+export const revalidate = 0;
 
 export const metadata: Metadata = {
   title: 'Artificial Plant Collections in Mumbai | FYNE SURFACES',

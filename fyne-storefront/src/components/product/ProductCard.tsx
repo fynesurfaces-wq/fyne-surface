@@ -55,19 +55,20 @@ export function ProductCard({ product: p, priority, headingLevel = 'h3' }: { pro
 
   return (
     <motion.article className="group relative flex flex-col" initial="rest" whileHover="hover" animate="rest" onHoverStart={loadRelated}>
-      <div className="relative aspect-[4/5] overflow-hidden rounded-[1.5rem] border border-white/70 bg-gradient-to-br from-sand via-sand to-primary-50/60 shadow-image transition-[transform,box-shadow] duration-700 ease-premium group-hover:-translate-y-1 group-hover:shadow-lift">
+      <div className="relative aspect-[4/5] overflow-hidden rounded-[1.5rem] border border-primary-900/5 bg-gradient-to-br from-white via-[#f7f8f3] to-primary-50/70 shadow-image transition-[transform,box-shadow] duration-700 ease-premium group-hover:-translate-y-1 group-hover:shadow-lift">
         <Link href={href} className="absolute inset-0 block rounded-[1.5rem] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-primary" aria-label={`${productLabel ? `${productLabel} — ` : ''}${p.price.formatted}`}>
           <motion.div className="absolute inset-0" variants={{ rest: { scale: 1 }, hover: { scale: 1.06 } }} transition={{ duration: 1.8, ease: EASE }}>
             <PlantImage
               src={img1?.url}
               alt={img1?.alt || (productLabel ? `${productLabel} artificial plant by FYNE SURFACES` : `Product image, SKU ${p.sku}`)}
               seed={p.slug}
+              fit="contain"
               priority={priority}
               sizes="(min-width: 1280px) 25vw, (min-width: 768px) 33vw, 50vw"
             />
             {img2 && (
               <motion.div className="absolute inset-0" variants={{ rest: { opacity: 0 }, hover: { opacity: 1 } }} transition={{ duration: 0.9 }}>
-                <PlantImage src={img2.url} alt={img2.alt || (productLabel ? `${productLabel} — alternate view` : `Product image, SKU ${p.sku}`)} seed={`${p.slug}-2`} sizes="(min-width: 1280px) 25vw, 50vw" />
+                <PlantImage src={img2.url} alt={img2.alt || (productLabel ? `${productLabel} — alternate view` : `Product image, SKU ${p.sku}`)} seed={`${p.slug}-2`} sizes="(min-width: 1280px) 25vw, 50vw" fit="contain" />
               </motion.div>
             )}
           </motion.div>
