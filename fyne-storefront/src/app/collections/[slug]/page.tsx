@@ -81,7 +81,7 @@ export default async function CollectionPage({ params, searchParams }: Props) {
 
         <div className="pt-10 lg:pt-14">
           {products.length ? (
-            <ProductGrid products={products} />
+            <ProductGrid products={products} currentCollectionSlug={params.slug} />
           ) : (
             <div className="flex flex-col items-center rounded-3xl bg-canvas px-6 py-20 text-center">
               <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white text-primary shadow-soft"><SlidersHorizontal className="h-6 w-6" /></span>

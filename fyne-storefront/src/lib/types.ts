@@ -65,7 +65,7 @@ export interface ProductSummary {
 /** /store/products/:slug */
 export interface ProductDetail extends ProductSummary {
   jsonLd: Record<string, unknown>;
-  related: { name: string; slug: string; sku: string; collectionName: string; url: string; price: number; image: string | null; imageUnoptimized?: boolean; inStock: boolean }[];
+  related: { name: string; slug: string; sku: string; collectionName: string; collectionSlug: string; url: string; price: number; image: string | null; imageUnoptimized?: boolean; inStock: boolean }[];
 }
 
 export interface CollectionSummary {

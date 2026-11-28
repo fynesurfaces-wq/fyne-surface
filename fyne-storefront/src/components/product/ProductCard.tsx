@@ -27,7 +27,7 @@ function keyFact(p: ProductSummary) {
  *  - "Add to Cart" + "View details" slide up on hover (always visible on touch)
  *  - Semantic <article> with an <h3> name for crawlers
  */
-export function ProductCard({ product: p, priority, headingLevel = 'h3' }: { product: ProductSummary; priority?: boolean; headingLevel?: 'h2' | 'h3' }) {
+export function ProductCard({ product: p, priority, headingLevel = 'h3', currentCollectionSlug }: { product: ProductSummary; priority?: boolean; headingLevel?: 'h2' | 'h3'; currentCollectionSlug?: string }) {
   const [related, setRelated] = useState<ProductDetail['related']>([]);
   const [relatedFetched, setRelatedFetched] = useState(false);
   const [relatedLoading, setRelatedLoading] = useState(false);
@@ -48,7 +48,7 @@ export function ProductCard({ product: p, priority, headingLevel = 'h3' }: { pro
     setRelatedLoading(true);
     try {
       const response = await api.get<{ data: ProductDetail }>(`/store/products/${encodeURIComponent(p.slug)}`);
-      setRelated(response.data.data.related || []);
+      setRelated((response.data.data.related || []).filter((item) => item.collectionSlug !== currentCollectionSlug && !['sports-grass', 'post-grass'].includes(item.collectionSlug)));
     } catch { /* Related items are an enhancement; the product card remains usable without them. */ }
     finally { setRelatedLoading(false); }
   };
